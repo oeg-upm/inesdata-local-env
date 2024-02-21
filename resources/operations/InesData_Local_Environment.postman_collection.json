@@ -14,13 +14,6 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"An access token is returned\", () => {",
-							"    pm.expect(pm.response.json()).to.have.property('token')",
-							"    pm.expect(pm.response.json().token).to.be.a('string')",
-							"    // Set the collection-scope \"token\" variable to the token received from the API",
-							"    // This lets us use it in other requests",
-							"    pm.collectionVariables.set('token', pm.response.json().token)",
-							"})",
 							""
 						],
 						"type": "text/javascript"
@@ -62,13 +55,6 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"An access token is returned\", () => {",
-							"    pm.expect(pm.response.json()).to.have.property('token')",
-							"    pm.expect(pm.response.json().token).to.be.a('string')",
-							"    // Set the collection-scope \"token\" variable to the token received from the API",
-							"    // This lets us use it in other requests",
-							"    pm.collectionVariables.set('token', pm.response.json().token)",
-							"})",
 							""
 						],
 						"type": "text/javascript"
@@ -110,13 +96,6 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"An access token is returned\", () => {",
-							"    pm.expect(pm.response.json()).to.have.property('token')",
-							"    pm.expect(pm.response.json().token).to.be.a('string')",
-							"    // Set the collection-scope \"token\" variable to the token received from the API",
-							"    // This lets us use it in other requests",
-							"    pm.collectionVariables.set('token', pm.response.json().token)",
-							"})",
 							""
 						],
 						"type": "text/javascript"
@@ -128,7 +107,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@id\": \"c1-http-asset1\",\r\n  \"properties\": {\r\n    \"name\": \"c1-http-asset1\",\r\n    \"contenttype\": \"application/json\"\r\n  },\r\n  \"dataAddress\": {\r\n    \"type\": \"HttpData\",\r\n    \"name\": \"c1-http-asset1\",\r\n    \"baseUrl\": \"https://openlibrary.org/search/authors.json?q=Tolkien\",\r\n    \"proxyPath\": \"true\"\r\n  }\r\n}",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@id\": \"c1-http-asset1\",\r\n  \"properties\": {\r\n    \"name\": \"c1-http-asset1\",\r\n    \"contenttype\": \"application/json\"\r\n  },\r\n  \"dataAddress\": {\r\n    \"type\": \"HttpData\",\r\n    \"name\": \"c1-http-asset1\",\r\n    \"baseUrl\": \"http://http-proxy:4000/test/call\",\r\n    \"proxyPath\": \"true\"\r\n  }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -158,13 +137,6 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"An access token is returned\", () => {",
-							"    pm.expect(pm.response.json()).to.have.property('token')",
-							"    pm.expect(pm.response.json().token).to.be.a('string')",
-							"    // Set the collection-scope \"token\" variable to the token received from the API",
-							"    // This lets us use it in other requests",
-							"    pm.collectionVariables.set('token', pm.response.json().token)",
-							"})",
 							""
 						],
 						"type": "text/javascript"
@@ -206,13 +178,6 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"An access token is returned\", () => {",
-							"    pm.expect(pm.response.json()).to.have.property('token')",
-							"    pm.expect(pm.response.json().token).to.be.a('string')",
-							"    // Set the collection-scope \"token\" variable to the token received from the API",
-							"    // This lets us use it in other requests",
-							"    pm.collectionVariables.set('token', pm.response.json().token)",
-							"})",
 							""
 						],
 						"type": "text/javascript"
@@ -254,13 +219,6 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"An access token is returned\", () => {",
-							"    pm.expect(pm.response.json()).to.have.property('token')",
-							"    pm.expect(pm.response.json().token).to.be.a('string')",
-							"    // Set the collection-scope \"token\" variable to the token received from the API",
-							"    // This lets us use it in other requests",
-							"    pm.collectionVariables.set('token', pm.response.json().token)",
-							"})",
 							""
 						],
 						"type": "text/javascript"
@@ -303,7 +261,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"An access token is returned\", () => {",
+							"pm.test(\"A contractid is returned\", () => {",
 							"    pm.collectionVariables.set('contractid', pm.response.json()[\"@id\"])",
 							"})",
 							""
@@ -347,7 +305,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"A name is returned\", () => {",
+							"pm.test(\"A contractAgreementId is returned\", () => {",
 							"    pm.collectionVariables.set('contractAgreementId', pm.response.json()[\"contractAgreementId\"])",
 							"})"
 						],
@@ -394,7 +352,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"A name is returned\", () => {",
+							"pm.test(\"A transferId is returned\", () => {",
 							"    pm.collectionVariables.set('transferId', pm.response.json()[\"@id\"])",
 							"})"
 						],
@@ -437,7 +395,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"A name is returned\", () => {",
+							"pm.test(\"A contractAgreementId is returned\", () => {",
 							"    pm.collectionVariables.set('contractAgreementId', pm.response.json()[\"contractAgreementId\"])",
 							"})"
 						],
@@ -484,9 +442,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"A name is returned\", () => {",
-							"    pm.collectionVariables.set('contractAgreementId', pm.response.json()[\"contractAgreementId\"])",
-							"})"
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -500,7 +456,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Authorization",
+						"value": "[[[Authorization]]]",
 						"type": "text"
 					}
 				],
@@ -535,13 +491,6 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"An access token is returned\", () => {",
-							"    pm.expect(pm.response.json()).to.have.property('token')",
-							"    pm.expect(pm.response.json().token).to.be.a('string')",
-							"    // Set the collection-scope \"token\" variable to the token received from the API",
-							"    // This lets us use it in other requests",
-							"    pm.collectionVariables.set('token', pm.response.json().token)",
-							"})",
 							""
 						],
 						"type": "text/javascript"
@@ -583,13 +532,6 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"An access token is returned\", () => {",
-							"    pm.expect(pm.response.json()).to.have.property('token')",
-							"    pm.expect(pm.response.json().token).to.be.a('string')",
-							"    // Set the collection-scope \"token\" variable to the token received from the API",
-							"    // This lets us use it in other requests",
-							"    pm.collectionVariables.set('token', pm.response.json().token)",
-							"})",
 							""
 						],
 						"type": "text/javascript"
@@ -632,7 +574,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"An access token is returned\", () => {",
+							"pm.test(\"A contractid is returned\", () => {",
 							"    pm.collectionVariables.set('contractid', pm.response.json()[\"@id\"])",
 							"})",
 							""
@@ -676,7 +618,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"A name is returned\", () => {",
+							"pm.test(\"A contractAgreementId is returned\", () => {",
 							"    pm.collectionVariables.set('contractAgreementId', pm.response.json()[\"contractAgreementId\"])",
 							"})"
 						],
@@ -723,7 +665,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"A name is returned\", () => {",
+							"pm.test(\"A transferId is returned\", () => {",
 							"    pm.collectionVariables.set('transferId', pm.response.json()[\"@id\"])",
 							"})"
 						],
@@ -736,7 +678,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"@context\": {\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n  },\n  \"@type\": \"TransferRequestDto\",\n  \"connectorId\": \"connector-c1\",\n  \"counterPartyAddress\": \"http://connector-c1:19194/protocol\",\n  \"contractId\": \"{{contractAgreementId}}\",\n  \"assetId\": \"c1-s3-asset2\",\n  \"protocol\": \"dataspace-protocol-http\",\n  \"dataDestination\": {\n    \"properties\": {\n      \"type\": \"AmazonS3\",\n      \"region\": \"us-east-1\",\n      \"bucketName\": \"bucket-connector-2\",\n      \"folderName\": \"descargas\",\n      \"accessKeyId\": \"ymapc4WGhWrgaywwSyq1\",\n      \"secretAccessKey\": \"wxwo6F4WTTi9q5Gts7Ve57TnxO29p1waJua6xpvT\"\n    },\n    \"endpointOverride\": \"http://localhost:9010\",\n    \"type\": \"AmazonS3\"\n  },\n  \"managedResources\": true,\n  \"transferType\": {\n    \"contentType\": \"text/plain\",\n    \"isFinite\": true\n  }\n}",
+					"raw": "{\n  \"@context\": {\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n  },\n  \"@type\": \"TransferRequestDto\",\n  \"connectorId\": \"connector-c2\",\n  \"counterPartyAddress\": \"http://connector-c1:19194/protocol\",\n  \"contractId\": \"{{contractAgreementId}}\",\n  \"assetId\": \"c1-s3-asset2\",\n  \"protocol\": \"dataspace-protocol-http\",\n  \"dataDestination\": {\n    \"properties\": {\n      \"type\": \"AmazonS3\",\n      \"region\": \"us-east-1\",\n      \"bucketName\": \"bucket-connector-2\",\n      \"accessKeyId\": \"wEfyrv2vH7Wj3ON03g8V\",\n      \"secretAccessKey\": \"JlHVGgSgeRkbs6WtKTugR4I5uU7oA1VRf8kBtrGd\"\n    },\n    \"endpointOverride\": \"http://minio-c2:9000\",\n    \"type\": \"AmazonS3\"\n  },\n  \"managedResources\": true,\n  \"transferType\": {\n    \"contentType\": \"text/plain\",\n    \"isFinite\": true\n  }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -760,15 +702,56 @@
 			"response": []
 		},
 		{
+			"name": "Connector2: Start transfer HTTP",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"A transferId is returned\", () => {",
+							"    pm.collectionVariables.set('transferId', pm.response.json()[\"@id\"])",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"@context\": {\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n  },\n  \"@type\": \"TransferRequestDto\",\n  \"connectorId\": \"connector-c2\",\n  \"counterPartyAddress\": \"http://connector-c1:19194/protocol\",\n  \"contractId\": \"{{contractAgreementId}}\",\n  \"assetId\": \"c1-s3-asset2\",\n  \"protocol\": \"dataspace-protocol-http\",\n  \"dataDestination\": {\n    \"type\": \"HttpProxy\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:29193/management/v2/transferprocesses",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "29193",
+					"path": [
+						"management",
+						"v2",
+						"transferprocesses"
+					]
+				},
+				"description": "Comienzo de transferencia HttpProxy (Pull) de un asset del conector connector-c1 desde el conector connector-c2."
+			},
+			"response": []
+		},
+		{
 			"name": "Connector2: Transfer status",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"A name is returned\", () => {",
-							"    pm.collectionVariables.set('contractAgreementId', pm.response.json()[\"contractAgreementId\"])",
-							"})"
+							""
 						],
 						"type": "text/javascript"
 					}
