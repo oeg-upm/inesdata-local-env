@@ -521,7 +521,7 @@
 						"assets"
 					]
 				},
-				"description": "Creación de Asset tipo AmazonS3 (MinIO) en el conector connector-c1."
+				"description": "Creación de Asset tipo AmazonS3 (MinIO) en el conector connector-c1. Previamente se debe subir un fichero llamado \"s3-c1-file.txt\" al bucket \"bucket-connector-1\" del MinIO del conector connector-c1."
 			},
 			"response": []
 		},
