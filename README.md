@@ -30,3 +30,15 @@ Se proporciona la colección [InesData Local Environment](resources/operations/I
 ```
 docker compose logs -f http-proxy
 ```
+
+## Administración
+
+Las URLs de administración de MinIO son respectivamente:
+- connector-c1: http://localhost:9001/browser
+- connector-c2: http://localhost:9011/browser
+
+Las conexiones a PostgreSQL se realizan mediante los datos:
+- connector-c1: localhost:5432/inesdata
+- connector-c2: localhost:5433/inesdata
+
+Los usuarios se encuentran en el fichero [docker-compose.yml](docker-compose.yml)

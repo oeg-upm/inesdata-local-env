@@ -213,7 +213,7 @@
 			"response": []
 		},
 		{
-			"name": "Connector2: Get Provider Catalog",
+			"name": "Connector2: Get Federated Catalog",
 			"event": [
 				{
 					"listen": "test",
@@ -230,7 +230,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"counterPartyAddress\": \"http://connector-c1:19194/protocol\",\r\n  \"protocol\": \"dataspace-protocol-http\"\r\n}",
+					"raw": "{\r\n  \"edc:operandLeft\": \"\",\r\n  \"edc:operandRight\": \"\",\r\n  \"edc:operator\": \"\",\r\n  \"edc:Criterion\":\"\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -238,19 +238,17 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}:29193/management/v2/catalog/request",
+					"raw": "{{baseUrl}}:29193/management/federatedcatalog",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"port": "29193",
 					"path": [
 						"management",
-						"v2",
-						"catalog",
-						"request"
+						"federatedcatalog"
 					]
 				},
-				"description": "Obtención de los offerings del conector connector-c1 desde el conector connector-c2."
+				"description": "Obtención de los data offerings cacheados por el Federated Catalog."
 			},
 			"response": []
 		},
@@ -521,12 +519,12 @@
 						"assets"
 					]
 				},
-				"description": "Creación de Asset tipo AmazonS3 (MinIO) en el conector connector-c1. Previamente se debe subir un fichero llamado \"s3-c1-file.txt\" al bucket \"bucket-connector-1\" del MinIO del conector connector-c1."
+				"description": "Creación de Asset tipo AmazonS3 (MinIO) en el conector connector-c1."
 			},
 			"response": []
 		},
 		{
-			"name": "Connector2: Get Provider Catalog",
+			"name": "Connector2: Get Federated Catalog",
 			"event": [
 				{
 					"listen": "test",
@@ -543,7 +541,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"counterPartyAddress\": \"http://connector-c1:19194/protocol\",\r\n  \"protocol\": \"dataspace-protocol-http\"\r\n}",
+					"raw": "{\r\n  \"edc:operandLeft\": \"\",\r\n  \"edc:operandRight\": \"\",\r\n  \"edc:operator\": \"\",\r\n  \"edc:Criterion\":\"\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -551,19 +549,17 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}:29193/management/v2/catalog/request",
+					"raw": "{{baseUrl}}:29193/management/federatedcatalog",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"port": "29193",
 					"path": [
 						"management",
-						"v2",
-						"catalog",
-						"request"
+						"federatedcatalog"
 					]
 				},
-				"description": "Obtención de los offerings del conector connector-c1 desde el conector connector-c2."
+				"description": "Obtención de los data offerings cacheados por el Federated Catalog."
 			},
 			"response": []
 		},
