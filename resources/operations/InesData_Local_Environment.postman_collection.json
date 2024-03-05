@@ -1,0 +1,834 @@
+{
+	"info": {
+		"_postman_id": "d8c8003a-29f3-41ff-812a-d2baf5ad7959",
+		"name": "InesData Local Environment",
+		"description": "# ⛓️ InesData Connector\n\nTres fases diferenciadas en el ejemplo:\n\n- Registro de Data Planes para cada conector\n    \n- Creación de Asset HTTP, negociación y transferencia (PULL)\n    \n- Creación de Asset S3 (MinIO), negociación y transferencia (PUSH)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32859640"
+	},
+	"item": [
+		{
+			"name": "Connector1: Register Data Plane",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@id\": \"http-pull-provider-dataplane\",\r\n  \"url\": \"http://connector-c1:19192/control/transfer\",\r\n  \"allowedSourceTypes\": [\r\n    \"HttpData\",\r\n    \"AmazonS3\"\r\n  ],\r\n  \"allowedDestTypes\": [\r\n    \"HttpProxy\",\r\n    \"HttpData\",\r\n    \"AmazonS3\"\r\n  ],\r\n  \"properties\": {\r\n    \"https://w3id.org/edc/v0.0.1/ns/publicApiUrl\": \"http://connector-c1:19291/public/\"\r\n  }\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:19193/management/v2/dataplanes",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "19193",
+					"path": [
+						"management",
+						"v2",
+						"dataplanes"
+					]
+				},
+				"description": "Registro del Data Plane para el conector connector-c1."
+			},
+			"response": []
+		},
+		{
+			"name": "Connector2: Register Data Plane",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@id\": \"http-pull-provider-dataplane\",\r\n  \"url\": \"http://connector-c2:29192/control/transfer\",\r\n  \"allowedSourceTypes\": [\r\n    \"HttpData\",\r\n    \"AmazonS3\"\r\n  ],\r\n  \"allowedDestTypes\": [\r\n    \"HttpProxy\",\r\n    \"HttpData\",\r\n    \"AmazonS3\"\r\n  ],\r\n  \"properties\": {\r\n    \"https://w3id.org/edc/v0.0.1/ns/publicApiUrl\": \"http://connector-c2:29291/public/\"\r\n  }\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:29193/management/v2/dataplanes",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "29193",
+					"path": [
+						"management",
+						"v2",
+						"dataplanes"
+					]
+				},
+				"description": "Registro del Data Plane para el conector connector-c2."
+			},
+			"response": []
+		},
+		{
+			"name": "Connector2: Create Asset - HttpData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@id\": \"c1-http-asset1\",\r\n  \"properties\": {\r\n    \"name\": \"c1-http-asset1\",\r\n    \"contenttype\": \"application/json\"\r\n  },\r\n  \"dataAddress\": {\r\n    \"type\": \"HttpData\",\r\n    \"name\": \"c1-http-asset1\",\r\n    \"baseUrl\": \"http://http-proxy:4000/test/call\",\r\n    \"proxyPath\": \"true\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:19193/management/v3/assets",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "19193",
+					"path": [
+						"management",
+						"v3",
+						"assets"
+					]
+				},
+				"description": "Creación de Asset tipo HttpData en el conector connector-c1."
+			},
+			"response": []
+		},
+		{
+			"name": "Connector1: Create Empty Policy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\",\r\n    \"odrl\": \"http://www.w3.org/ns/odrl/2/\"\r\n  },\r\n  \"@id\": \"emptyPolicy\",\r\n  \"policy\": {\r\n    \"@type\": \"set\",\r\n    \"odrl:permission\": [],\r\n    \"odrl:prohibition\": [],\r\n    \"odrl:obligation\": []\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:19193/management/v2/policydefinitions",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "19193",
+					"path": [
+						"management",
+						"v2",
+						"policydefinitions"
+					]
+				},
+				"description": "Creación de una política vacía en el conector connector-c1."
+			},
+			"response": []
+		},
+		{
+			"name": "Connector1: Create Contract Definition",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@id\": \"allowAllContract\",\r\n  \"accessPolicyId\": \"emptyPolicy\",\r\n  \"contractPolicyId\": \"emptyPolicy\",\r\n  \"assetsSelector\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:19193/management/v2/contractdefinitions",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "19193",
+					"path": [
+						"management",
+						"v2",
+						"contractdefinitions"
+					]
+				},
+				"description": "Creación de una defición de contrato que aplica la política vacía a todos los assets del conector connector-c1."
+			},
+			"response": []
+		},
+		{
+			"name": "Connector2: Get Federated Catalog",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"edc:operandLeft\": \"\",\r\n  \"edc:operandRight\": \"\",\r\n  \"edc:operator\": \"\",\r\n  \"edc:Criterion\":\"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:29193/management/federatedcatalog",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "29193",
+					"path": [
+						"management",
+						"federatedcatalog"
+					]
+				},
+				"description": "Obtención de los data offerings cacheados por el Federated Catalog."
+			},
+			"response": []
+		},
+		{
+			"name": "Connector2: Negotiate Prov. Contract",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"A contractid is returned\", () => {",
+							"    pm.collectionVariables.set('contractid', pm.response.json()[\"@id\"])",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@type\": \"NegotiationInitiateRequestDto\",\r\n  \"connectorId\": \"provider\",\r\n  \"counterPartyAddress\": \"http://connector-c1:19194/protocol\",\r\n  \"consumerId\": \"connector-c2\",\r\n  \"providerId\": \"connector-c1\",\r\n  \"protocol\": \"dataspace-protocol-http\",\r\n  \"policy\": {\r\n    \"@context\": \"http://www.w3.org/ns/odrl.jsonld\",\r\n    \"@id\": \"[[[ID_CONTRACT]]]\",\r\n    \"@type\": \"Set\",\r\n    \"permission\": [],\r\n    \"prohibition\": [],\r\n    \"obligation\": [],\r\n    \"target\": \"c1-http-asset1\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:29193/management/v2/contractnegotiations",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "29193",
+					"path": [
+						"management",
+						"v2",
+						"contractnegotiations"
+					]
+				},
+				"description": "Negociación de un contrato para acceder a un assets del conector connector-c1 desde el conector connector-c2."
+			},
+			"response": []
+		},
+		{
+			"name": "Connector2: Negotiation status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"A contractAgreementId is returned\", () => {",
+							"    pm.collectionVariables.set('contractAgreementId', pm.response.json()[\"contractAgreementId\"])",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:29193/management/v2/contractnegotiations/{{contractid}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "29193",
+					"path": [
+						"management",
+						"v2",
+						"contractnegotiations",
+						"{{contractid}}"
+					]
+				},
+				"description": "Obtención del estado de la negociación del contrato entre el conector connector-c1 y el conector connector-c2."
+			},
+			"response": []
+		},
+		{
+			"name": "Connector2: Start transfer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"A transferId is returned\", () => {",
+							"    pm.collectionVariables.set('transferId', pm.response.json()[\"@id\"])",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"@context\": {\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n  },\n  \"@type\": \"TransferRequestDto\",\n  \"connectorId\": \"connector-c2\",\n  \"counterPartyAddress\": \"http://connector-c1:19194/protocol\",\n  \"contractId\": \"{{contractAgreementId}}\",\n  \"assetId\": \"c1-http-asset1\",\n  \"protocol\": \"dataspace-protocol-http\",\n  \"dataDestination\": {\n    \"type\": \"HttpProxy\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:29193/management/v2/transferprocesses",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "29193",
+					"path": [
+						"management",
+						"v2",
+						"transferprocesses"
+					]
+				},
+				"description": "Comienzo de transferencia HttpProxy (Pull) de un asset del conector connector-c1 desde el conector connector-c2."
+			},
+			"response": []
+		},
+		{
+			"name": "Connector2: Transfer status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"A contractAgreementId is returned\", () => {",
+							"    pm.collectionVariables.set('contractAgreementId', pm.response.json()[\"contractAgreementId\"])",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:29193/management/v2/transferprocesses/{{transferId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "29193",
+					"path": [
+						"management",
+						"v2",
+						"transferprocesses",
+						"{{transferId}}"
+					]
+				},
+				"description": "Estado de la transferencia HttpProxy (Pull) del asset del conector connector-c1 al conector connector-c2."
+			},
+			"response": []
+		},
+		{
+			"name": "Connector1: Download file",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "[[[Authorization]]]",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:19291/public/",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "19291",
+					"path": [
+						"public",
+						""
+					]
+				},
+				"description": "Descarga del asset del conector connector-c1."
+			},
+			"response": []
+		},
+		{
+			"name": "Connector1: Create Asset - S3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@id\": \"c1-s3-asset2\",\r\n  \"properties\": {\r\n    \"name\": \"c1-s3-asset2\",\r\n    \"contenttype\": \"text/plain\"\r\n  },\r\n  \"dataAddress\": {\r\n    \"type\": \"AmazonS3\",\r\n    \"region\": \"us-east-1\",\r\n    \"keyName\": \"s3-c1-file.txt\",\r\n    \"bucketName\": \"bucket-connector-1\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:19193/management/v3/assets",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "19193",
+					"path": [
+						"management",
+						"v3",
+						"assets"
+					]
+				},
+				"description": "Creación de Asset tipo AmazonS3 (MinIO) en el conector connector-c1."
+			},
+			"response": []
+		},
+		{
+			"name": "Connector2: Get Federated Catalog",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"edc:operandLeft\": \"\",\r\n  \"edc:operandRight\": \"\",\r\n  \"edc:operator\": \"\",\r\n  \"edc:Criterion\":\"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:29193/management/federatedcatalog",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "29193",
+					"path": [
+						"management",
+						"federatedcatalog"
+					]
+				},
+				"description": "Obtención de los data offerings cacheados por el Federated Catalog."
+			},
+			"response": []
+		},
+		{
+			"name": "Connector2: Negotiate Prov. Contract",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"A contractid is returned\", () => {",
+							"    pm.collectionVariables.set('contractid', pm.response.json()[\"@id\"])",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@type\": \"NegotiationInitiateRequestDto\",\r\n  \"connectorId\": \"provider\",\r\n  \"counterPartyAddress\": \"http://connector-c1:19194/protocol\",\r\n  \"consumerId\": \"connector-c2\",\r\n  \"providerId\": \"connector-c1\",\r\n  \"protocol\": \"dataspace-protocol-http\",\r\n  \"policy\": {\r\n    \"@context\": \"http://www.w3.org/ns/odrl.jsonld\",\r\n    \"@id\": \"[[[ID_CONTRACT]]]\",\r\n    \"@type\": \"Set\",\r\n    \"permission\": [],\r\n    \"prohibition\": [],\r\n    \"obligation\": [],\r\n    \"target\": \"c1-s3-asset2\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:29193/management/v2/contractnegotiations",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "29193",
+					"path": [
+						"management",
+						"v2",
+						"contractnegotiations"
+					]
+				},
+				"description": "Obtención del estado de la negociación del contrato del asset de S3 entre el conector connector-c1 y el conector connector-c2."
+			},
+			"response": []
+		},
+		{
+			"name": "Connector2: Negotiation status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"A contractAgreementId is returned\", () => {",
+							"    pm.collectionVariables.set('contractAgreementId', pm.response.json()[\"contractAgreementId\"])",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:29193/management/v2/contractnegotiations/{{contractid}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "29193",
+					"path": [
+						"management",
+						"v2",
+						"contractnegotiations",
+						"{{contractid}}"
+					]
+				},
+				"description": "Obtención del estado de la negociación del contrato entre el conector connector-c1 y el conector connector-c2."
+			},
+			"response": []
+		},
+		{
+			"name": "Connector2: Start transfer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"A transferId is returned\", () => {",
+							"    pm.collectionVariables.set('transferId', pm.response.json()[\"@id\"])",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"@context\": {\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n  },\n  \"@type\": \"TransferRequestDto\",\n  \"connectorId\": \"connector-c2\",\n  \"counterPartyAddress\": \"http://connector-c1:19194/protocol\",\n  \"contractId\": \"{{contractAgreementId}}\",\n  \"assetId\": \"c1-s3-asset2\",\n  \"protocol\": \"dataspace-protocol-http\",\n  \"dataDestination\": {\n    \"properties\": {\n      \"type\": \"AmazonS3\",\n      \"region\": \"us-east-1\",\n      \"bucketName\": \"bucket-connector-2\",\n      \"accessKeyId\": \"wEfyrv2vH7Wj3ON03g8V\",\n      \"secretAccessKey\": \"JlHVGgSgeRkbs6WtKTugR4I5uU7oA1VRf8kBtrGd\"\n    },\n    \"endpointOverride\": \"http://minio-c2:9000\",\n    \"type\": \"AmazonS3\"\n  },\n  \"managedResources\": true,\n  \"transferType\": {\n    \"contentType\": \"text/plain\",\n    \"isFinite\": true\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:29193/management/v2/transferprocesses",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "29193",
+					"path": [
+						"management",
+						"v2",
+						"transferprocesses"
+					]
+				},
+				"description": "Comienzo de transferencia AmazonS3 (Push) de un asset S3 del conector connector-c1 desde el conector connector-c2."
+			},
+			"response": []
+		},
+		{
+			"name": "Connector2: Start transfer HTTP",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"A transferId is returned\", () => {",
+							"    pm.collectionVariables.set('transferId', pm.response.json()[\"@id\"])",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"@context\": {\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n  },\n  \"@type\": \"TransferRequestDto\",\n  \"connectorId\": \"connector-c2\",\n  \"counterPartyAddress\": \"http://connector-c1:19194/protocol\",\n  \"contractId\": \"{{contractAgreementId}}\",\n  \"assetId\": \"c1-s3-asset2\",\n  \"protocol\": \"dataspace-protocol-http\",\n  \"dataDestination\": {\n    \"type\": \"HttpProxy\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:29193/management/v2/transferprocesses",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "29193",
+					"path": [
+						"management",
+						"v2",
+						"transferprocesses"
+					]
+				},
+				"description": "Comienzo de transferencia HttpProxy (Pull) de un asset del conector connector-c1 desde el conector connector-c2."
+			},
+			"response": []
+		},
+		{
+			"name": "Connector2: Transfer status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:29193/management/v2/transferprocesses/{{transferId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "29193",
+					"path": [
+						"management",
+						"v2",
+						"transferprocesses",
+						"{{transferId}}"
+					]
+				},
+				"description": "Estado de la transferencia AmazonS3 (Push) del asset S3 del conector connector-c1 al conector connector-c2."
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": ""
+		},
+		{
+			"key": "baseUrl",
+			"value": "http://localhost"
+		},
+		{
+			"key": "contractid",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "contractAgreementId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "transferId",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

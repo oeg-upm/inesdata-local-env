@@ -1,0 +1,135 @@
+version: '3.9'
+
+services:
+  postgres-c1:
+    image: postgres:14-alpine
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=inesdata
+      - POSTGRES_USER=inesdata
+      - POSTGRES_DB=inesdata
+    volumes: 
+      - pgdata-c1:/var/lib/postgresql/data
+      - ./resources/db-init/asset-schema.sql:/docker-entrypoint-initdb.d/asset-schema.sql
+      - ./resources/db-init/contract-definition-schema.sql:/docker-entrypoint-initdb.d/contract-definition-schema.sql
+      - ./resources/db-init/contract-negotiation-schema.sql:/docker-entrypoint-initdb.d/contract-negotiation-schema.sql
+      - ./resources/db-init/data-plane-schema.sql:/docker-entrypoint-initdb.d/data-plane-schema.sql
+      - ./resources/db-init/policy-definition-schema.sql:/docker-entrypoint-initdb.d/policy-definition-schema.sql
+      - ./resources/db-init/transfer-process-schema.sql:/docker-entrypoint-initdb.d/transfer-process-schema.sql
+
+  postgres-c2:
+    image: postgres:14-alpine
+    ports:
+      - 5433:5432
+    environment:
+      - POSTGRES_PASSWORD=inesdata
+      - POSTGRES_USER=inesdata
+      - POSTGRES_DB=inesdata
+    volumes: 
+      - pgdata-c1:/var/lib/postgresql/data
+      - ./resources/db-init/asset-schema.sql:/docker-entrypoint-initdb.d/asset-schema.sql
+      - ./resources/db-init/contract-definition-schema.sql:/docker-entrypoint-initdb.d/contract-definition-schema.sql
+      - ./resources/db-init/contract-negotiation-schema.sql:/docker-entrypoint-initdb.d/contract-negotiation-schema.sql
+      - ./resources/db-init/data-plane-schema.sql:/docker-entrypoint-initdb.d/data-plane-schema.sql
+      - ./resources/db-init/policy-definition-schema.sql:/docker-entrypoint-initdb.d/policy-definition-schema.sql
+      - ./resources/db-init/transfer-process-schema.sql:/docker-entrypoint-initdb.d/transfer-process-schema.sql
+
+  minio-c1:
+    image: minio/minio
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    volumes:
+      - mdata-c1:/data
+    environment:
+      - MINIO_ROOT_USER=inesdata
+      - MINIO_ROOT_PASSWORD=inesdata
+      - MINIO_DEFAULT_BUCKETS=bucket-connector-1
+    command: server --console-address ":9001" /data
+
+  minio-c2:
+    image: minio/minio
+    ports:
+      - '9010:9000'
+      - '9011:9011'
+    volumes:
+      - mdata-c2:/data
+    environment:
+      - MINIO_ROOT_USER=inesdata
+      - MINIO_ROOT_PASSWORD=inesdata
+      - MINIO_DEFAULT_BUCKETS=bucket-connector-2
+    command: server --console-address ":9011" /data
+
+  setup-minio:
+    image: minio/mc
+    depends_on:
+      - minio-c1
+      - minio-c2
+    entrypoint: >
+      /bin/sh -c "
+      /usr/bin/mc alias set minio-c1 http://minio-c1:9000 inesdata inesdata;
+      /usr/bin/mc admin user svcacct add minio-c1 inesdata --access-key DrJ6PmnJ3QtlxYowRSLi --secret-key gjaVnJstoeV4bWLrJkmswKBMIZxY10PjZOJhp2qk;
+      /usr/bin/mc mb minio-c1/bucket-connector-1;
+      /usr/bin/mc alias set minio-c2 http://minio-c2:9000 inesdata inesdata;
+      /usr/bin/mc admin user svcacct add minio-c2 inesdata --access-key wEfyrv2vH7Wj3ON03g8V --secret-key JlHVGgSgeRkbs6WtKTugR4I5uU7oA1VRf8kBtrGd;
+      /usr/bin/mc mb minio-c2/bucket-connector-2;
+      exit 0;
+      "
+
+  http-proxy:
+    image: mendhak/http-https-echo:31
+    environment:
+        - HTTP_PORT=4000
+    ports:
+        - "4000:4000"
+
+  connector-c1:
+    image: inesdata/connector:0.1
+    ports:
+      - '19191:19191'
+      - '19192:19192'
+      - '19193:19193'
+      - '19194:19194'
+      - '19291:19291'
+    volumes:
+      - ./resources:/opt/connector/resources
+    environment:
+      - EDC_KEYSTORE=/opt/connector/resources/certs/store.pfx
+      - EDC_KEYSTORE_PASSWORD=inesdata
+      - EDC_VAULT=/opt/connector/resources/configuration/connector-c1-vault.properties
+      - EDC_FS_CONFIG=/opt/connector/resources/configuration/connector-c1-configuration.properties
+    depends_on:
+      - postgres-c1
+      - minio-c1
+      - http-proxy
+
+  connector-c2:
+    image: inesdata/connector:0.1
+    ports:
+      - '29191:29191'
+      - '29192:29192'
+      - '29193:29193'
+      - '29194:29194'
+      - '29291:29291'
+    volumes:
+      - ./resources:/opt/connector/resources
+    environment:
+      - EDC_KEYSTORE=/opt/connector/resources/certs/store.pfx
+      - EDC_KEYSTORE_PASSWORD=inesdata
+      - EDC_VAULT=/opt/connector/resources/configuration/connector-c2-vault.properties
+      - EDC_FS_CONFIG=/opt/connector/resources/configuration/connector-c2-configuration.properties
+    depends_on:
+      - postgres-c2
+      - minio-c2
+      - http-proxy
+
+volumes:
+  pgdata-c1:
+    driver: local
+  pgdata-c2:
+    driver: local
+  mdata-c1:
+    driver: local
+  mdata-c2:
+    driver: local
