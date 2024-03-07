@@ -27,7 +27,7 @@ services:
       - POSTGRES_USER=inesdata
       - POSTGRES_DB=inesdata
     volumes: 
-      - pgdata-c1:/var/lib/postgresql/data
+      - pgdata-c2:/var/lib/postgresql/data
       - ./resources/db-init/asset-schema.sql:/docker-entrypoint-initdb.d/asset-schema.sql
       - ./resources/db-init/contract-definition-schema.sql:/docker-entrypoint-initdb.d/contract-definition-schema.sql
       - ./resources/db-init/contract-negotiation-schema.sql:/docker-entrypoint-initdb.d/contract-negotiation-schema.sql
