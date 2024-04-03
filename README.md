@@ -10,10 +10,10 @@ A continuación se muestra un diagrama con los componentes que se ejecutan en el
 
 ## Pre requisitos
 
-Para poder ejecutar el entorno local de InesData se debe tener una imagen local del conector tageada como `inesdata/connector:0.1`. Para ello se deben seguir los siguientes pasos:
+Para poder ejecutar el entorno local de InesData se debe tener una imagen local del conector tageada como `inesdata/connector:0.2.0`. Para ello se deben seguir los siguientes pasos:
 
 - Descargar el proyecto InesData Connector
-- Seguir los pasos indicados en la documentación del repositorio para contenerizar el conector asegurándose que se genere el tage indicado con el modificador `--tag inesdata/connector:0.1`
+- Seguir los pasos indicados en la documentación del repositorio para contenerizar el conector asegurándose que se genere el tage indicado con el modificador `--tag inesdata/connector:0.2.0`
 
 ## Ejecución del conector
 
