@@ -42,3 +42,35 @@ Las conexiones a PostgreSQL se realizan mediante los datos:
 - connector-c2: localhost:5433/inesdata
 
 Los usuarios se encuentran en el fichero [docker-compose.yml](docker-compose.yml)
+
+## Usuarios de Keycloak
+
+La versión 24 de Keycloak no exporta los usuarios de la aplicación por motivos de seguridad. Por este motivo, dentro del realm 'dataspace' se deben crear los siguientes usuarios (Users > Create new user):
+- user-c1
+  - Creación:
+    - Required user action: Ninguno (Select action)
+    - Email verified: Yes
+    - Username: user-c1
+    - Email: user-c1@dataspace.com
+    - First name: user-c1
+    - Last name: user-c1
+    - region: eu
+    - Groups: connector-c1
+  - Credentials (Set password):
+    - Password: user-c1
+    - Password confirmation: user-c1
+    - Temporary: Off
+- user-c2
+  - Creación:
+    - Required user action: Ninguno (Select action)
+    - Email verified: Yes
+    - Username: user-c2
+    - Email: user-c2@dataspace.com
+    - First name: user-c2
+    - Last name: user-c2
+    - region: eu
+    - Groups: connector-c2
+  - Credentials (Set password):
+    - Password: user-c2
+    - Password confirmation: user-c2
+    - Temporary: Off
