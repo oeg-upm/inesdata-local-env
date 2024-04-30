@@ -157,7 +157,7 @@ services:
         condition: service_healthy
 
   connector-c1:
-    image: inesdata/connector:0.3.0-dev
+    image: inesdata/connector:0.2.0
     ports:
       - '19191:19191'
       - '19192:19192'
@@ -182,7 +182,7 @@ services:
         condition: service_healthy
 
   connector-c2:
-    image: inesdata/connector:0.3.0-dev
+    image: inesdata/connector:0.2.0
     ports:
       - '29191:29191'
       - '29192:29192'
