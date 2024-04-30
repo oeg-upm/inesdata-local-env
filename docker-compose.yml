@@ -15,10 +15,11 @@ services:
       - ./resources/db-init/contract-definition-schema.sql:/docker-entrypoint-initdb.d/contract-definition-schema.sql
       - ./resources/db-init/contract-negotiation-schema.sql:/docker-entrypoint-initdb.d/contract-negotiation-schema.sql
       - ./resources/db-init/data-plane-schema.sql:/docker-entrypoint-initdb.d/data-plane-schema.sql
+      - ./resources/db-init/edr-index-schema.sql:/docker-entrypoint-initdb.d/edr-index-schema.sql
       - ./resources/db-init/policy-definition-schema.sql:/docker-entrypoint-initdb.d/policy-definition-schema.sql
       - ./resources/db-init/transfer-process-schema.sql:/docker-entrypoint-initdb.d/transfer-process-schema.sql
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      test: [ "CMD-SHELL", "pg_isready -U inesdata" ]
       interval: 5s
       timeout: 30s
       retries: 10
@@ -37,10 +38,11 @@ services:
       - ./resources/db-init/contract-definition-schema.sql:/docker-entrypoint-initdb.d/contract-definition-schema.sql
       - ./resources/db-init/contract-negotiation-schema.sql:/docker-entrypoint-initdb.d/contract-negotiation-schema.sql
       - ./resources/db-init/data-plane-schema.sql:/docker-entrypoint-initdb.d/data-plane-schema.sql
+      - ./resources/db-init/edr-index-schema.sql:/docker-entrypoint-initdb.d/edr-index-schema.sql
       - ./resources/db-init/policy-definition-schema.sql:/docker-entrypoint-initdb.d/policy-definition-schema.sql
       - ./resources/db-init/transfer-process-schema.sql:/docker-entrypoint-initdb.d/transfer-process-schema.sql
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      test: [ "CMD-SHELL", "pg_isready -U inesdata" ]
       interval: 5s
       timeout: 30s
       retries: 10
@@ -56,7 +58,7 @@ services:
     volumes: 
       - pgdata-keycloak:/var/lib/postgresql/data
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      test: [ "CMD-SHELL", "pg_isready -U keycloak" ]
       interval: 5s
       timeout: 30s
       retries: 10
@@ -140,8 +142,8 @@ services:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: inesdata
       KC_HEALTH_ENABLED: "true"
-      KC_LOG_LEVEL: DEBUG
-      KEYCLOAK_LOGLEVEL: DEBUG
+      KC_LOG_LEVEL: ERROR
+      KEYCLOAK_LOGLEVEL: ERROR
     healthcheck:
       test: ['CMD-SHELL', '[ -f /tmp/HealthCheck.java ] || echo "public class HealthCheck { public static void main(String[] args) throws java.lang.Throwable { System.exit(java.net.HttpURLConnection.HTTP_OK == ((java.net.HttpURLConnection)new java.net.URL(args[0]).openConnection()).getResponseCode() ? 0 : 1); } }" > /tmp/HealthCheck.java && java /tmp/HealthCheck.java http://localhost:8080/health/live']
       interval: 15s

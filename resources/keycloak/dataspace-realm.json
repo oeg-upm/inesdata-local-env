@@ -564,6 +564,48 @@
       ],
       "notBefore": 0,
       "groups": []
+    },
+    {
+      "username": "user-c1",
+      "createdTimestamp": 1710521195533,
+      "email": "user-c1@inesdata.com",
+      "firstName": "user-c1",
+			"lastName": "user-c1",
+			"attributes": {
+				"region": "eu"
+			},
+      "emailVerified": true,
+      "enabled": true,
+      "credentials": [
+          {
+              "type": "password",
+              "value": "user-c1"
+          }
+      ],
+      "groups": [
+          "connector-c1"
+      ]
+    },
+    {
+      "username": "user-c2",
+      "createdTimestamp": 1710521195633,
+      "email": "user-c2@inesdata.com",
+      "firstName": "user-c1",
+			"lastName": "user-c1",
+			"attributes": {
+				"region": "eu"
+			},
+      "emailVerified": true,
+      "enabled": true,
+      "credentials": [
+          {
+              "type": "password",
+              "value": "user-c2"
+          }
+      ],
+      "groups": [
+          "connector-c2"
+      ]
     }
   ],
   "scopeMappings": [
