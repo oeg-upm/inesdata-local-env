@@ -43,6 +43,16 @@ Las conexiones a PostgreSQL se realizan mediante los datos:
 
 Los usuarios se encuentran en el fichero [docker-compose.yml](docker-compose.yml)
 
+
+## Hostnames
+
+Los componentes que conforman el entorno local se comunican entre ellos a través de los nombres de host internos de Docker. Aunque casi todos son accesibles correctamente mediante `localhost`, hay una excepción que es `Keycloak`. Al acceder a la web de administración Keycloak intentará acceder al host configurado en la propiedad `KC_HOSTNAME`. La demo está preparada para funcionar tal cual está pero si se desea administrar Keyclpoak se debe añarir la siguiente regla al archivo `hosts` del sistema operativo:
+
+```
+## INESDATA
+127.0.0.1          keycloak
+```
+
 ## Usuarios de Keycloak
 
 Los usuarios incluidos en el entorno local son (misma contraseña y nombre de usuario):
