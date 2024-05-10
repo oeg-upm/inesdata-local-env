@@ -157,7 +157,7 @@ services:
         condition: service_healthy
 
   connector-c1:
-    image: inesdata/connector:0.2.0
+    image: ghcr.io/oeg-upm/oeg-upm/inesdata-connector:develop
     ports:
       - '19191:19191'
       - '19192:19192'
@@ -182,7 +182,7 @@ services:
         condition: service_healthy
 
   connector-c2:
-    image: inesdata/connector:0.2.0
+    image: ghcr.io/oeg-upm/oeg-upm/inesdata-connector:develop
     ports:
       - '29191:29191'
       - '29192:29192'
@@ -205,6 +205,42 @@ services:
         condition: service_healthy
       keycloak:
         condition: service_healthy
+
+  connector-interface-c1:
+    image: ghcr.io/oeg-upm/inesdata-connector-interface:develop
+    ports:
+      - '8001:8080'
+    environment:
+      - MANAGEMENT_API_URL=http://localhost:19193/management
+      - CATALOG_URL=http://localhost:19193/management/federatedcatalog
+      - STORAGE_ACCOUNT=company2assets
+      - STORAGE_LINK_TEMPLATE=storageexplorer://v=1
+      - APP_THEME=theme-1
+      - OAUTH2_ISSUER=http://keycloak:8080/realms/dataspace
+      - OAUTH2_REDIRECT_PATH=/inesdata-connector-interface
+      - OAUTH2_CLIENT_ID=dataspace-users
+      - OAUTH2_SCOPE=openid profile email
+      - OAUTH2_RESPONSE_TYPE=code
+      - OAUTH2_SHOW_DEBUG_INFO=true
+      - OAUTH2_ALLOWED_URLS=http://localhost:8001,http://localhost:19193,http://connector-c1:8001
+
+  connector-interface-c2:
+    image: ghcr.io/oeg-upm/inesdata-connector-interface:develop
+    ports:
+      - '8002:8080'
+    environment:
+      - MANAGEMENT_API_URL=http://localhost:29193/management
+      - CATALOG_URL=http://localhost:29193/management/federatedcatalog
+      - STORAGE_ACCOUNT=company2assets
+      - STORAGE_LINK_TEMPLATE=storageexplorer://v=1
+      - APP_THEME=theme-2
+      - OAUTH2_ISSUER=http://keycloak:8080/realms/dataspace
+      - OAUTH2_REDIRECT_PATH=/inesdata-connector-interface
+      - OAUTH2_CLIENT_ID=dataspace-users
+      - OAUTH2_SCOPE=openid profile email
+      - OAUTH2_RESPONSE_TYPE=code
+      - OAUTH2_SHOW_DEBUG_INFO=true
+      - OAUTH2_ALLOWED_URLS=http://localhost:8002,http://localhost:29193,http://connector-c1:8002
 
 volumes:
   pgdata-c1:
