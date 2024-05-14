@@ -8,13 +8,6 @@ A continuación se muestra un diagrama con los componentes que se ejecutan en el
 
 ![Local Components](./docs/components.png)
 
-## Pre requisitos
-
-Para poder ejecutar el entorno local de InesData se debe tener una imagen local del conector tageada como `inesdata/connector:0.2.0`. Para ello se deben seguir los siguientes pasos:
-
-- Descargar el proyecto InesData Connector
-- Seguir los pasos indicados en la documentación del repositorio para contenerizar el conector asegurándose que se genere el tage indicado con el modificador `--tag inesdata/connector:0.2.0`
-
 ## Ejecución del conector
 
 Para ejecutar localmente el entorno se debe ejecutar el comando:
@@ -30,6 +23,12 @@ Se proporciona la colección [InesData Local Environment](resources/operations/I
 ```
 docker compose logs -f http-proxy
 ```
+
+## Interfaz de gestión de los conectores
+
+Los conectores vienen con una interfaz de gestión en las siguientes direcciones:
+- connector-c1: http://localhost:8001/inesdata-connector-interface
+- connector-c2: http://localhost:8002/inesdata-connector-interface
 
 ## Administración
 
