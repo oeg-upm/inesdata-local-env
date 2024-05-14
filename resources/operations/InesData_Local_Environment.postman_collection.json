@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "d8c8003a-29f3-41ff-812a-d2baf5ad7959",
+		"_postman_id": "259c0ab7-e356-414b-a635-6bcc504941ec",
 		"name": "InesData Local Environment",
 		"description": "# ⛓️ InesData Connector\n\nTres fases diferenciadas en el ejemplo:\n\n- Registro de Data Planes para cada conector\n    \n- Creación de Asset HTTP, negociación y transferencia (PULL)\n    \n- Creación de Asset S3 (MinIO), negociación y transferencia (PUSH)",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
@@ -318,7 +318,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\",\r\n    \"odrl\": \"http://www.w3.org/ns/odrl/2/\"\r\n  },\r\n  \"@id\": \"emptyPolicy\",\r\n  \"policy\": {\r\n    \"@type\": \"set\",\r\n    \"odrl:permission\": [],\r\n    \"odrl:prohibition\": [],\r\n    \"odrl:obligation\": []\r\n  }\r\n}",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\",\r\n    \"odrl\": \"http://www.w3.org/ns/odrl/2/\"\r\n  },\r\n  \"@id\": \"emptyPolicy\",\r\n  \"policy\": {\r\n    \"@context\": \"http://www.w3.org/ns/odrl.jsonld\",\r\n    \"@type\": \"Set\",\r\n    \"permission\": [],\r\n    \"prohibition\": [],\r\n    \"obligation\": []\r\n  }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -476,7 +476,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@type\": \"NegotiationInitiateRequestDto\",\r\n  \"connectorId\": \"provider\",\r\n  \"counterPartyAddress\": \"http://connector-c1:19194/protocol\",\r\n  \"consumerId\": \"connector-c2\",\r\n  \"providerId\": \"connector-c1\",\r\n  \"protocol\": \"dataspace-protocol-http\",\r\n  \"policy\": {\r\n    \"@context\": \"http://www.w3.org/ns/odrl.jsonld\",\r\n    \"@id\": \"[[[ID_CONTRACT]]]\",\r\n    \"@type\": \"Set\",\r\n    \"permission\": [],\r\n    \"prohibition\": [],\r\n    \"obligation\": [],\r\n    \"target\": \"c1-http-asset1\"\r\n  }\r\n}",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@type\": \"ContractRequest\",\r\n  \"counterPartyAddress\": \"http://connector-c1:19194/protocol\",\r\n  \"protocol\": \"dataspace-protocol-http\",\r\n  \"policy\": {\r\n    \"@context\": \"http://www.w3.org/ns/odrl.jsonld\",\r\n    \"@id\": \"[[POLICY_ID]]\",\r\n    \"@type\": \"Offer\",\r\n    \"assigner\": \"connector-c1\",\r\n    \"target\": \"c1-http-asset1\"\r\n  }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -690,8 +690,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "[[[Authorization]]]",
-						"type": "text"
+						"value": "[[[Authorization]]]"
 					}
 				],
 				"body": {
@@ -853,7 +852,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@type\": \"NegotiationInitiateRequestDto\",\r\n  \"connectorId\": \"provider\",\r\n  \"counterPartyAddress\": \"http://connector-c1:19194/protocol\",\r\n  \"consumerId\": \"connector-c2\",\r\n  \"providerId\": \"connector-c1\",\r\n  \"protocol\": \"dataspace-protocol-http\",\r\n  \"policy\": {\r\n    \"@context\": \"http://www.w3.org/ns/odrl.jsonld\",\r\n    \"@id\": \"[[[ID_CONTRACT]]]\",\r\n    \"@type\": \"Set\",\r\n    \"permission\": [],\r\n    \"prohibition\": [],\r\n    \"obligation\": [],\r\n    \"target\": \"c1-s3-asset2\"\r\n  }\r\n}",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@type\": \"ContractRequest\",\r\n  \"counterPartyAddress\": \"http://connector-c1:19194/protocol\",\r\n  \"protocol\": \"dataspace-protocol-http\",\r\n  \"policy\": {\r\n    \"@context\": \"http://www.w3.org/ns/odrl.jsonld\",\r\n    \"@id\": \"[[POLICY_ID]]\",\r\n    \"@type\": \"Offer\",\r\n    \"assigner\": \"connector-c1\",\r\n    \"target\": \"c1-s3-asset2\"\r\n  }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -989,60 +988,6 @@
 			"response": []
 		},
 		{
-			"name": "Connector2: Start transfer HTTP",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"A transferId is returned\", () => {",
-							"    pm.collectionVariables.set('transferId', pm.response.json()[\"@id\"])",
-							"})"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{c2-jwt}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"@context\": {\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n  },\n  \"@type\": \"TransferRequestDto\",\n  \"connectorId\": \"connector-c2\",\n  \"counterPartyAddress\": \"http://connector-c1:19194/protocol\",\n  \"contractId\": \"{{contractAgreementId}}\",\n  \"assetId\": \"c1-s3-asset2\",\n  \"protocol\": \"dataspace-protocol-http\",\n  \"dataDestination\": {\n    \"type\": \"HttpProxy\"\n  }\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{baseUrl}}:29193/management/v2/transferprocesses",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"port": "29193",
-					"path": [
-						"management",
-						"v2",
-						"transferprocesses"
-					]
-				},
-				"description": "Comienzo de transferencia HttpProxy (Pull) de un asset del conector connector-c1 desde el conector connector-c2."
-			},
-			"response": []
-		},
-		{
 			"name": "Connector2: Transfer status",
 			"event": [
 				{
@@ -1095,6 +1040,60 @@
 					]
 				},
 				"description": "Estado de la transferencia AmazonS3 (Push) del asset S3 del conector connector-c1 al conector connector-c2."
+			},
+			"response": []
+		},
+		{
+			"name": "Connector2: Start transfer HTTP",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"A transferId is returned\", () => {",
+							"    pm.collectionVariables.set('transferId', pm.response.json()[\"@id\"])",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c2-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"@context\": {\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n  },\n  \"@type\": \"TransferRequestDto\",\n  \"connectorId\": \"connector-c2\",\n  \"counterPartyAddress\": \"http://connector-c1:19194/protocol\",\n  \"contractId\": \"{{contractAgreementId}}\",\n  \"assetId\": \"c1-s3-asset2\",\n  \"protocol\": \"dataspace-protocol-http\",\n  \"dataDestination\": {\n    \"type\": \"HttpProxy\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:29193/management/v2/transferprocesses",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "29193",
+					"path": [
+						"management",
+						"v2",
+						"transferprocesses"
+					]
+				},
+				"description": "Comienzo de transferencia HttpProxy (Pull) de un asset del conector connector-c1 desde el conector connector-c2."
 			},
 			"response": []
 		}
