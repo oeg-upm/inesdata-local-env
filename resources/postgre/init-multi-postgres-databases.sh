@@ -32,6 +32,20 @@ if [ -n "$POSTGRES_MULTIPLE_DATABASES" ]; then
 
     echo "user is $user and pass is $pswd"
     create_databases $user $pswd
+
+	# If subfloder with user/DB name exists, execute all scripts inside for that user/DB
+	# It is safe, base initialization will ignore subfloders
+	# We could use docker_process_init_files, but we have no control of the DB parameters
+	if [ -d "/docker-entrypoint-initdb.d/$user" ]; then
+	  echo "Multiple scripts found for user $user"
+      for f in /docker-entrypoint-initdb.d/$user/*; do
+		  case "$f" in
+			  *.sh)     echo "$0: running $f"; . "$f" ;;
+			  *.sql)    echo "$0: running $f"; psql -v ON_ERROR_STOP=1 --username "$user" --dbname "$user" --no-password --no-psqlrc -f "$f" ;;
+		  esac
+	  done
+	fi
+
   done
 
   echo "Multiple databases created!"

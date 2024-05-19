@@ -1,40 +1,6 @@
 version: '3.9'
 
 services:
-  postgres-c1:
-    image: postgres:14-alpine
-    ports:
-      - 5432:5432
-    environment:
-      - POSTGRES_PASSWORD=inesdata
-      - POSTGRES_USER=inesdata
-      - POSTGRES_DB=inesdata
-    volumes:
-      - pgdata-c1:/var/lib/postgresql/data
-      - ./resources/db-init/:/docker-entrypoint-initdb.d/
-    healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U inesdata" ]
-      interval: 5s
-      timeout: 30s
-      retries: 10
-
-  postgres-c2:
-    image: postgres:14-alpine
-    ports:
-      - 5433:5432
-    environment:
-      - POSTGRES_PASSWORD=inesdata
-      - POSTGRES_USER=inesdata
-      - POSTGRES_DB=inesdata
-    volumes:
-      - pgdata-c2:/var/lib/postgresql/data
-      - ./resources/db-init/:/docker-entrypoint-initdb.d/
-    healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U inesdata" ]
-      interval: 5s
-      timeout: 30s
-      retries: 10
-
   postgres-common:
     image: postgres:14-alpine
     ports:
@@ -42,12 +8,14 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_MULTIPLE_DATABASES=keycloak,strapi
+      - POSTGRES_MULTIPLE_DATABASES=keycloak,strapi,connector1,connector2
     volumes: 
       - pgdata-common:/var/lib/postgresql/data
       - ./resources/postgre/init-multi-postgres-databases.sh:/docker-entrypoint-initdb.d/init-multi-postgres-databases.sh
+      - ./resources/db-init/:/docker-entrypoint-initdb.d/connector1
+      - ./resources/db-init/:/docker-entrypoint-initdb.d/connector2
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U keycloak" ]
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
       interval: 5s
       timeout: 30s
       retries: 10
@@ -163,7 +131,7 @@ services:
     depends_on:
       keycloak:
         condition: service_healthy
-      postgres-c1:
+      postgres-common:
         condition: service_healthy
       minio-c1:
         condition: service_healthy
@@ -186,7 +154,7 @@ services:
       - EDC_VAULT=/opt/connector/resources/configuration/connector-c2-vault.properties
       - EDC_FS_CONFIG=/opt/connector/resources/configuration/connector-c2-configuration.properties
     depends_on:
-      postgres-c2:
+      postgres-common:
         condition: service_healthy
       minio-c2:
         condition: service_healthy
