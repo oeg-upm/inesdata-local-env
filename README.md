@@ -1,6 +1,6 @@
-# InesData Local Environment
+# INESData Local Environment
 
-El entorno `InesData Local Environment` permite a los usuarios familiarizarse con el conector InesData. Mediante la ejecución del entorno local, los usuarios podrán conocer cómo funciona el conector de InesData así como comprobar cómo interactúan varios conectores entre sí.
+El entorno `INESData Local Environment` permite a los usuarios familiarizarse con el conector INESData. Mediante la ejecución del entorno local, los usuarios podrán conocer cómo funciona el conector de INESData así como comprobar cómo interactúan varios conectores entre sí.
 
 ## Componentes del entorno
 
@@ -16,7 +16,7 @@ Para ejecutar localmente el entorno se debe ejecutar el comando:
 docker compose up
 ```
 
-Se proporciona la colección [InesData Local Environment](resources/operations/InesData_Local_Environment.postman_collection.json) en formato Postman para realizar ejemplos de interacciones entre los conectores del entorno. 
+Se proporciona la colección [INESData Local Environment](resources/operations/InesData_Local_Environment.postman_collection.json) en formato Postman para realizar ejemplos de interacciones entre los conectores del entorno. 
 
 **Nota:** Las transferencias de tipo `HttpProxy` enviarán la información para la descarga de Assets a través del servicio `http-proxy`. Este componente devuelve por consola las peticiones HTTP recibidas, incluídas las proporcionadas por los conectores con la información de descarga de los Assets. Si se quienres ver sus logs se debe ejecutar el comando 
 
