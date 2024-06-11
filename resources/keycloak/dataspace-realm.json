@@ -610,7 +610,7 @@
     {
       "username": "user-strapi-c1",
       "createdTimestamp": 1710521195633,
-      "email": "user-c2@inesdata.com",
+      "email": "user-strapi-c1@inesdata.com",
       "firstName": "user-strapi-c1",
 			"lastName": "user-strapi-c1",
 			"attributes": {

@@ -227,32 +227,12 @@ services:
         condition: service_healthy
 
   public-portal-frontend:
-    image: ghcr.io/oeg-upm/inesdata-public-portal-backend:0.2.1
+    image: ghcr.io/oeg-upm/inesdata-public-portal-frontend:0.2.1
     ports: 
       - '80:80'
     environment:
       - STRAPI_URL=http://localhost:1337
-
-  public-portal-backend:
-    image: ghcr.io/oeg-upm/inesdata-public-portal-backend:develop
-    ports: 
-      - '1337:1337'
-    environment:
-      - DATABASE_CLIENT=postgres
-      - DATABASE_HOST=postgres-common
-      - DATABASE_PORT=5432
-      - DATABASE_NAME=strapi
-      - DATABASE_USERNAME=strapi
-      - DATABASE_PASSWORD=strapi
-      - JWT_SECRET=${STRAPI_JWT_SECRET}
-      - ADMIN_JWT_SECRET=${STRAPI_ADMIN_JWT_SECRET}
-      - APP_KEYS=${STRAPI_APP_KEYS}
-      - API_TOKEN_SALT=${STRAPI_API_TOKEN_SALT}
-      - NODE_ENV=production
-    depends_on:
-      postgres-common:
-        condition: service_healthy
-
+      
 volumes:
   pgdata-common:
     driver: local
