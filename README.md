@@ -75,6 +75,16 @@ Revisar el fichero [docker-compose.yml](docker-compose.yml) para más informaci�
 La URL de administración de Strapi es la siguiente:
 - http://localhost:1337/admin
 
+### Portal público
+
+La URL del portal público es la siquiente:
+- http://localhost/
+
+Para visualizar correctamente esta página es necesario hacer lo siguiente:
+- Crear una instancia del tipo de contenido Landing Page en public-portal-backend: Content Manager > Landing Page. Guardar y publicar el contenido.
+- Dar permiso de visualización en la API sobre el contenido que previamente se ah creado: Settings > Users & Permissions Plugin > Roles > Public > Permissions > Landding-page. Habilitar el checkbox "find".
+- Dar permiso para obtener el catálogo federado: Settings > Users & Permissions Plugin > Roles > Public > Permissions > Get-federated-catalog. Habilitar el checkbox "getFederatedCatalog".
+
 ## Hostnames
 
 Los componentes que conforman el entorno local se comunican entre ellos a través de los nombres de host internos de Docker. Aunque casi todos son accesibles correctamente mediante `localhost`, hay una excepción que es `Keycloak`. Para poder acceder correctamente a la autorización de los portales de gestión de los conectores (inesdata-connector-interface) así como para acceder a la web de administración, Keycloak intentará acceder al host configurado en la propiedad `KC_HOSTNAME`. Se debe añarir la siguiente regla al archivo `hosts` del sistema operativo:
