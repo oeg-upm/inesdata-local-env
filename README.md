@@ -80,7 +80,10 @@ La URL de administración de Strapi es la siguiente:
 La URL del portal público es la siquiente:
 - http://localhost/
 
-Para visualizar correctamente esta página es necesario haber creado una instancia del tipo de contenido Landing Page en Strapi y además haber dado permiso "find" sobre la API. De igual manera hay que dar permiso "GET" para la API "get-federated-catalog".
+Para visualizar correctamente esta página es necesario hacer lo siguiente:
+- Crear una instancia del tipo de contenido Landing Page en public-portal-backend: Content Manager > Landing Page. Guardar y publicar el contenido.
+- Dar permiso de visualización en la API sobre el contenido que previamente se ah creado: Settings > Users & Permissions Plugin > Roles > Public > Permissions > Landding-page. Habilitar el checkbox "find".
+- Dar permiso para obtener el catálogo federado: Settings > Users & Permissions Plugin > Roles > Public > Permissions > Get-federated-catalog. Habilitar el checkbox "getFederatedCatalog".
 
 ## Hostnames
 
