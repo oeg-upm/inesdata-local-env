@@ -1,52 +1,90 @@
 # InesData Local Environment
 
-El entorno `InesData Local Environment` permite a los usuarios familiarizarse con el conector InesData. Mediante la ejecución del entorno local, los usuarios podrán conocer cómo funciona el conector de InesData así como comprobar cómo interactúan varios conectores entre sí.
+El entorno `InesData Local Environment` permite a los usuarios familiarizarse con el conector InesData. Mediante la
+ejecución del entorno local, los usuarios podrán conocer cómo funciona el conector de InesData así como comprobar cómo
+interactúan varios conectores entre sí.
 
 ## Componentes del entorno
 
 A continuación se muestra un diagrama con los componentes que se ejecutan en el entorno local:
 
-![Local Components](./docs/components.png)
+![Local Components](./docs/inesdata-local-env.svg)
 
 ## Pre requisitos
 
-Para poder ejecutar el entorno local de InesData se debe tener una imagen local del conector tageada como `inesdata/connector:0.2.0`. Para ello se deben seguir los siguientes pasos:
+Un entorno Linux con Docker y Docker compose instalados.
 
-- Descargar el proyecto InesData Connector
-- Seguir los pasos indicados en la documentación del repositorio para contenerizar el conector asegurándose que se genere el tage indicado con el modificador `--tag inesdata/connector:0.2.0`
+## Ejecución del entorno de pruebas
 
-## Ejecución del conector
+Para ejecutar localmente el entorno se debe ejecutar el script `generate-env.sh`  o `generate-env.ps1` (Powershell) que generará un archivo .env con
+valores autogenerados para los secretos y tokens. 
 
-Para ejecutar localmente el entorno se debe ejecutar el comando:
+```
+generate-env.sh
+```
+o
+```
+generate-env.ps1
+```
+
+Una vez hecho esto, se puede llamar a `docker compose up` para levantar el entorno.
 
 ```
 docker compose up
 ```
 
-Se proporciona la colección [InesData Local Environment](resources/operations/InesData_Local_Environment.postman_collection.json) en formato Postman para realizar ejemplos de interacciones entre los conectores del entorno. 
 
-**Nota:** Las transferencias de tipo `HttpProxy` enviarán la información para la descarga de Assets a través del servicio `http-proxy`. Este componente devuelve por consola las peticiones HTTP recibidas, incluídas las proporcionadas por los conectores con la información de descarga de los Assets. Si se quienres ver sus logs se debe ejecutar el comando 
+Se proporciona la colección [InesData Local
+Environment](resources/operations/InesData_Local_Environment.postman_collection.json) en formato Postman para realizar
+ejemplos del ciclo de vida de creación y compartición de datos entre los conectores del entorno. Además, se dispone de la colección [INESData Connector Management](resources/operations/InesData_Connector_Management_API.postman_collection.json) en formato Postman para mostrar las principales operaciones del API de INESData para gestionar las diferentes entidades disponibles.
+
+**Nota:** Las transferencias de tipo `HttpProxy` enviarán la información para la descarga de Assets a través del
+servicio `http-proxy`. Este componente devuelve por consola las peticiones HTTP recibidas, incluídas las proporcionadas
+por los conectores con la información de descarga de los Assets. Si se quienres ver sus logs se debe ejecutar el comando 
 
 ```
 docker compose logs -f http-proxy
 ```
 
+## Interfaz de gestión de los conectores
+
+Los conectores vienen con una interfaz de gestión en las siguientes direcciones:
+- connector-c1: http://localhost:8001/inesdata-connector-interface
+- connector-c2: http://localhost:8002/inesdata-connector-interface
+
 ## Administración
+
+### Minio
 
 Las URLs de administración de MinIO son respectivamente:
 - connector-c1: http://localhost:9001/browser
 - connector-c2: http://localhost:9011/browser
 
-Las conexiones a PostgreSQL se realizan mediante los datos:
-- connector-c1: localhost:5432/inesdata
-- connector-c2: localhost:5433/inesdata
+### PostgreSQL
 
-Los usuarios se encuentran en el fichero [docker-compose.yml](docker-compose.yml)
+Las conexiones a PostgreSQL se realizan mediante la cadena de conexión:
+```
+localhost:5432/<nombre_bd>
+```
 
+donde <nombre_bd> es el nombre de la BD de cada componente que requiere una (keycloak, strapi y ambos conectores).
+Revisar el fichero [docker-compose.yml](docker-compose.yml) para más información sobre estos parámetros.
+
+### Backend CMS (Strapi)
+
+La URL de administración de Strapi es la siguiente:
+- http://localhost:1337/admin
+
+### Portal público
+
+La URL del portal público es la siquiente:
+- http://localhost/
+
+Para visualizar correctamente esta página es necesario haber creado una instancia del tipo de contenido Landing Page en Strapi y además haber dado permiso "find" sobre la API. De igual manera hay que dar permiso "GET" para la API "get-federated-catalog".
 
 ## Hostnames
 
-Los componentes que conforman el entorno local se comunican entre ellos a través de los nombres de host internos de Docker. Aunque casi todos son accesibles correctamente mediante `localhost`, hay una excepción que es `Keycloak`. Al acceder a la web de administración Keycloak intentará acceder al host configurado en la propiedad `KC_HOSTNAME`. La demo está preparada para funcionar tal cual está pero si se desea administrar Keyclpoak se debe añarir la siguiente regla al archivo `hosts` del sistema operativo:
+Los componentes que conforman el entorno local se comunican entre ellos a través de los nombres de host internos de Docker. Aunque casi todos son accesibles correctamente mediante `localhost`, hay una excepción que es `Keycloak`. Para poder acceder correctamente a la autorización de los portales de gestión de los conectores (inesdata-connector-interface) así como para acceder a la web de administración, Keycloak intentará acceder al host configurado en la propiedad `KC_HOSTNAME`. Se debe añarir la siguiente regla al archivo `hosts` del sistema operativo:
 
 ```
 ## INESDATA

@@ -11,7 +11,7 @@ services:
       - POSTGRES_MULTIPLE_DATABASES=keycloak,strapi,connector1,connector2
     volumes: 
       - pgdata-common:/var/lib/postgresql/data
-      - ./resources/postgre/init-multi-postgres-databases.sh:/docker-entrypoint-initdb.d/init-multi-postgres-databases.sh
+      - ./resources/postgres/init-multi-postgres-databases.sh:/docker-entrypoint-initdb.d/init-multi-postgres-databases.sh
       - ./resources/db-init/:/docker-entrypoint-initdb.d/connector1
       - ./resources/db-init/:/docker-entrypoint-initdb.d/connector2
     healthcheck:
@@ -233,11 +233,27 @@ services:
     environment:
       - STRAPI_URL=http://localhost:1337
 
+  public-portal-backend:
+    image: ghcr.io/oeg-upm/inesdata-public-portal-backend:develop
+    ports: 
+      - '1337:1337'
+    environment:
+      - DATABASE_CLIENT=postgres
+      - DATABASE_HOST=postgres-common
+      - DATABASE_PORT=5432
+      - DATABASE_NAME=strapi
+      - DATABASE_USERNAME=strapi
+      - DATABASE_PASSWORD=strapi
+      - JWT_SECRET=${STRAPI_JWT_SECRET}
+      - ADMIN_JWT_SECRET=${STRAPI_ADMIN_JWT_SECRET}
+      - APP_KEYS=${STRAPI_APP_KEYS}
+      - API_TOKEN_SALT=${STRAPI_API_TOKEN_SALT}
+      - NODE_ENV=production
+    depends_on:
+      postgres-common:
+        condition: service_healthy
+
 volumes:
-  pgdata-c1:
-    driver: local
-  pgdata-c2:
-    driver: local
   pgdata-common:
     driver: local
   mdata-c1:

@@ -1,5 +1,4 @@
 -- Statements are designed for and tested with Postgres only!
-
 -- table: edc_vocabulary
 CREATE TABLE IF NOT EXISTS edc_vocabulary
 (

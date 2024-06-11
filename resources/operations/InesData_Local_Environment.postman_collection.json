@@ -1,8 +1,8 @@
 {
 	"info": {
 		"_postman_id": "d8c8003a-29f3-41ff-812a-d2baf5ad7959",
-		"name": "InesData Local Environment",
-		"description": "# ⛓️ InesData Connector\n\nTres fases diferenciadas en el ejemplo:\n\n- Registro de Data Planes para cada conector\n    \n- Creación de Asset HTTP, negociación y transferencia (PULL)\n    \n- Creación de Asset S3 (MinIO), negociación y transferencia (PUSH)",
+		"name": "INESData Local Environment Working",
+		"description": "# ⛓️ INESData Connector\n\nTres fases diferenciadas en el ejemplo:\n\n- Registro de Data Planes para cada conector\n    \n- Creación de Asset HTTP, negociación y transferencia (PULL)\n    \n- Creación de Asset S3 (MinIO), negociación y transferencia (PUSH)",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "32859640"
 	},
@@ -238,7 +238,7 @@
 			"response": []
 		},
 		{
-			"name": "Connector2: Create Asset - HttpData",
+			"name": "Connector1: Create Asset - HttpData",
 			"event": [
 				{
 					"listen": "test",
@@ -266,7 +266,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@id\": \"c1-http-asset1\",\r\n  \"properties\": {\r\n    \"name\": \"c1-http-asset1\",\r\n    \"contenttype\": \"application/json\"\r\n  },\r\n  \"dataAddress\": {\r\n    \"type\": \"HttpData\",\r\n    \"name\": \"c1-http-asset1\",\r\n    \"baseUrl\": \"http://http-proxy:4000/test/call\",\r\n    \"proxyPath\": \"true\"\r\n  }\r\n}",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@id\": \"c1-http-asset1\",\r\n  \"properties\": {\r\n    \"name\": \"c1-http-asset1\",\r\n    \"contenttype\": \"application/json\"\r\n  },\r\n  \"dataAddress\": {\r\n    \"type\": \"HttpData\",\r\n    \"name\": \"c1-http-asset1\",\r\n    \"baseUrl\": \"https://jsonplaceholder.typicode.com/posts\",\r\n    \"proxyPath\": \"true\"\r\n  }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -290,7 +290,7 @@
 			"response": []
 		},
 		{
-			"name": "Connector1: Create Empty Policy",
+			"name": "Connector1: Create 2024 Policy",
 			"event": [
 				{
 					"listen": "test",
@@ -318,7 +318,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\",\r\n    \"odrl\": \"http://www.w3.org/ns/odrl/2/\"\r\n  },\r\n  \"@id\": \"emptyPolicy\",\r\n  \"policy\": {\r\n    \"@type\": \"set\",\r\n    \"odrl:permission\": [],\r\n    \"odrl:prohibition\": [],\r\n    \"odrl:obligation\": []\r\n  }\r\n}",
+					"raw": "{\r\n    \"@context\": {\r\n        \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\",\r\n        \"odrl\": \"http://www.w3.org/ns/odrl/2/\"\r\n    },\r\n    \"@id\": \"in-2024-policy\",\r\n    \"policy\": {\r\n        \"@context\": \"http://www.w3.org/ns/odrl.jsonld\",\r\n        \"@type\": \"Set\",\r\n        \"odrl:permission\": {\r\n            \"odrl:action\": {\r\n                \"odrl:type\": \"USE\"\r\n            },\r\n            \"odrl:constraint\": {\r\n                \"odrl:leftOperand\": \"POLICY_EVALUATION_TIME\",\r\n                \"odrl:operator\": {\r\n                    \"@id\": \"odrl:lt\"\r\n                },\r\n                \"odrl:rightOperand\": \"2024-12-31T23:59:59+01:00\"\r\n            }\r\n        },\r\n        \"prohibition\": [],\r\n        \"obligation\": []\r\n    }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -476,7 +476,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@type\": \"NegotiationInitiateRequestDto\",\r\n  \"connectorId\": \"provider\",\r\n  \"counterPartyAddress\": \"http://connector-c1:19194/protocol\",\r\n  \"consumerId\": \"connector-c2\",\r\n  \"providerId\": \"connector-c1\",\r\n  \"protocol\": \"dataspace-protocol-http\",\r\n  \"policy\": {\r\n    \"@context\": \"http://www.w3.org/ns/odrl.jsonld\",\r\n    \"@id\": \"[[[ID_CONTRACT]]]\",\r\n    \"@type\": \"Set\",\r\n    \"permission\": [],\r\n    \"prohibition\": [],\r\n    \"obligation\": [],\r\n    \"target\": \"c1-http-asset1\"\r\n  }\r\n}",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\",\r\n    \"odrl\": \"http://www.w3.org/ns/odrl.jsonld\"\r\n  },\r\n  \"@type\": \"ContractRequest\",\r\n  \"counterPartyAddress\": \"http://connector-c1:19194/protocol\",\r\n  \"protocol\": \"dataspace-protocol-http\",\r\n  \"policy\": {\r\n    \"@context\": \"http://www.w3.org/ns/odrl.jsonld\",\r\n    \"@id\": \"[[policy_id]]\",\r\n    \"@type\": \"Offer\",\r\n    \"odrl:permission\": {\r\n        \"odrl:action\": {\r\n            \"odrl:type\": \"USE\"\r\n        },\r\n        \"odrl:constraint\": {\r\n            \"odrl:leftOperand\": \"POLICY_EVALUATION_TIME\",\r\n            \"odrl:operator\": {\r\n                \"@id\": \"odrl:lt\"\r\n            },\r\n            \"odrl:rightOperand\": \"2024-12-31T23:59:59+01:00\"\r\n        }\r\n    },\r\n    \"assigner\": \"connector-c1\",\r\n    \"target\": \"c1-http-asset1\"\r\n  }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -588,7 +588,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"@context\": {\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n  },\n  \"@type\": \"TransferRequestDto\",\n  \"connectorId\": \"connector-c2\",\n  \"counterPartyAddress\": \"http://connector-c1:19194/protocol\",\n  \"contractId\": \"{{contractAgreementId}}\",\n  \"assetId\": \"c1-http-asset1\",\n  \"protocol\": \"dataspace-protocol-http\",\n  \"dataDestination\": {\n    \"type\": \"HttpProxy\"\n  }\n}",
+					"raw": "{\n  \"@context\": {\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n  },\n  \"@type\": \"TransferRequestDto\",\n  \"connectorId\": \"connector-c2\",\n  \"counterPartyAddress\": \"http://connector-c1:19194/protocol\",\n  \"contractId\": \"{{contractAgreementId}}\",\n  \"assetId\": \"c1-http-asset1\",\n  \"protocol\": \"dataspace-protocol-http\",\n  \"transferType\": \"HttpData-PULL\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -678,7 +678,8 @@
 						"exec": [
 							""
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -690,8 +691,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "[[[Authorization]]]",
-						"type": "text"
+						"value": "[[token]]"
 					}
 				],
 				"body": {
@@ -853,7 +853,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@type\": \"NegotiationInitiateRequestDto\",\r\n  \"connectorId\": \"provider\",\r\n  \"counterPartyAddress\": \"http://connector-c1:19194/protocol\",\r\n  \"consumerId\": \"connector-c2\",\r\n  \"providerId\": \"connector-c1\",\r\n  \"protocol\": \"dataspace-protocol-http\",\r\n  \"policy\": {\r\n    \"@context\": \"http://www.w3.org/ns/odrl.jsonld\",\r\n    \"@id\": \"[[[ID_CONTRACT]]]\",\r\n    \"@type\": \"Set\",\r\n    \"permission\": [],\r\n    \"prohibition\": [],\r\n    \"obligation\": [],\r\n    \"target\": \"c1-s3-asset2\"\r\n  }\r\n}",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\",\r\n    \"odrl\": \"http://www.w3.org/ns/odrl.jsonld\"\r\n  },\r\n  \"@type\": \"ContractRequest\",\r\n  \"counterPartyAddress\": \"http://connector-c1:19194/protocol\",\r\n  \"protocol\": \"dataspace-protocol-http\",\r\n  \"policy\": {\r\n    \"@context\": \"http://www.w3.org/ns/odrl.jsonld\",\r\n    \"@id\": \"[[policy_id]]\",\r\n    \"@type\": \"Offer\",\r\n    \"odrl:permission\": {\r\n        \"odrl:action\": {\r\n            \"odrl:type\": \"USE\"\r\n        },\r\n        \"odrl:constraint\": {\r\n            \"odrl:leftOperand\": \"POLICY_EVALUATION_TIME\",\r\n            \"odrl:operator\": {\r\n                \"@id\": \"odrl:lt\"\r\n            },\r\n            \"odrl:rightOperand\": \"2024-12-31T23:59:59+01:00\"\r\n        }\r\n    },\r\n    \"assigner\": \"connector-c1\",\r\n    \"target\": \"c1-s3-asset2\"\r\n  }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -965,7 +965,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"@context\": {\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n  },\n  \"@type\": \"TransferRequestDto\",\n  \"connectorId\": \"connector-c2\",\n  \"counterPartyAddress\": \"http://connector-c1:19194/protocol\",\n  \"contractId\": \"{{contractAgreementId}}\",\n  \"assetId\": \"c1-s3-asset2\",\n  \"protocol\": \"dataspace-protocol-http\",\n  \"dataDestination\": {\n    \"properties\": {\n      \"type\": \"AmazonS3\",\n      \"region\": \"us-east-1\",\n      \"bucketName\": \"bucket-connector-2\",\n      \"accessKeyId\": \"wEfyrv2vH7Wj3ON03g8V\",\n      \"secretAccessKey\": \"JlHVGgSgeRkbs6WtKTugR4I5uU7oA1VRf8kBtrGd\"\n    },\n    \"endpointOverride\": \"http://minio-c2:9000\",\n    \"type\": \"AmazonS3\"\n  },\n  \"managedResources\": true,\n  \"transferType\": {\n    \"contentType\": \"text/plain\",\n    \"isFinite\": true\n  }\n}",
+					"raw": "{\n  \"@context\": {\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n  },\n  \"@type\": \"TransferRequestDto\",\n  \"connectorId\": \"connector-c2\",\n  \"counterPartyAddress\": \"http://connector-c1:19194/protocol\",\n  \"contractId\": \"{{contractAgreementId}}\",\n  \"assetId\": \"c1-s3-asset2\",\n  \"protocol\": \"dataspace-protocol-http\",\n  \"transferType\": \"AmazonS3\",\n  \"dataDestination\": {\n    \"properties\": {\n      \"type\": \"AmazonS3\",\n      \"region\": \"us-east-1\",\n      \"bucketName\": \"bucket-connector-2\",\n      \"accessKeyId\": \"wEfyrv2vH7Wj3ON03g8V\",\n      \"secretAccessKey\": \"JlHVGgSgeRkbs6WtKTugR4I5uU7oA1VRf8kBtrGd\"\n    },\n    \"endpointOverride\": \"http://minio-c2:9000\",\n    \"type\": \"AmazonS3\"\n  },\n  \"managedResources\": true\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1019,7 +1019,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"@context\": {\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n  },\n  \"@type\": \"TransferRequestDto\",\n  \"connectorId\": \"connector-c2\",\n  \"counterPartyAddress\": \"http://connector-c1:19194/protocol\",\n  \"contractId\": \"{{contractAgreementId}}\",\n  \"assetId\": \"c1-s3-asset2\",\n  \"protocol\": \"dataspace-protocol-http\",\n  \"dataDestination\": {\n    \"type\": \"HttpProxy\"\n  }\n}",
+					"raw": "{\n  \"@context\": {\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n  },\n  \"@type\": \"TransferRequestDto\",\n  \"connectorId\": \"connector-c2\",\n  \"counterPartyAddress\": \"http://connector-c1:19194/protocol\",\n  \"contractId\": \"{{contractAgreementId}}\",\n  \"assetId\": \"c1-s3-asset2\",\n  \"protocol\": \"dataspace-protocol-http\",\n  \"transferType\": \"HttpData-PULL\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
