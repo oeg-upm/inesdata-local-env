@@ -590,8 +590,8 @@
       "username": "user-c2",
       "createdTimestamp": 1710521195633,
       "email": "user-c2@inesdata.com",
-      "firstName": "user-c1",
-			"lastName": "user-c1",
+      "firstName": "user-c2",
+			"lastName": "user-c2",
 			"attributes": {
 				"region": "eu"
 			},
@@ -605,6 +605,27 @@
       ],
       "groups": [
           "connector-c2"
+      ]
+    },
+    {
+      "username": "user-strapi-c1",
+      "createdTimestamp": 1710521195633,
+      "email": "user-c2@inesdata.com",
+      "firstName": "user-strapi-c1",
+			"lastName": "user-strapi-c1",
+			"attributes": {
+				"region": "eu"
+			},
+      "emailVerified": true,
+      "enabled": true,
+      "credentials": [
+          {
+              "type": "password",
+              "value": "user-strapi-c1"
+          }
+      ],
+      "groups": [
+          "connector-c1"
       ]
     }
   ],

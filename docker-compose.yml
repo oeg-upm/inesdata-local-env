@@ -114,7 +114,7 @@ services:
         condition: service_healthy
 
   connector-c1:
-    image: ghcr.io/oeg-upm/oeg-upm/inesdata-connector:develop
+    image: ghcr.io/oeg-upm/inesdata-connector:0.3.1
     ports:
       - '19191:19191'
       - '19192:19192'
@@ -139,7 +139,7 @@ services:
         condition: service_healthy
 
   connector-c2:
-    image: ghcr.io/oeg-upm/oeg-upm/inesdata-connector:develop
+    image: ghcr.io/oeg-upm/inesdata-connector:0.3.1
     ports:
       - '29191:29191'
       - '29192:29192'
@@ -164,7 +164,7 @@ services:
         condition: service_healthy
 
   connector-interface-c1:
-    image: ghcr.io/oeg-upm/inesdata-connector-interface:develop
+    image: ghcr.io/oeg-upm/inesdata-connector-interface:0.3.1
     ports:
       - '8001:8080'
     environment:
@@ -182,7 +182,7 @@ services:
       - OAUTH2_ALLOWED_URLS=http://localhost:8001,http://localhost:19193,http://connector-c1:8001
 
   connector-interface-c2:
-    image: ghcr.io/oeg-upm/inesdata-connector-interface:develop
+    image: ghcr.io/oeg-upm/inesdata-connector-interface:0.3.1
     ports:
       - '8002:8080'
     environment:
@@ -197,10 +197,10 @@ services:
       - OAUTH2_SCOPE=openid profile email
       - OAUTH2_RESPONSE_TYPE=code
       - OAUTH2_SHOW_DEBUG_INFO=true
-      - OAUTH2_ALLOWED_URLS=http://localhost:8002,http://localhost:29193,http://connector-c1:8002
+      - OAUTH2_ALLOWED_URLS=http://localhost:8002,http://localhost:29193,http://connector-c2:8002
 
   public-portal-backend:
-    image: ghcr.io/oeg-upm/inesdata-public-portal-backend:develop
+    image: ghcr.io/oeg-upm/inesdata-public-portal-backend:0.2.0
     ports: 
       - '1337:1337'
     environment:
@@ -215,6 +215,23 @@ services:
       - APP_KEYS=${STRAPI_APP_KEYS}
       - API_TOKEN_SALT=${STRAPI_API_TOKEN_SALT}
       - NODE_ENV=production
+      - TOKEN_CLIENT_ID=dataspace-users
+      - TOKEN_USERNAME=user-strapi-c1
+      - TOKEN_PASSWORD=user-strapi-c1
+      - KEYCLOAK_BASE_URL=http://keycloak:8080
+      - CATALOG_BASE_URL=http://connector-c1:19193
+    depends_on:
+      postgres-common:
+        condition: service_healthy
+      keycloak:
+        condition: service_healthy
+
+  public-portal-frontend:
+    image: ghcr.io/oeg-upm/inesdata-public-portal-backend:0.2.1
+    ports: 
+      - '80:80'
+    environment:
+      - STRAPI_URL=http://localhost:1337
 
 volumes:
   pgdata-c1:
