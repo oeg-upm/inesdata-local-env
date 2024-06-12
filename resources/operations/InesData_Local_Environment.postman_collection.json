@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "d87a95b6-4071-4175-b0e6-db87694a222e",
-		"name": "INESData Local Environment Working",
+		"_postman_id": "44ef0fa5-b295-435a-9e03-d5900bf58858",
+		"name": "INESData Local Environment",
 		"description": "# ⛓️ INESData Connector\n\nTres fases diferenciadas en el ejemplo:\n\n- Registro de Data Planes para cada conector\n    \n- Creación de Asset HTTP, negociación y transferencia (PULL)\n    \n- Creación de Asset S3 (MinIO), negociación y transferencia (PUSH)",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "6137850"
+		"_exporter_id": "32859640"
 	},
 	"item": [
 		{
@@ -337,7 +337,7 @@
 						"policydefinitions"
 					]
 				},
-				"description": "Creación de una política vacía en el conector connector-c1."
+				"description": "Creación de una política que aplica durante el año 2024 en el conector connector-c1."
 			},
 			"response": []
 		},
@@ -370,7 +370,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@id\": \"allowAllContract\",\r\n  \"accessPolicyId\": \"emptyPolicy\",\r\n  \"contractPolicyId\": \"emptyPolicy\",\r\n  \"assetsSelector\": []\r\n}",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@id\": \"in-2024-contract\",\r\n  \"accessPolicyId\": \"in-2024-policy\",\r\n  \"contractPolicyId\": \"in-2024-policy\",\r\n  \"assetsSelector\": []\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -389,7 +389,7 @@
 						"contractdefinitions"
 					]
 				},
-				"description": "Creación de una defición de contrato que aplica la política vacía a todos los assets del conector connector-c1."
+				"description": "Creación de una defición de contrato que aplica la política in-2024-policy a todos los assets del conector connector-c1."
 			},
 			"response": []
 		},
@@ -766,7 +766,7 @@
 						"assets"
 					]
 				},
-				"description": "Creación de Asset tipo AmazonS3 (MinIO) en el conector connector-c1."
+				"description": "Creación de Asset tipo AmazonS3 (MinIO) en el conector connector-c1. Dependiendo de la carpeta de descarga de inesdata-local-env y del sistema operativo el adjunto puede aparecer como no disponible. Asignarlo de nuevo desde la interfaz de Postman."
 			},
 			"response": []
 		},
@@ -809,7 +809,7 @@
 						{
 							"key": "file",
 							"type": "file",
-							"src": "/C:/Users/ppel/Downloads/test3.txt"
+							"src": "/C:/inesdata-local-env/resources/files/s3file.txt"
 						}
 					]
 				},
