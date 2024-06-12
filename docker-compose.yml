@@ -1,64 +1,21 @@
 version: '3.9'
 
 services:
-  postgres-c1:
-    image: postgres:14-alpine
-    ports:
-      - 5432:5432
-    environment:
-      - POSTGRES_PASSWORD=inesdata
-      - POSTGRES_USER=inesdata
-      - POSTGRES_DB=inesdata
-    volumes:
-      - pgdata-c1:/var/lib/postgresql/data
-      - ./resources/db-init/asset-schema.sql:/docker-entrypoint-initdb.d/asset-schema.sql
-      - ./resources/db-init/contract-definition-schema.sql:/docker-entrypoint-initdb.d/contract-definition-schema.sql
-      - ./resources/db-init/contract-negotiation-schema.sql:/docker-entrypoint-initdb.d/contract-negotiation-schema.sql
-      - ./resources/db-init/data-plane-schema.sql:/docker-entrypoint-initdb.d/data-plane-schema.sql
-      - ./resources/db-init/edr-index-schema.sql:/docker-entrypoint-initdb.d/edr-index-schema.sql
-      - ./resources/db-init/policy-definition-schema.sql:/docker-entrypoint-initdb.d/policy-definition-schema.sql
-      - ./resources/db-init/transfer-process-schema.sql:/docker-entrypoint-initdb.d/transfer-process-schema.sql
-    healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U inesdata" ]
-      interval: 5s
-      timeout: 30s
-      retries: 10
-
-  postgres-c2:
-    image: postgres:14-alpine
-    ports:
-      - 5433:5432
-    environment:
-      - POSTGRES_PASSWORD=inesdata
-      - POSTGRES_USER=inesdata
-      - POSTGRES_DB=inesdata
-    volumes:
-      - pgdata-c2:/var/lib/postgresql/data
-      - ./resources/db-init/asset-schema.sql:/docker-entrypoint-initdb.d/asset-schema.sql
-      - ./resources/db-init/contract-definition-schema.sql:/docker-entrypoint-initdb.d/contract-definition-schema.sql
-      - ./resources/db-init/contract-negotiation-schema.sql:/docker-entrypoint-initdb.d/contract-negotiation-schema.sql
-      - ./resources/db-init/data-plane-schema.sql:/docker-entrypoint-initdb.d/data-plane-schema.sql
-      - ./resources/db-init/edr-index-schema.sql:/docker-entrypoint-initdb.d/edr-index-schema.sql
-      - ./resources/db-init/policy-definition-schema.sql:/docker-entrypoint-initdb.d/policy-definition-schema.sql
-      - ./resources/db-init/transfer-process-schema.sql:/docker-entrypoint-initdb.d/transfer-process-schema.sql
-    healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U inesdata" ]
-      interval: 5s
-      timeout: 30s
-      retries: 10
-
-  postgres-keycloak:
+  postgres-common:
     image: postgres:14-alpine
     ports:
       - 5434:5432
     environment:
-      - POSTGRES_PASSWORD=keycloak
-      - POSTGRES_USER=keycloak
-      - POSTGRES_DB=keycloak
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_MULTIPLE_DATABASES=keycloak,strapi,connector1,connector2
     volumes: 
-      - pgdata-keycloak:/var/lib/postgresql/data
+      - pgdata-common:/var/lib/postgresql/data
+      - ./resources/postgres/init-multi-postgres-databases.sh:/docker-entrypoint-initdb.d/init-multi-postgres-databases.sh
+      - ./resources/db-init/:/docker-entrypoint-initdb.d/connector1
+      - ./resources/db-init/:/docker-entrypoint-initdb.d/connector2
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U keycloak" ]
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
       interval: 5s
       timeout: 30s
       retries: 10
@@ -136,7 +93,7 @@ services:
       KC_HOSTNAME_PORT: 8080
       KC_HOSTNAME_STRICT_BACKCHANNEL: "false"
       KC_DB: postgres
-      KC_DB_URL: jdbc:postgresql://postgres-keycloak/keycloak
+      KC_DB_URL: jdbc:postgresql://postgres-common/keycloak
       KC_DB_USERNAME: keycloak
       KC_DB_PASSWORD: keycloak
       KEYCLOAK_ADMIN: admin
@@ -153,11 +110,11 @@ services:
     ports:
       - 8080:8080
     depends_on:
-      postgres-keycloak:
+      postgres-common:
         condition: service_healthy
 
   connector-c1:
-    image: ghcr.io/oeg-upm/oeg-upm/inesdata-connector:develop
+    image: ghcr.io/oeg-upm/inesdata-connector:0.3.1
     ports:
       - '19191:19191'
       - '19192:19192'
@@ -174,7 +131,7 @@ services:
     depends_on:
       keycloak:
         condition: service_healthy
-      postgres-c1:
+      postgres-common:
         condition: service_healthy
       minio-c1:
         condition: service_healthy
@@ -182,7 +139,7 @@ services:
         condition: service_healthy
 
   connector-c2:
-    image: ghcr.io/oeg-upm/oeg-upm/inesdata-connector:develop
+    image: ghcr.io/oeg-upm/inesdata-connector:0.3.1
     ports:
       - '29191:29191'
       - '29192:29192'
@@ -197,7 +154,7 @@ services:
       - EDC_VAULT=/opt/connector/resources/configuration/connector-c2-vault.properties
       - EDC_FS_CONFIG=/opt/connector/resources/configuration/connector-c2-configuration.properties
     depends_on:
-      postgres-c2:
+      postgres-common:
         condition: service_healthy
       minio-c2:
         condition: service_healthy
@@ -207,7 +164,7 @@ services:
         condition: service_healthy
 
   connector-interface-c1:
-    image: ghcr.io/oeg-upm/inesdata-connector-interface:develop
+    image: ghcr.io/oeg-upm/inesdata-connector-interface:0.3.1
     ports:
       - '8001:8080'
     environment:
@@ -225,7 +182,7 @@ services:
       - OAUTH2_ALLOWED_URLS=http://localhost:8001,http://localhost:19193,http://connector-c1:8001
 
   connector-interface-c2:
-    image: ghcr.io/oeg-upm/inesdata-connector-interface:develop
+    image: ghcr.io/oeg-upm/inesdata-connector-interface:0.3.1
     ports:
       - '8002:8080'
     environment:
@@ -240,14 +197,44 @@ services:
       - OAUTH2_SCOPE=openid profile email
       - OAUTH2_RESPONSE_TYPE=code
       - OAUTH2_SHOW_DEBUG_INFO=true
-      - OAUTH2_ALLOWED_URLS=http://localhost:8002,http://localhost:29193,http://connector-c1:8002
+      - OAUTH2_ALLOWED_URLS=http://localhost:8002,http://localhost:29193,http://connector-c2:8002
 
+  public-portal-backend:
+    image: ghcr.io/oeg-upm/inesdata-public-portal-backend:0.2.0
+    ports: 
+      - '1337:1337'
+    environment:
+      - DATABASE_CLIENT=postgres
+      - DATABASE_HOST=postgres-common
+      - DATABASE_PORT=5432
+      - DATABASE_NAME=strapi
+      - DATABASE_USERNAME=strapi
+      - DATABASE_PASSWORD=strapi
+      - JWT_SECRET=${STRAPI_JWT_SECRET}
+      - ADMIN_JWT_SECRET=${STRAPI_ADMIN_JWT_SECRET}
+      - APP_KEYS=${STRAPI_APP_KEYS}
+      - API_TOKEN_SALT=${STRAPI_API_TOKEN_SALT}
+      - NODE_ENV=production
+      - TOKEN_CLIENT_ID=dataspace-users
+      - TOKEN_USERNAME=user-strapi-c1
+      - TOKEN_PASSWORD=user-strapi-c1
+      - KEYCLOAK_BASE_URL=http://keycloak:8080
+      - CATALOG_BASE_URL=http://connector-c1:19193
+    depends_on:
+      postgres-common:
+        condition: service_healthy
+      keycloak:
+        condition: service_healthy
+
+  public-portal-frontend:
+    image: ghcr.io/oeg-upm/inesdata-public-portal-frontend:0.2.1
+    ports: 
+      - '80:80'
+    environment:
+      - STRAPI_URL=http://localhost:1337
+      
 volumes:
-  pgdata-c1:
-    driver: local
-  pgdata-c2:
-    driver: local
-  pgdata-keycloak:
+  pgdata-common:
     driver: local
   mdata-c1:
     driver: local
