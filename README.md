@@ -1,6 +1,6 @@
-# InesData Local Environment
+# INESData Local Environment
 
-El entorno `InesData Local Environment` permite a los usuarios familiarizarse con el conector InesData. Mediante la
+El entorno `INESData Local Environment` permite a los usuarios familiarizarse con el conector INESData. Mediante la
 ejecución del entorno local, los usuarios podrán conocer cómo funciona el conector de InesData así como comprobar cómo
 interactúan varios conectores entre sí.
 
@@ -33,8 +33,7 @@ Una vez hecho esto, se puede llamar a `docker compose up` para levantar el entor
 docker compose up
 ```
 
-
-Se proporciona la colección [InesData Local
+Se proporciona la colección [INESData Local
 Environment](resources/operations/InesData_Local_Environment.postman_collection.json) en formato Postman para realizar
 ejemplos del ciclo de vida de creación y compartición de datos entre los conectores del entorno. Además, se dispone de la colección [INESData Connector Management](resources/operations/InesData_Connector_Management_API.postman_collection.json) en formato Postman para mostrar las principales operaciones del API de INESData para gestionar las diferentes entidades disponibles.
 
