@@ -1079,7 +1079,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}:19193/management/pagination/count?type=policyDefinition",
+					"raw": "{{baseUrl}}:19193/management/pagination/count?type=contractDefinition",
 					"host": [
 						"{{baseUrl}}"
 					],
@@ -1092,7 +1092,7 @@
 					"query": [
 						{
 							"key": "type",
-							"value": "policyDefinition"
+							"value": "contractDefinition"
 						}
 					]
 				},
