@@ -72,18 +72,6 @@ services:
       exit 0;
       "
 
-  http-proxy:
-    image: mendhak/http-https-echo:31
-    environment:
-        - HTTP_PORT=4000
-    ports:
-        - "4000:4000"
-    healthcheck:
-      test: wget --no-verbose --tries=1 --spider http://localhost:4000/health/live || exit 1
-      interval: 30s
-      timeout: 20s
-      retries: 3
-
   keycloak:
     image: quay.io/keycloak/keycloak:24.0.2
     volumes:
@@ -126,7 +114,6 @@ services:
     environment:
       - EDC_KEYSTORE=/opt/connector/resources/certs/store.pfx
       - EDC_KEYSTORE_PASSWORD=inesdata
-      - EDC_VAULT=/opt/connector/resources/configuration/connector-c1-vault.properties
       - EDC_FS_CONFIG=/opt/connector/resources/configuration/connector-c1-configuration.properties
     depends_on:
       keycloak:
@@ -135,7 +122,7 @@ services:
         condition: service_healthy
       minio-c1:
         condition: service_healthy
-      http-proxy:
+      vault:
         condition: service_healthy
 
   connector-c2:
@@ -151,16 +138,15 @@ services:
     environment:
       - EDC_KEYSTORE=/opt/connector/resources/certs/store.pfx
       - EDC_KEYSTORE_PASSWORD=inesdata
-      - EDC_VAULT=/opt/connector/resources/configuration/connector-c2-vault.properties
       - EDC_FS_CONFIG=/opt/connector/resources/configuration/connector-c2-configuration.properties
     depends_on:
       postgres-common:
         condition: service_healthy
       minio-c2:
         condition: service_healthy
-      http-proxy:
-        condition: service_healthy
       keycloak:
+        condition: service_healthy
+      vault:
         condition: service_healthy
 
   connector-interface-c1:
@@ -234,6 +220,44 @@ services:
       - '80:80'
     environment:
       - STRAPI_URL=http://localhost:1337
+
+  vault:
+    image: "hashicorp/vault:1.17.0"
+    restart: on-failure:10
+    ports:
+      - "8201:8201"
+    environment:
+      VAULT_ADDR: 'https://0.0.0.0:8201'
+      VAULT_LOCAL_CONFIG: '{"listener": [{"tcp":{"address": "0.0.0.0:8201","tls_disable":"1"}}], "default_lease_ttl": "168h", "max_lease_ttl": "720h"}, "ui": true}'
+      VAULT_DEV_ROOT_TOKEN_ID: '00000000-0000-0000-0000-000000000000'
+      VAULT_TOKEN: '00000000-0000-0000-0000-000000000000'
+    cap_add:
+      - IPC_LOCK
+    volumes:
+      - hvdata:/data
+    healthcheck:
+      test: [ "CMD", "wget", "--spider", "--proxy", "off", "http://localhost:8201/v1/sys/health?standbyok=true" ]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+    command: server -dev -dev-root-token-id="00000000-0000-0000-0000-000000000000"
+
+  setup-vault:
+    image: "hashicorp/vault:1.17.0"
+    command:
+      - "sh"
+      - "-c"
+      - "/vault/scripts/init-vault.sh"
+    environment:
+      VAULT_ADDR: http://vault:8201
+      VAULT_TOKEN: '00000000-0000-0000-0000-000000000000'
+    volumes:
+      - ./resources/vault-init/scripts/init-vault.sh:/vault/scripts/init-vault.sh
+      - ./resources/vault-init/secrets/:/var/init-secrets
+      - ./resources/vault-init/json-secrets/:/var/init-json-secrets
+    depends_on:
+      vault:
+        condition: service_healthy  
       
 volumes:
   pgdata-common:
@@ -241,6 +265,8 @@ volumes:
   mdata-c1:
     driver: local
   mdata-c2:
+    driver: local
+  hvdata:
     driver: local
   portal-uploads:
     driver: local

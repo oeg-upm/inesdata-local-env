@@ -37,14 +37,6 @@ Se proporciona la colección [INESData Local
 Environment](resources/operations/InesData_Local_Environment.postman_collection.json) en formato Postman para realizar
 ejemplos del ciclo de vida de creación y compartición de datos entre los conectores del entorno. Además, se dispone de la colección [INESData Connector Management](resources/operations/InesData_Connector_Management_API.postman_collection.json) en formato Postman para mostrar las principales operaciones del API de INESData para gestionar las diferentes entidades disponibles.
 
-**Nota:** Las transferencias de tipo `HttpProxy` enviarán la información para la descarga de Assets a través del
-servicio `http-proxy`. Este componente devuelve por consola las peticiones HTTP recibidas, incluídas las proporcionadas
-por los conectores con la información de descarga de los Assets. Si se quienres ver sus logs se debe ejecutar el comando 
-
-```
-docker compose logs -f http-proxy
-```
-
 ## Interfaz de gestión de los conectores
 
 Los conectores vienen con una interfaz de gestión en las siguientes direcciones:
@@ -52,6 +44,8 @@ Los conectores vienen con una interfaz de gestión en las siguientes direcciones
 - connector-c2: http://localhost:8002/inesdata-connector-interface
 
 ## Administración
+
+Los usuarios para poder identificarse en los diferentes entornos se encuentran en el fichero [docker-compose.yml](docker-compose.yml).
 
 ### Minio
 
@@ -69,10 +63,17 @@ localhost:5432/<nombre_bd>
 donde <nombre_bd> es el nombre de la BD de cada componente que requiere una (keycloak, strapi y ambos conectores).
 Revisar el fichero [docker-compose.yml](docker-compose.yml) para más información sobre estos parámetros.
 
+### Vault (Gestor de secretos)
+
+La URL del gestor de secretos es la siguiente:
+- localhost:8201
+
 ### Backend CMS (Strapi)
 
 La URL de administración de Strapi es la siguiente:
 - http://localhost:1337/admin
+
+El usuario administrador se creará en el primer acceso a la aplicación.
 
 ### Portal público
 
