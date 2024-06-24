@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "44ef0fa5-b295-435a-9e03-d5900bf58858",
+		"_postman_id": "8f0d0e95-6647-44e6-81d7-39aeb9a8c69e",
 		"name": "INESData Local Environment",
 		"description": "# ⛓️ INESData Connector\n\nTres fases diferenciadas en el ejemplo:\n\n- Registro de Data Planes para cada conector\n    \n- Creación de Asset HTTP, negociación y transferencia (PULL)\n    \n- Creación de Asset S3 (MinIO), negociación y transferencia (PUSH)",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
@@ -130,110 +130,6 @@
 					]
 				},
 				"description": "Registro del Data Plane para el conector connector-c1."
-			},
-			"response": []
-		},
-		{
-			"name": "Connector1: Register Data Plane",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{c1-jwt}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@id\": \"http-pull-provider-dataplane\",\r\n  \"url\": \"http://connector-c1:19192/control/transfer\",\r\n  \"allowedSourceTypes\": [\r\n    \"HttpData\",\r\n    \"AmazonS3\"\r\n  ],\r\n  \"allowedDestTypes\": [\r\n    \"HttpProxy\",\r\n    \"HttpData\",\r\n    \"AmazonS3\"\r\n  ],\r\n  \"properties\": {\r\n    \"https://w3id.org/edc/v0.0.1/ns/publicApiUrl\": \"http://connector-c1:19291/public/\"\r\n  }\r\n}\r\n",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{baseUrl}}:19193/management/v2/dataplanes",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"port": "19193",
-					"path": [
-						"management",
-						"v2",
-						"dataplanes"
-					]
-				},
-				"description": "Registro del Data Plane para el conector connector-c1."
-			},
-			"response": []
-		},
-		{
-			"name": "Connector2: Register Data Plane",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{c2-jwt}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@id\": \"http-pull-provider-dataplane\",\r\n  \"url\": \"http://connector-c2:29192/control/transfer\",\r\n  \"allowedSourceTypes\": [\r\n    \"HttpData\",\r\n    \"AmazonS3\"\r\n  ],\r\n  \"allowedDestTypes\": [\r\n    \"HttpProxy\",\r\n    \"HttpData\",\r\n    \"AmazonS3\"\r\n  ],\r\n  \"properties\": {\r\n    \"https://w3id.org/edc/v0.0.1/ns/publicApiUrl\": \"http://connector-c2:29291/public/\"\r\n  }\r\n}\r\n",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{baseUrl}}:29193/management/v2/dataplanes",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"port": "29193",
-					"path": [
-						"management",
-						"v2",
-						"dataplanes"
-					]
-				},
-				"description": "Registro del Data Plane para el conector connector-c2."
 			},
 			"response": []
 		},
@@ -445,7 +341,7 @@
 			"response": []
 		},
 		{
-			"name": "Connector2: Negotiate Prov. Contract",
+			"name": "Connector2: Negotiate Contract Connector1",
 			"event": [
 				{
 					"listen": "test",
@@ -670,6 +566,65 @@
 			"response": []
 		},
 		{
+			"name": "Connector2: Get Transfer Endpoint",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"An authorization token is returned\", () => {",
+							"    pm.collectionVariables.set('authorizationToken', pm.response.json()[\"authorization\"])",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c2-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:29193/management/v1/edrs/{{transferId}}/dataaddress",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "29193",
+					"path": [
+						"management",
+						"v1",
+						"edrs",
+						"{{transferId}}",
+						"dataaddress"
+					]
+				},
+				"description": "Obtención de la URL y token para la descarga del asset del conector connector-c1 desde el conector connector-c2."
+			},
+			"response": []
+		},
+		{
 			"name": "Connector1: Download file",
 			"event": [
 				{
@@ -691,7 +646,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "[[token]]"
+						"value": "{{authorizationToken}}"
 					}
 				],
 				"body": {
@@ -719,7 +674,7 @@
 			"response": []
 		},
 		{
-			"name": "Connector1: Create Asset - External S3",
+			"name": "Connector1: S3 - Create Asset - External S3",
 			"event": [
 				{
 					"listen": "test",
@@ -771,7 +726,7 @@
 			"response": []
 		},
 		{
-			"name": "Connector1: Create Asset - Internal S3",
+			"name": "Connector1: S3 - Create Asset - Internal S3",
 			"event": [
 				{
 					"listen": "test",
@@ -829,7 +784,7 @@
 			"response": []
 		},
 		{
-			"name": "Connector2: Get Federated Catalog",
+			"name": "Connector2: S3 - Get Federated Catalog",
 			"event": [
 				{
 					"listen": "test",
@@ -880,7 +835,7 @@
 			"response": []
 		},
 		{
-			"name": "Connector2: Negotiate Prov. Contract",
+			"name": "Connector2: S3 - Negotiate Contract  Connector1",
 			"event": [
 				{
 					"listen": "test",
@@ -935,7 +890,7 @@
 			"response": []
 		},
 		{
-			"name": "Connector2: Negotiation status",
+			"name": "Connector2: S3 - Negotiation status",
 			"event": [
 				{
 					"listen": "test",
@@ -993,7 +948,7 @@
 			"response": []
 		},
 		{
-			"name": "Connector2: Start transfer",
+			"name": "Connector2: S3 - Start transfer",
 			"event": [
 				{
 					"listen": "test",
@@ -1023,7 +978,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"@context\": {\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n  },\n  \"@type\": \"TransferRequestDto\",\n  \"connectorId\": \"connector-c2\",\n  \"counterPartyAddress\": \"http://connector-c1:19194/protocol\",\n  \"contractId\": \"{{contractAgreementId}}\",\n  \"assetId\": \"c1-s3-asset2\",\n  \"protocol\": \"dataspace-protocol-http\",\n  \"transferType\": \"AmazonS3\",\n  \"dataDestination\": {\n    \"properties\": {\n      \"type\": \"AmazonS3\",\n      \"region\": \"us-east-1\",\n      \"bucketName\": \"bucket-connector-2\",\n      \"accessKeyId\": \"wEfyrv2vH7Wj3ON03g8V\",\n      \"secretAccessKey\": \"JlHVGgSgeRkbs6WtKTugR4I5uU7oA1VRf8kBtrGd\"\n    },\n    \"endpointOverride\": \"http://minio-c2:9000\",\n    \"type\": \"AmazonS3\"\n  },\n  \"managedResources\": true\n}",
+					"raw": "{\n  \"@context\": {\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n  },\n  \"@type\": \"TransferRequestDto\",\n  \"connectorId\": \"connector-c2\",\n  \"counterPartyAddress\": \"http://connector-c1:19194/protocol\",\n  \"contractId\": \"{{contractAgreementId}}\",\n  \"assetId\": \"c1-s3-asset2\",\n  \"protocol\": \"dataspace-protocol-http\",\n  \"transferType\": \"AmazonS3-PUSH\",\n  \"dataDestination\": {\n    \"properties\": {\n      \"type\": \"AmazonS3\",\n      \"region\": \"us-east-1\",\n      \"bucketName\": \"bucket-connector-2\",\n      \"accessKeyId\": \"wEfyrv2vH7Wj3ON03g8V\",\n      \"secretAccessKey\": \"JlHVGgSgeRkbs6WtKTugR4I5uU7oA1VRf8kBtrGd\"\n    },\n    \"endpointOverride\": \"http://minio-c2:9000\",\n    \"type\": \"AmazonS3\"\n  },\n  \"managedResources\": true\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1047,61 +1002,7 @@
 			"response": []
 		},
 		{
-			"name": "Connector2: Start transfer HTTP",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"A transferId is returned\", () => {",
-							"    pm.collectionVariables.set('transferId', pm.response.json()[\"@id\"])",
-							"})"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{c2-jwt}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"@context\": {\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n  },\n  \"@type\": \"TransferRequestDto\",\n  \"connectorId\": \"connector-c2\",\n  \"counterPartyAddress\": \"http://connector-c1:19194/protocol\",\n  \"contractId\": \"{{contractAgreementId}}\",\n  \"assetId\": \"c1-s3-asset2\",\n  \"protocol\": \"dataspace-protocol-http\",\n  \"transferType\": \"HttpData-PULL\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{baseUrl}}:29193/management/v2/transferprocesses",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"port": "29193",
-					"path": [
-						"management",
-						"v2",
-						"transferprocesses"
-					]
-				},
-				"description": "Comienzo de transferencia HttpProxy (Pull) de un asset del conector connector-c1 desde el conector connector-c2."
-			},
-			"response": []
-		},
-		{
-			"name": "Connector2: Transfer status",
+			"name": "Connector2: S3 - Transfer status",
 			"event": [
 				{
 					"listen": "test",
@@ -1208,6 +1109,11 @@
 		},
 		{
 			"key": "c2-jwt",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "authorizationToken",
 			"value": "",
 			"type": "string"
 		}
