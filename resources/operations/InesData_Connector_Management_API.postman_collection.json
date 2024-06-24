@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "0bdef9a7-62b0-4a5c-ad8a-85030d8d3981",
+		"_postman_id": "d5715943-384b-4ac2-bb61-51454a9b193a",
 		"name": "INESData Connector Management API",
 		"description": "# ⛓️ INESData Connector Management API\n\nPrincipales métodos para la gestión de entidades en el conector de INESData",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "32859640"
+		"_exporter_id": "6137850"
 	},
 	"item": [
 		{
@@ -398,6 +398,55 @@
 			"response": []
 		},
 		{
+			"name": "Count Assets",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c1-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}:19193/management/pagination/count?type=asset",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "19193",
+					"path": [
+						"management",
+						"pagination",
+						"count"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "asset"
+						}
+					]
+				},
+				"description": "Creación de Asset tipo HttpData en el conector connector-c1."
+			},
+			"response": []
+		},
+		{
 			"name": "Get Asset by Id",
 			"event": [
 				{
@@ -664,6 +713,67 @@
 			"response": []
 		},
 		{
+			"name": "Count Policies",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c1-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"offset\": 0,\r\n  \"limit\": 5,\r\n  \"sortOrder\":  \"ASC\",\r\n  \"sortField\": \"id\",\r\n  \"filterExpression\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:19193/management/pagination/count?type=policyDefinition",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "19193",
+					"path": [
+						"management",
+						"pagination",
+						"count"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "policyDefinition"
+						}
+					]
+				},
+				"description": "Creación de Asset tipo HttpData en el conector connector-c1."
+			},
+			"response": []
+		},
+		{
 			"name": "Get Policy by Id",
 			"event": [
 				{
@@ -926,6 +1036,67 @@
 					]
 				},
 				"description": "Creación de una defición de contrato que aplica la política vacía a todos los assets del conector connector-c1."
+			},
+			"response": []
+		},
+		{
+			"name": "Count Contract Definitions",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c1-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"offset\": 0,\r\n  \"limit\": 5,\r\n  \"sortOrder\":  \"ASC\",\r\n  \"sortField\": \"id\",\r\n  \"filterExpression\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:19193/management/pagination/count?type=contractDefinition",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "19193",
+					"path": [
+						"management",
+						"pagination",
+						"count"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "contractDefinition"
+						}
+					]
+				},
+				"description": "Creación de Asset tipo HttpData en el conector connector-c1."
 			},
 			"response": []
 		},
@@ -1400,6 +1571,241 @@
 					]
 				},
 				"description": "Obtención de los data offerings cacheados por el Federated Catalog."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Paginated Federated Catalog",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c1-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"offset\": 0,\r\n  \"limit\": 5,\r\n  \"sortOrder\":  \"ASC\",\r\n  \"sortField\": \"id\",\r\n  \"filterExpression\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:19193/management/federatedcatalog/request",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "19193",
+					"path": [
+						"management",
+						"federatedcatalog",
+						"request"
+					]
+				},
+				"description": "Obtención de los data offerings cacheados por el Federated Catalog."
+			},
+			"response": []
+		},
+		{
+			"name": "Count Contract Agreements",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c1-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"offset\": 0,\r\n  \"limit\": 5,\r\n  \"sortOrder\":  \"ASC\",\r\n  \"sortField\": \"id\",\r\n  \"filterExpression\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:19193/management/pagination/count?type=contractAgreement",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "19193",
+					"path": [
+						"management",
+						"pagination",
+						"count"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "contractAgreement"
+						}
+					]
+				},
+				"description": "Creación de Asset tipo HttpData en el conector connector-c1."
+			},
+			"response": []
+		},
+		{
+			"name": "Count Transfer Processes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c1-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"offset\": 0,\r\n  \"limit\": 5,\r\n  \"sortOrder\":  \"ASC\",\r\n  \"sortField\": \"id\",\r\n  \"filterExpression\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:19193/management/pagination/count?type=transferProcess",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "19193",
+					"path": [
+						"management",
+						"pagination",
+						"count"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "transferProcess"
+						}
+					]
+				},
+				"description": "Creación de Asset tipo HttpData en el conector connector-c1."
+			},
+			"response": []
+		},
+		{
+			"name": "Count Datasets (Federated Catalog)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c1-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"offset\": 0,\r\n  \"limit\": 5,\r\n  \"sortOrder\":  \"ASC\",\r\n  \"sortField\": \"id\",\r\n  \"filterExpression\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:19193/management/pagination/count?type=federatedCatalog",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "19193",
+					"path": [
+						"management",
+						"pagination",
+						"count"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "federatedCatalog"
+						}
+					]
+				},
+				"description": "Creación de Asset tipo HttpData en el conector connector-c1."
 			},
 			"response": []
 		}
