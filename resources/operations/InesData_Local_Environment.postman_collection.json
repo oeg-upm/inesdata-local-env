@@ -342,6 +342,59 @@
 			"response": []
 		},
 		{
+			"name": "Connector2: Get Federated Catalog",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c2-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"@context\": {\r\n        \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n    },\r\n    \"operandLeft\": \"\",\r\n    \"operandRight\": \"\",\r\n    \"operator\": \"\",\r\n    \"Criterion\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:29195/federatedcatalog/v1alpha/catalog/query",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "29195",
+					"path": [
+						"federatedcatalog",
+						"v1alpha",
+						"catalog",
+						"query"
+					]
+				},
+				"description": "Obtención de los data offerings cacheados por el Federated Catalog."
+			},
+			"response": []
+		},
+		{
 			"name": "Connector2: Negotiate Contract Connector1",
 			"event": [
 				{
@@ -755,7 +808,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"edc:operandLeft\": \"\",\r\n  \"edc:operandRight\": \"\",\r\n  \"edc:operator\": \"\",\r\n  \"edc:Criterion\":\"\"\r\n}",
+					"raw": "{\r\n    \"@context\": {\r\n        \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n    },\r\n    \"operandLeft\": \"\",\r\n    \"operandRight\": \"\",\r\n    \"operator\": \"\",\r\n    \"Criterion\": \"\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -763,14 +816,16 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}:29193/management/federatedcatalog",
+					"raw": "{{baseUrl}}:29195/federatedcatalog/v1alpha/catalog/query",
 					"host": [
 						"{{baseUrl}}"
 					],
-					"port": "29193",
+					"port": "29195",
 					"path": [
-						"management",
-						"federatedcatalog"
+						"federatedcatalog",
+						"v1alpha",
+						"catalog",
+						"query"
 					]
 				},
 				"description": "Obtención de los data offerings cacheados por el Federated Catalog."
@@ -1330,6 +1385,59 @@
 					]
 				},
 				"description": "Creación de Asset tipo AmazonS3 (MinIO) en el conector connector-c1."
+			},
+			"response": []
+		},
+		{
+			"name": "Connector2: Internal - Get Federated Catalog",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c2-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"@context\": {\r\n        \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n    },\r\n    \"operandLeft\": \"\",\r\n    \"operandRight\": \"\",\r\n    \"operator\": \"\",\r\n    \"Criterion\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:29195/federatedcatalog/v1alpha/catalog/query",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "29195",
+					"path": [
+						"federatedcatalog",
+						"v1alpha",
+						"catalog",
+						"query"
+					]
+				},
+				"description": "Obtención de los data offerings cacheados por el Federated Catalog."
 			},
 			"response": []
 		},

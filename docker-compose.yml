@@ -108,6 +108,7 @@ services:
       - '19192:19192'
       - '19193:19193'
       - '19194:19194'
+      - '19195:19195'
       - '19291:19291'
     volumes:
       - ./resources:/opt/connector/resources
@@ -132,6 +133,7 @@ services:
       - '29192:29192'
       - '29193:29193'
       - '29194:29194'
+      - '29195:29195'
       - '29291:29291'
     volumes:
       - ./resources:/opt/connector/resources
