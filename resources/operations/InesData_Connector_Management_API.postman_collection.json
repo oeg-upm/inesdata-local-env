@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "d5715943-384b-4ac2-bb61-51454a9b193a",
+		"_postman_id": "4801dece-7729-4df1-9a8d-07d78e650531",
 		"name": "INESData Connector Management API",
 		"description": "# ⛓️ INESData Connector Management API\n\nPrincipales métodos para la gestión de entidades en el conector de INESData",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
@@ -592,14 +592,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}:19193/management/v2/policydefinitions",
+					"raw": "{{baseUrl}}:19193/management/v3/policydefinitions",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"port": "19193",
 					"path": [
 						"management",
-						"v2",
+						"v3",
 						"policydefinitions"
 					]
 				},
@@ -644,15 +644,16 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}:19193/management/v2/policydefinitions",
+					"raw": "{{baseUrl}}:19193/management/v3/policydefinitions/inesdata-policy",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"port": "19193",
 					"path": [
 						"management",
-						"v2",
-						"policydefinitions"
+						"v3",
+						"policydefinitions",
+						"inesdata-policy"
 					]
 				},
 				"description": "Creación de una política vacía en el conector connector-c1."
@@ -696,14 +697,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}:19193/management/v2/policydefinitions/request",
+					"raw": "{{baseUrl}}:19193/management/v3/policydefinitions/request",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"port": "19193",
 					"path": [
 						"management",
-						"v2",
+						"v3",
 						"policydefinitions",
 						"request"
 					]
@@ -813,14 +814,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}:19193/management/v2/policydefinitions/inesdata-policy",
+					"raw": "{{baseUrl}}:19193/management/v3/policydefinitions/inesdata-policy",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"port": "19193",
 					"path": [
 						"management",
-						"v2",
+						"v3",
 						"policydefinitions",
 						"inesdata-policy"
 					]
@@ -866,14 +867,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}:19193/management/v2/policydefinitions/inesdata-policy",
+					"raw": "{{baseUrl}}:19193/management/v3/policydefinitions/inesdata-policy",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"port": "19193",
 					"path": [
 						"management",
-						"v2",
+						"v3",
 						"policydefinitions",
 						"inesdata-policy"
 					]
@@ -919,14 +920,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}:19193/management/v2/contractdefinitions",
+					"raw": "{{baseUrl}}:19193/management/v3/contractdefinitions",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"port": "19193",
 					"path": [
 						"management",
-						"v2",
+						"v3",
 						"contractdefinitions"
 					]
 				},
@@ -971,14 +972,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}:19193/management/v2/contractdefinitions",
+					"raw": "{{baseUrl}}:19193/management/v3/contractdefinitions",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"port": "19193",
 					"path": [
 						"management",
-						"v2",
+						"v3",
 						"contractdefinitions"
 					]
 				},
@@ -1023,14 +1024,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}:19193/management/v2/contractdefinitions/request",
+					"raw": "{{baseUrl}}:19193/management/v3/contractdefinitions/request",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"port": "19193",
 					"path": [
 						"management",
-						"v2",
+						"v3",
 						"contractdefinitions",
 						"request"
 					]
@@ -1140,14 +1141,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}:19193/management/v2/contractdefinitions/inesdata-contract",
+					"raw": "{{baseUrl}}:19193/management/v3/contractdefinitions/inesdata-contract",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"port": "19193",
 					"path": [
 						"management",
-						"v2",
+						"v3",
 						"contractdefinitions",
 						"inesdata-contract"
 					]
@@ -1193,14 +1194,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}:19193/management/v2/contractdefinitions/inesdata-contract",
+					"raw": "{{baseUrl}}:19193/management/v3/contractdefinitions/inesdata-contract",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"port": "19193",
 					"path": [
 						"management",
-						"v2",
+						"v3",
 						"contractdefinitions",
 						"inesdata-contract"
 					]
@@ -1238,7 +1239,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@id\": \"inesdata-vocabulary\",\r\n  \"name\": \"Vocabulary for Inesdata\",\r\n  \"jsonSchema\": \"{ \\\"title\\\": \\\"vocabulary\\\", \\\"type\\\": \\\"object\\\", \\\"properties\\\": { \\\"title\\\": { \\\"type\\\": \\\"string\\\", \\\"title\\\": \\\"Title\\\" }, \\\"keyword\\\": { \\\"type\\\": \\\"array\\\", \\\"title\\\": \\\"Keywords\\\", \\\"items\\\": { \\\"type\\\": \\\"string\\\" } } }, \\\"required\\\": [ \\\"title\\\"] }\"\r\n}",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@id\": \"inesdata-vocabulary\",\r\n  \"name\": \"Vocabulary for Inesdata\",\r\n  \"category\": \"default\",\r\n  \"jsonSchema\": \"{ \\\"title\\\": \\\"vocabulary\\\", \\\"type\\\": \\\"object\\\", \\\"properties\\\": { \\\"title\\\": { \\\"type\\\": \\\"string\\\", \\\"title\\\": \\\"Title\\\" }, \\\"keyword\\\": { \\\"type\\\": \\\"array\\\", \\\"title\\\": \\\"Keywords\\\", \\\"items\\\": { \\\"type\\\": \\\"string\\\" } } }, \\\"required\\\": [ \\\"title\\\"] }\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1289,7 +1290,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@id\": \"inesdata-vocabulary\",\r\n  \"name\": \"Vocabulary for Inesdata Mod\",\r\n  \"jsonSchema\": \"{ \\\"title\\\": \\\"vocabulary\\\", \\\"type\\\": \\\"object\\\", \\\"properties\\\": { \\\"title\\\": { \\\"type\\\": \\\"string\\\", \\\"title\\\": \\\"Title\\\" }, \\\"keyword\\\": { \\\"type\\\": \\\"array\\\", \\\"title\\\": \\\"Keywords\\\", \\\"items\\\": { \\\"type\\\": \\\"string\\\" } } }, \\\"required\\\": [ \\\"title\\\"] }\"\r\n}",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@id\": \"inesdata-vocabulary\",\r\n  \"name\": \"Vocabulary for Inesdata Mod\",\r\n  \"category\": \"default\",\r\n  \"jsonSchema\": \"{ \\\"title\\\": \\\"vocabulary\\\", \\\"type\\\": \\\"object\\\", \\\"properties\\\": { \\\"title\\\": { \\\"type\\\": \\\"string\\\", \\\"title\\\": \\\"Title\\\" }, \\\"keyword\\\": { \\\"type\\\": \\\"array\\\", \\\"title\\\": \\\"Keywords\\\", \\\"items\\\": { \\\"type\\\": \\\"string\\\" } } }, \\\"required\\\": [ \\\"title\\\"] }\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1507,14 +1508,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}:19193/management/v2/catalog/request",
+					"raw": "{{baseUrl}}:19193/management/v3/catalog/request",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"port": "19193",
 					"path": [
 						"management",
-						"v2",
+						"v3",
 						"catalog",
 						"request"
 					]
@@ -1552,7 +1553,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"edc:operandLeft\": \"\",\r\n  \"edc:operandRight\": \"\",\r\n  \"edc:operator\": \"\",\r\n  \"edc:Criterion\":\"\"\r\n}",
+					"raw": "{\r\n    \"@context\": {\r\n        \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n    },\r\n  \"operandLeft\": \"\",\r\n  \"operandRight\": \"\",\r\n  \"operator\": \"\",\r\n  \"Criterion\":\"\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1560,14 +1561,16 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}:19193/management/federatedcatalog",
+					"raw": "{{baseUrl}}:19195/federatedcatalog/v1alpha/catalog/query",
 					"host": [
 						"{{baseUrl}}"
 					],
-					"port": "19193",
+					"port": "19195",
 					"path": [
-						"management",
-						"federatedcatalog"
+						"federatedcatalog",
+						"v1alpha",
+						"catalog",
+						"query"
 					]
 				},
 				"description": "Obtención de los data offerings cacheados por el Federated Catalog."
