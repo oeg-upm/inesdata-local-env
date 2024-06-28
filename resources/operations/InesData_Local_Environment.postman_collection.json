@@ -1369,7 +1369,7 @@
 						{
 							"key": "file",
 							"type": "file",
-							"src": "/C:/Users/ssis/Downloads/test.txt"
+							"src": "//inesdata/files/test.txt"
 						}
 					]
 				},
