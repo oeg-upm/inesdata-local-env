@@ -102,7 +102,7 @@ services:
         condition: service_healthy
 
   connector-c1:
-    image: ghcr.io/oeg-upm/inesdata-connector:latest
+    image: ghcr.io/oeg-upm/inesdata-connector:0.4.0
     ports:
       - '19191:19191'
       - '19192:19192'
@@ -127,7 +127,7 @@ services:
         condition: service_healthy
 
   connector-c2:
-    image: ghcr.io/oeg-upm/inesdata-connector:latest
+    image: ghcr.io/oeg-upm/inesdata-connector:0.4.0
     ports:
       - '29191:29191'
       - '29192:29192'
@@ -152,7 +152,7 @@ services:
         condition: service_healthy
 
   connector-interface-c1:
-    image: ghcr.io/oeg-upm/inesdata-connector-interface:develop
+    image: ghcr.io/oeg-upm/inesdata-connector-interface:0.4.0
     ports:
       - '8001:8080'
     environment:
@@ -170,7 +170,7 @@ services:
       - OAUTH2_ALLOWED_URLS=http://localhost:8001,http://localhost:19193,http://connector-c1:8001
 
   connector-interface-c2:
-    image: ghcr.io/oeg-upm/inesdata-connector-interface:develop
+    image: ghcr.io/oeg-upm/inesdata-connector-interface:0.4.0
     ports:
       - '8002:8080'
     environment:
@@ -188,7 +188,7 @@ services:
       - OAUTH2_ALLOWED_URLS=http://localhost:8002,http://localhost:29193,http://connector-c2:8002
 
   public-portal-backend:
-    image: ghcr.io/oeg-upm/inesdata-public-portal-backend:develop
+    image: ghcr.io/oeg-upm/inesdata-public-portal-backend:0.3.0
     ports: 
       - '1337:1337'
     volumes:  
@@ -217,7 +217,7 @@ services:
         condition: service_healthy
 
   public-portal-frontend:
-    image: ghcr.io/oeg-upm/inesdata-public-portal-frontend:develop
+    image: ghcr.io/oeg-upm/inesdata-public-portal-frontend:0.3.0
     ports: 
       - '80:80'
     environment:
