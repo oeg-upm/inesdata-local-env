@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "44ef0fa5-b295-435a-9e03-d5900bf58858",
+		"_postman_id": "04dd9cef-683c-4122-b5d7-e37516213b84",
 		"name": "INESData Local Environment",
 		"description": "# ⛓️ INESData Connector\n\nTres fases diferenciadas en el ejemplo:\n\n- Registro de Data Planes para cada conector\n    \n- Creación de Asset HTTP, negociación y transferencia (PULL)\n    \n- Creación de Asset S3 (MinIO), negociación y transferencia (PUSH)",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "32859640"
+		"_exporter_id": "18616633"
 	},
 	"item": [
 		{
@@ -134,110 +134,6 @@
 			"response": []
 		},
 		{
-			"name": "Connector1: Register Data Plane",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{c1-jwt}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@id\": \"http-pull-provider-dataplane\",\r\n  \"url\": \"http://connector-c1:19192/control/transfer\",\r\n  \"allowedSourceTypes\": [\r\n    \"HttpData\",\r\n    \"AmazonS3\"\r\n  ],\r\n  \"allowedDestTypes\": [\r\n    \"HttpProxy\",\r\n    \"HttpData\",\r\n    \"AmazonS3\"\r\n  ],\r\n  \"properties\": {\r\n    \"https://w3id.org/edc/v0.0.1/ns/publicApiUrl\": \"http://connector-c1:19291/public/\"\r\n  }\r\n}\r\n",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{baseUrl}}:19193/management/v2/dataplanes",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"port": "19193",
-					"path": [
-						"management",
-						"v2",
-						"dataplanes"
-					]
-				},
-				"description": "Registro del Data Plane para el conector connector-c1."
-			},
-			"response": []
-		},
-		{
-			"name": "Connector2: Register Data Plane",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{c2-jwt}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@id\": \"http-pull-provider-dataplane\",\r\n  \"url\": \"http://connector-c2:29192/control/transfer\",\r\n  \"allowedSourceTypes\": [\r\n    \"HttpData\",\r\n    \"AmazonS3\"\r\n  ],\r\n  \"allowedDestTypes\": [\r\n    \"HttpProxy\",\r\n    \"HttpData\",\r\n    \"AmazonS3\"\r\n  ],\r\n  \"properties\": {\r\n    \"https://w3id.org/edc/v0.0.1/ns/publicApiUrl\": \"http://connector-c2:29291/public/\"\r\n  }\r\n}\r\n",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{baseUrl}}:29193/management/v2/dataplanes",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"port": "29193",
-					"path": [
-						"management",
-						"v2",
-						"dataplanes"
-					]
-				},
-				"description": "Registro del Data Plane para el conector connector-c2."
-			},
-			"response": []
-		},
-		{
 			"name": "Connector1: Create Asset - HttpData",
 			"event": [
 				{
@@ -326,14 +222,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}:19193/management/v2/policydefinitions",
+					"raw": "{{baseUrl}}:19193/management/v3/policydefinitions",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"port": "19193",
 					"path": [
 						"management",
-						"v2",
+						"v3",
 						"policydefinitions"
 					]
 				},
@@ -378,18 +274,70 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}:19193/management/v2/contractdefinitions",
+					"raw": "{{baseUrl}}:19193/management/v3/contractdefinitions",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"port": "19193",
 					"path": [
 						"management",
-						"v2",
+						"v3",
 						"contractdefinitions"
 					]
 				},
 				"description": "Creación de una defición de contrato que aplica la política in-2024-policy a todos los assets del conector connector-c1."
+			},
+			"response": []
+		},
+		{
+			"name": "Connector2: Get Paginated Federated Catalog",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c2-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"filterExpression\": [\r\n  ],\r\n  \"sortOrder\": \"ASC\",\r\n  \"sortField\": \"id\",\r\n  \"offset\": 0,\r\n  \"limit\": 50\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:29193/management/federatedcatalog/request",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "29193",
+					"path": [
+						"management",
+						"federatedcatalog",
+						"request"
+					]
+				},
+				"description": "Obtención de los data offerings cacheados por el Federated Catalog."
 			},
 			"response": []
 		},
@@ -422,7 +370,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"edc:operandLeft\": \"\",\r\n  \"edc:operandRight\": \"\",\r\n  \"edc:operator\": \"\",\r\n  \"edc:Criterion\":\"\"\r\n}",
+					"raw": "{\r\n    \"@context\": {\r\n        \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n    },\r\n    \"operandLeft\": \"\",\r\n    \"operandRight\": \"\",\r\n    \"operator\": \"\",\r\n    \"Criterion\": \"\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -430,14 +378,16 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}:29193/management/federatedcatalog",
+					"raw": "{{baseUrl}}:29195/federatedcatalog/v1alpha/catalog/query",
 					"host": [
 						"{{baseUrl}}"
 					],
-					"port": "29193",
+					"port": "29195",
 					"path": [
-						"management",
-						"federatedcatalog"
+						"federatedcatalog",
+						"v1alpha",
+						"catalog",
+						"query"
 					]
 				},
 				"description": "Obtención de los data offerings cacheados por el Federated Catalog."
@@ -445,7 +395,7 @@
 			"response": []
 		},
 		{
-			"name": "Connector2: Negotiate Prov. Contract",
+			"name": "Connector2: Negotiate Contract Connector1",
 			"event": [
 				{
 					"listen": "test",
@@ -484,14 +434,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}:29193/management/v2/contractnegotiations",
+					"raw": "{{baseUrl}}:29193/management/v3/contractnegotiations",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"port": "29193",
 					"path": [
 						"management",
-						"v2",
+						"v3",
 						"contractnegotiations"
 					]
 				},
@@ -541,14 +491,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}:29193/management/v2/contractnegotiations/{{contractid}}",
+					"raw": "{{baseUrl}}:29193/management/v3/contractnegotiations/{{contractid}}",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"port": "29193",
 					"path": [
 						"management",
-						"v2",
+						"v3",
 						"contractnegotiations",
 						"{{contractid}}"
 					]
@@ -596,14 +546,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}:29193/management/v2/transferprocesses",
+					"raw": "{{baseUrl}}:29193/management/v3/transferprocesses",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"port": "29193",
 					"path": [
 						"management",
-						"v2",
+						"v3",
 						"transferprocesses"
 					]
 				},
@@ -653,19 +603,78 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}:29193/management/v2/transferprocesses/{{transferId}}",
+					"raw": "{{baseUrl}}:29193/management/v3/transferprocesses/{{transferId}}",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"port": "29193",
 					"path": [
 						"management",
-						"v2",
+						"v3",
 						"transferprocesses",
 						"{{transferId}}"
 					]
 				},
 				"description": "Estado de la transferencia HttpProxy (Pull) del asset del conector connector-c1 al conector connector-c2."
+			},
+			"response": []
+		},
+		{
+			"name": "Connector2: Get Transfer Endpoint",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"An authorization token is returned\", () => {",
+							"    pm.collectionVariables.set('authorizationToken', pm.response.json()[\"authorization\"])",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c2-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:29193/management/v1/edrs/{{transferId}}/dataaddress",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "29193",
+					"path": [
+						"management",
+						"v1",
+						"edrs",
+						"{{transferId}}",
+						"dataaddress"
+					]
+				},
+				"description": "Obtención de la URL y token para la descarga del asset del conector connector-c1 desde el conector connector-c2."
 			},
 			"response": []
 		},
@@ -691,7 +700,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "[[token]]"
+						"value": "{{authorizationToken}}"
 					}
 				],
 				"body": {
@@ -719,7 +728,7 @@
 			"response": []
 		},
 		{
-			"name": "Connector1: Create Asset - External S3",
+			"name": "Connector1: S3 - Create Asset",
 			"event": [
 				{
 					"listen": "test",
@@ -771,65 +780,7 @@
 			"response": []
 		},
 		{
-			"name": "Connector1: Create Asset - Internal S3",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{c1-jwt}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "json",
-							"value": "{\n    \"@context\": {\n        \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n    },\n    \"@id\": \"c1-internalS3-asset3\",\n    \"properties\": {\n        \"name\": \"c1-internalS3-asset\",\n        \"contenttype\": \"text/plain\"\n    },\n    \"dataAddress\": {\n        \"type\": \"InesDataStore\",\n\t\t\"folder\": \"prueba\"\n    }\n}",
-							"contentType": "application/json",
-							"type": "text"
-						},
-						{
-							"key": "file",
-							"type": "file",
-							"src": "/C:/inesdata-local-env/resources/files/s3file.txt"
-						}
-					]
-				},
-				"url": {
-					"raw": "{{baseUrl}}:19193/management/s3assets",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"port": "19193",
-					"path": [
-						"management",
-						"s3assets"
-					]
-				},
-				"description": "Creación de Asset tipo AmazonS3 (MinIO) en el conector connector-c1."
-			},
-			"response": []
-		},
-		{
-			"name": "Connector2: Get Federated Catalog",
+			"name": "Connector2: S3 - Get Federated Catalog",
 			"event": [
 				{
 					"listen": "test",
@@ -857,7 +808,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"edc:operandLeft\": \"\",\r\n  \"edc:operandRight\": \"\",\r\n  \"edc:operator\": \"\",\r\n  \"edc:Criterion\":\"\"\r\n}",
+					"raw": "{\r\n    \"@context\": {\r\n        \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n    },\r\n    \"operandLeft\": \"\",\r\n    \"operandRight\": \"\",\r\n    \"operator\": \"\",\r\n    \"Criterion\": \"\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -865,14 +816,16 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}:29193/management/federatedcatalog",
+					"raw": "{{baseUrl}}:29195/federatedcatalog/v1alpha/catalog/query",
 					"host": [
 						"{{baseUrl}}"
 					],
-					"port": "29193",
+					"port": "29195",
 					"path": [
-						"management",
-						"federatedcatalog"
+						"federatedcatalog",
+						"v1alpha",
+						"catalog",
+						"query"
 					]
 				},
 				"description": "Obtención de los data offerings cacheados por el Federated Catalog."
@@ -880,7 +833,7 @@
 			"response": []
 		},
 		{
-			"name": "Connector2: Negotiate Prov. Contract",
+			"name": "Connector2: S3 - Negotiate Contract  Connector1",
 			"event": [
 				{
 					"listen": "test",
@@ -919,14 +872,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}:29193/management/v2/contractnegotiations",
+					"raw": "{{baseUrl}}:29193/management/v3/contractnegotiations",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"port": "29193",
 					"path": [
 						"management",
-						"v2",
+						"v3",
 						"contractnegotiations"
 					]
 				},
@@ -935,7 +888,7 @@
 			"response": []
 		},
 		{
-			"name": "Connector2: Negotiation status",
+			"name": "Connector2: S3 - Negotiation status",
 			"event": [
 				{
 					"listen": "test",
@@ -976,14 +929,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}:29193/management/v2/contractnegotiations/{{contractid}}",
+					"raw": "{{baseUrl}}:29193/management/v3/contractnegotiations/{{contractid}}",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"port": "29193",
 					"path": [
 						"management",
-						"v2",
+						"v3",
 						"contractnegotiations",
 						"{{contractid}}"
 					]
@@ -993,7 +946,7 @@
 			"response": []
 		},
 		{
-			"name": "Connector2: Start transfer",
+			"name": "Connector2: S3 - Start transfer Http",
 			"event": [
 				{
 					"listen": "test",
@@ -1023,7 +976,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"@context\": {\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n  },\n  \"@type\": \"TransferRequestDto\",\n  \"connectorId\": \"connector-c2\",\n  \"counterPartyAddress\": \"http://connector-c1:19194/protocol\",\n  \"contractId\": \"{{contractAgreementId}}\",\n  \"assetId\": \"c1-s3-asset2\",\n  \"protocol\": \"dataspace-protocol-http\",\n  \"transferType\": \"AmazonS3\",\n  \"dataDestination\": {\n    \"properties\": {\n      \"type\": \"AmazonS3\",\n      \"region\": \"us-east-1\",\n      \"bucketName\": \"bucket-connector-2\",\n      \"accessKeyId\": \"wEfyrv2vH7Wj3ON03g8V\",\n      \"secretAccessKey\": \"JlHVGgSgeRkbs6WtKTugR4I5uU7oA1VRf8kBtrGd\"\n    },\n    \"endpointOverride\": \"http://minio-c2:9000\",\n    \"type\": \"AmazonS3\"\n  },\n  \"managedResources\": true\n}",
+					"raw": "{\n  \"@context\": {\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n  },\n  \"@type\": \"TransferRequestDto\",\n  \"connectorId\": \"connector-c2\",\n  \"counterPartyAddress\": \"http://connector-c1:19194/protocol\",\n  \"contractId\": \"{{contractAgreementId}}\",\n  \"assetId\": \"c1-s3-asset2\",\n  \"protocol\": \"dataspace-protocol-http\",\n  \"transferType\": \"HttpData-PULL\",\n  \"managedResources\": true\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1031,14 +984,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}:29193/management/v2/transferprocesses",
+					"raw": "{{baseUrl}}:29193/management/v3/transferprocesses",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"port": "29193",
 					"path": [
 						"management",
-						"v2",
+						"v3",
 						"transferprocesses"
 					]
 				},
@@ -1047,7 +1000,228 @@
 			"response": []
 		},
 		{
-			"name": "Connector2: Start transfer HTTP",
+			"name": "Connector2: S3 - Get Transfer Endpoint",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"An authorization token is returned\", () => {",
+							"    pm.collectionVariables.set('authorizationToken', pm.response.json()[\"authorization\"])",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c2-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:29193/management/v1/edrs/{{transferId}}/dataaddress",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "29193",
+					"path": [
+						"management",
+						"v1",
+						"edrs",
+						"{{transferId}}",
+						"dataaddress"
+					]
+				},
+				"description": "Obtención de la URL y token para la descarga del asset del conector connector-c1 desde el conector connector-c2."
+			},
+			"response": []
+		},
+		{
+			"name": "Connector1: S3 - Download file Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{authorizationToken}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:19291/public/",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "19291",
+					"path": [
+						"public",
+						""
+					]
+				},
+				"description": "Descarga del asset del conector connector-c1."
+			},
+			"response": []
+		},
+		{
+			"name": "Connector2: S3 - Negotiate Contract  Connector1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"A contractid is returned\", () => {",
+							"    pm.collectionVariables.set('contractid', pm.response.json()[\"@id\"])",
+							"})",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c2-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\",\r\n    \"odrl\": \"http://www.w3.org/ns/odrl.jsonld\"\r\n  },\r\n  \"@type\": \"ContractRequest\",\r\n  \"counterPartyAddress\": \"http://connector-c1:19194/protocol\",\r\n  \"protocol\": \"dataspace-protocol-http\",\r\n  \"policy\": {\r\n    \"@context\": \"http://www.w3.org/ns/odrl.jsonld\",\r\n    \"@id\": \"[[policy_id]]\",\r\n    \"@type\": \"Offer\",\r\n    \"odrl:permission\": {\r\n        \"odrl:action\": {\r\n            \"odrl:type\": \"USE\"\r\n        },\r\n        \"odrl:constraint\": {\r\n            \"odrl:leftOperand\": \"POLICY_EVALUATION_TIME\",\r\n            \"odrl:operator\": {\r\n                \"@id\": \"odrl:lt\"\r\n            },\r\n            \"odrl:rightOperand\": \"2024-12-31T23:59:59+01:00\"\r\n        }\r\n    },\r\n    \"assigner\": \"connector-c1\",\r\n    \"target\": \"c1-s3-asset2\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:29193/management/v3/contractnegotiations",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "29193",
+					"path": [
+						"management",
+						"v3",
+						"contractnegotiations"
+					]
+				},
+				"description": "Obtención del estado de la negociación del contrato del asset de S3 entre el conector connector-c1 y el conector connector-c2."
+			},
+			"response": []
+		},
+		{
+			"name": "Connector2: S3 - Negotiation status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"A contractAgreementId is returned\", () => {",
+							"    pm.collectionVariables.set('contractAgreementId', pm.response.json()[\"contractAgreementId\"])",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c2-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:29193/management/v3/contractnegotiations/{{contractid}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "29193",
+					"path": [
+						"management",
+						"v3",
+						"contractnegotiations",
+						"{{contractid}}"
+					]
+				},
+				"description": "Obtención del estado de la negociación del contrato entre el conector connector-c1 y el conector connector-c2."
+			},
+			"response": []
+		},
+		{
+			"name": "Connector2: S3 - Start transfer S3",
 			"event": [
 				{
 					"listen": "test",
@@ -1077,7 +1251,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"@context\": {\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n  },\n  \"@type\": \"TransferRequestDto\",\n  \"connectorId\": \"connector-c2\",\n  \"counterPartyAddress\": \"http://connector-c1:19194/protocol\",\n  \"contractId\": \"{{contractAgreementId}}\",\n  \"assetId\": \"c1-s3-asset2\",\n  \"protocol\": \"dataspace-protocol-http\",\n  \"transferType\": \"HttpData-PULL\"\n}",
+					"raw": "{\n  \"@context\": {\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n  },\n  \"@type\": \"TransferRequestDto\",\n  \"connectorId\": \"connector-c2\",\n  \"counterPartyAddress\": \"http://connector-c1:19194/protocol\",\n  \"contractId\": \"{{contractAgreementId}}\",\n  \"assetId\": \"c1-s3-asset2\",\n  \"protocol\": \"dataspace-protocol-http\",\n  \"transferType\": \"AmazonS3-PUSH\",\n  \"dataDestination\": {\n    \"properties\": {\n      \"type\": \"AmazonS3\",\n      \"region\": \"us-east-1\",\n      \"bucketName\": \"bucket-connector-2\",\n      \"accessKeyId\": \"wEfyrv2vH7Wj3ON03g8V\",\n      \"secretAccessKey\": \"JlHVGgSgeRkbs6WtKTugR4I5uU7oA1VRf8kBtrGd\"\n    },\n    \"endpointOverride\": \"http://minio-c2:9000\",\n    \"type\": \"AmazonS3\"\n  },\n  \"managedResources\": true\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1085,23 +1259,23 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}:29193/management/v2/transferprocesses",
+					"raw": "{{baseUrl}}:29193/management/v3/transferprocesses",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"port": "29193",
 					"path": [
 						"management",
-						"v2",
+						"v3",
 						"transferprocesses"
 					]
 				},
-				"description": "Comienzo de transferencia HttpProxy (Pull) de un asset del conector connector-c1 desde el conector connector-c2."
+				"description": "Comienzo de transferencia AmazonS3 (Push) de un asset S3 del conector connector-c1 desde el conector connector-c2."
 			},
 			"response": []
 		},
 		{
-			"name": "Connector2: Transfer status",
+			"name": "Connector2: S3 - Transfer status",
 			"event": [
 				{
 					"listen": "test",
@@ -1140,16 +1314,679 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}:29193/management/v2/transferprocesses/{{transferId}}",
+					"raw": "{{baseUrl}}:29193/management/v3/transferprocesses/{{transferId}}",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"port": "29193",
 					"path": [
 						"management",
-						"v2",
+						"v3",
 						"transferprocesses",
 						"{{transferId}}"
+					]
+				},
+				"description": "Estado de la transferencia AmazonS3 (Push) del asset S3 del conector connector-c1 al conector connector-c2."
+			},
+			"response": []
+		},
+		{
+			"name": "Connector1: Internal - Create Asset",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c1-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "json",
+							"value": "{\n    \"@context\": {\n        \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n    },\n    \"@id\": \"c1-internalS3-asset3\",\n    \"properties\": {\n        \"name\": \"c1-internalS3-asset\",\n        \"contenttype\": \"text/plain\"\n    },\n    \"dataAddress\": {\n        \"type\": \"InesDataStore\",\n\t\t\"folder\": \"prueba\"\n    }\n}",
+							"contentType": "application/json",
+							"type": "text"
+						},
+						{
+							"key": "file",
+							"type": "file",
+							"src": "//inesdata/files/test.txt"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseUrl}}:19193/management/s3assets",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "19193",
+					"path": [
+						"management",
+						"s3assets"
+					]
+				},
+				"description": "Creación de Asset tipo AmazonS3 (MinIO) en el conector connector-c1."
+			},
+			"response": []
+		},
+		{
+			"name": "Connector2: Internal - Get Federated Catalog",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c2-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"@context\": {\r\n        \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n    },\r\n    \"operandLeft\": \"\",\r\n    \"operandRight\": \"\",\r\n    \"operator\": \"\",\r\n    \"Criterion\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:29195/federatedcatalog/v1alpha/catalog/query",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "29195",
+					"path": [
+						"federatedcatalog",
+						"v1alpha",
+						"catalog",
+						"query"
+					]
+				},
+				"description": "Obtención de los data offerings cacheados por el Federated Catalog."
+			},
+			"response": []
+		},
+		{
+			"name": "Connector2: Internal - Negotiate Contract  Connector1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"A contractid is returned\", () => {",
+							"    pm.collectionVariables.set('contractid', pm.response.json()[\"@id\"])",
+							"})",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c2-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\",\r\n    \"odrl\": \"http://www.w3.org/ns/odrl.jsonld\"\r\n  },\r\n  \"@type\": \"ContractRequest\",\r\n  \"counterPartyAddress\": \"http://connector-c1:19194/protocol\",\r\n  \"protocol\": \"dataspace-protocol-http\",\r\n  \"policy\": {\r\n    \"@context\": \"http://www.w3.org/ns/odrl.jsonld\",\r\n    \"@id\": \"[[policy_id]]\",\r\n    \"@type\": \"Offer\",\r\n    \"odrl:permission\": {\r\n        \"odrl:action\": {\r\n            \"odrl:type\": \"USE\"\r\n        },\r\n        \"odrl:constraint\": {\r\n            \"odrl:leftOperand\": \"POLICY_EVALUATION_TIME\",\r\n            \"odrl:operator\": {\r\n                \"@id\": \"odrl:lt\"\r\n            },\r\n            \"odrl:rightOperand\": \"2024-12-31T23:59:59+01:00\"\r\n        }\r\n    },\r\n    \"assigner\": \"connector-c1\",\r\n    \"target\": \"c1-internalS3-asset3\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:29193/management/v3/contractnegotiations",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "29193",
+					"path": [
+						"management",
+						"v3",
+						"contractnegotiations"
+					]
+				},
+				"description": "Obtención del estado de la negociación del contrato del asset de S3 entre el conector connector-c1 y el conector connector-c2."
+			},
+			"response": []
+		},
+		{
+			"name": "Connector2: Internal - Negotiation status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"A contractAgreementId is returned\", () => {",
+							"    pm.collectionVariables.set('contractAgreementId', pm.response.json()[\"contractAgreementId\"])",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c2-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:29193/management/v3/contractnegotiations/{{contractid}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "29193",
+					"path": [
+						"management",
+						"v3",
+						"contractnegotiations",
+						"{{contractid}}"
+					]
+				},
+				"description": "Obtención del estado de la negociación del contrato entre el conector connector-c1 y el conector connector-c2."
+			},
+			"response": []
+		},
+		{
+			"name": "Connector2: Internal - Start transfer Http Internal",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"A transferId is returned\", () => {",
+							"    pm.collectionVariables.set('transferId', pm.response.json()[\"@id\"])",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c2-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"@context\": {\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n  },\n  \"@type\": \"TransferRequestDto\",\n  \"connectorId\": \"connector-c2\",\n  \"counterPartyAddress\": \"http://connector-c1:19194/protocol\",\n  \"contractId\": \"{{contractAgreementId}}\",\n  \"assetId\": \"c1-internalS3-asset3\",\n  \"protocol\": \"dataspace-protocol-http\",\n  \"transferType\": \"HttpData-PULL\",\n  \"managedResources\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:29193/management/v3/transferprocesses",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "29193",
+					"path": [
+						"management",
+						"v3",
+						"transferprocesses"
+					]
+				},
+				"description": "Comienzo de transferencia AmazonS3 (Push) de un asset S3 del conector connector-c1 desde el conector connector-c2."
+			},
+			"response": []
+		},
+		{
+			"name": "Connector2: Internal - Get Transfer Endpoint",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"An authorization token is returned\", () => {",
+							"    pm.collectionVariables.set('authorizationToken', pm.response.json()[\"authorization\"])",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c2-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:29193/management/v1/edrs/{{transferId}}/dataaddress",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "29193",
+					"path": [
+						"management",
+						"v1",
+						"edrs",
+						"{{transferId}}",
+						"dataaddress"
+					]
+				},
+				"description": "Obtención de la URL y token para la descarga del asset del conector connector-c1 desde el conector connector-c2."
+			},
+			"response": []
+		},
+		{
+			"name": "Connector1: Internal - Download file",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{authorizationToken}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:19291/public/",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "19291",
+					"path": [
+						"public",
+						""
+					]
+				},
+				"description": "Descarga del asset del conector connector-c1."
+			},
+			"response": []
+		},
+		{
+			"name": "Connector2: Internal - Negotiate Contract  Connector1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"A contractid is returned\", () => {",
+							"    pm.collectionVariables.set('contractid', pm.response.json()[\"@id\"])",
+							"})",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c2-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\",\r\n    \"odrl\": \"http://www.w3.org/ns/odrl.jsonld\"\r\n  },\r\n  \"@type\": \"ContractRequest\",\r\n  \"counterPartyAddress\": \"http://connector-c1:19194/protocol\",\r\n  \"protocol\": \"dataspace-protocol-http\",\r\n  \"policy\": {\r\n    \"@context\": \"http://www.w3.org/ns/odrl.jsonld\",\r\n    \"@id\": \"[[policy_id]]\",\r\n    \"@type\": \"Offer\",\r\n    \"odrl:permission\": {\r\n        \"odrl:action\": {\r\n            \"odrl:type\": \"USE\"\r\n        },\r\n        \"odrl:constraint\": {\r\n            \"odrl:leftOperand\": \"POLICY_EVALUATION_TIME\",\r\n            \"odrl:operator\": {\r\n                \"@id\": \"odrl:lt\"\r\n            },\r\n            \"odrl:rightOperand\": \"2024-12-31T23:59:59+01:00\"\r\n        }\r\n    },\r\n    \"assigner\": \"connector-c1\",\r\n    \"target\": \"c1-internalS3-asset3\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:29193/management/v3/contractnegotiations",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "29193",
+					"path": [
+						"management",
+						"v3",
+						"contractnegotiations"
+					]
+				},
+				"description": "Obtención del estado de la negociación del contrato del asset de S3 entre el conector connector-c1 y el conector connector-c2."
+			},
+			"response": []
+		},
+		{
+			"name": "Connector2: Internal - Negotiation status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"A contractAgreementId is returned\", () => {",
+							"    pm.collectionVariables.set('contractAgreementId', pm.response.json()[\"contractAgreementId\"])",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c2-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:29193/management/v3/contractnegotiations/{{contractid}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "29193",
+					"path": [
+						"management",
+						"v3",
+						"contractnegotiations",
+						"{{contractid}}"
+					]
+				},
+				"description": "Obtención del estado de la negociación del contrato entre el conector connector-c1 y el conector connector-c2."
+			},
+			"response": []
+		},
+		{
+			"name": "Connector2: Internal - Start transfer S3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"A transferId is returned\", () => {",
+							"    pm.collectionVariables.set('transferId', pm.response.json()[\"@id\"])",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c2-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"@context\": {\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\n  },\n  \"@type\": \"TransferRequestDto\",\n  \"connectorId\": \"connector-c2\",\n  \"counterPartyAddress\": \"http://connector-c1:19194/protocol\",\n  \"contractId\": \"{{contractAgreementId}}\",\n  \"assetId\": \"c1-internalS3-asset3\",\n  \"protocol\": \"dataspace-protocol-http\",\n  \"transferType\": \"AmazonS3-PUSH\",\n  \"dataDestination\": {\n    \"properties\": {\n      \"type\": \"AmazonS3\",\n      \"region\": \"us-east-1\",\n      \"bucketName\": \"bucket-connector-2\",\n      \"accessKeyId\": \"wEfyrv2vH7Wj3ON03g8V\",\n      \"secretAccessKey\": \"JlHVGgSgeRkbs6WtKTugR4I5uU7oA1VRf8kBtrGd\"\n    },\n    \"endpointOverride\": \"http://minio-c2:9000\",\n    \"type\": \"AmazonS3\"\n  },\n  \"managedResources\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:29193/management/v3/transferprocesses",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "29193",
+					"path": [
+						"management",
+						"v3",
+						"transferprocesses"
+					]
+				},
+				"description": "Comienzo de transferencia AmazonS3 (Push) de un asset S3 del conector connector-c1 desde el conector connector-c2."
+			},
+			"response": []
+		},
+		{
+			"name": "Connector2: Internal - Transfer status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c2-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:29193/management/v3/transferprocesses/{{transferId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "29193",
+					"path": [
+						"management",
+						"v3",
+						"transferprocesses",
+						"{{transferId}}"
+					]
+				},
+				"description": "Estado de la transferencia AmazonS3 (Push) del asset S3 del conector connector-c1 al conector connector-c2."
+			},
+			"response": []
+		},
+		{
+			"name": "[OPTIONAL] Connector2: S3 - Transfer terminated",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c2-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@type\": \"https://w3id.org/edc/v0.0.1/ns/TerminateTransfer\",\r\n  \"reason\": \"a reason to terminate\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:29193/management/v3/transferprocesses/{{transferId}}/terminate",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "29193",
+					"path": [
+						"management",
+						"v3",
+						"transferprocesses",
+						"{{transferId}}",
+						"terminate"
 					]
 				},
 				"description": "Estado de la transferencia AmazonS3 (Push) del asset S3 del conector connector-c1 al conector connector-c2."
@@ -1208,6 +2045,11 @@
 		},
 		{
 			"key": "c2-jwt",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "authorizationToken",
 			"value": "",
 			"type": "string"
 		}
