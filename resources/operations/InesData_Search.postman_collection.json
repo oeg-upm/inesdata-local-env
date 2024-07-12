@@ -1,0 +1,1030 @@
+{
+	"info": {
+		"_postman_id": "7598387d-3854-46b9-afe8-6b5ddb750aea",
+		"name": "INESData Search",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6137850"
+	},
+	"item": [
+		{
+			"name": "User Conn1: Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"An access_token is returned\", () => {\r",
+							"    pm.collectionVariables.set('c1-jwt', pm.response.json()[\"access_token\"])\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "dataspace-users",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "user-c1",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "user-c1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseUrl}}:8080/realms/dataspace/protocol/openid-connect/token",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "8080",
+					"path": [
+						"realms",
+						"dataspace",
+						"protocol",
+						"openid-connect",
+						"token"
+					]
+				},
+				"description": "Registro del Data Plane para el conector connector-c1."
+			},
+			"response": []
+		},
+		{
+			"name": "User Conn2: Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"An access_token is returned\", () => {\r",
+							"    pm.collectionVariables.set('c2-jwt', pm.response.json()[\"access_token\"])\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "dataspace-users",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "user-c2",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "user-c2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseUrl}}:8080/realms/dataspace/protocol/openid-connect/token",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "8080",
+					"path": [
+						"realms",
+						"dataspace",
+						"protocol",
+						"openid-connect",
+						"token"
+					]
+				},
+				"description": "Registro del Data Plane para el conector connector-c1."
+			},
+			"response": []
+		},
+		{
+			"name": "Create Vocabulary - Conn1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c1-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@id\": \"machine-learning-vocabulary\",\r\n  \"name\": \"Vocabulary for machine learning\",\r\n  \"category\": \"machineLearning\",\r\n  \"jsonSchema\": \"{ \\\"title\\\":\\\"machine learning vocabulary\\\", \\\"type\\\":\\\"object\\\", \\\"properties\\\":{ \\\"title\\\":{ \\\"type\\\":\\\"string\\\", \\\"title\\\":\\\"Title\\\" }, \\\"keyword\\\":{ \\\"type\\\":\\\"array\\\", \\\"title\\\":\\\"Keywords\\\", \\\"items\\\":{ \\\"type\\\":\\\"string\\\" } }, \\\"trainedOn\\\":{ \\\"type\\\":\\\"array\\\", \\\"title\\\":\\\"Trained on\\\", \\\"items\\\":{ \\\"type\\\":\\\"object\\\", \\\"title\\\":\\\"Training dataset\\\", \\\"properties\\\":{ \\\"identifier\\\":{ \\\"type\\\":\\\"string\\\", \\\"title\\\":\\\"id\\\" }, \\\"name\\\":{ \\\"type\\\":\\\"string\\\", \\\"title\\\":\\\"Name\\\" }, \\\"description\\\":{ \\\"type\\\":\\\"string\\\", \\\"title\\\":\\\"Description\\\" }, \\\"url\\\":{ \\\"type\\\":\\\"string\\\", \\\"title\\\":\\\"URL\\\" } }, \\\"required\\\":[ \\\"name\\\" ] } } }, \\\"required\\\":[ \\\"title\\\" ] }\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:19193/management/vocabularies",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "19193",
+					"path": [
+						"management",
+						"vocabularies"
+					]
+				},
+				"description": "Creación de una defición de contrato que aplica la política vacía a todos los assets del conector connector-c1."
+			},
+			"response": []
+		},
+		{
+			"name": "Create Vocabulary - Conn2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c1-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@id\": \"inesdata-vocabulary\",\r\n  \"name\": \"Vocabulary for Inesdata\",\r\n  \"category\": \"default\",\r\n  \"jsonSchema\": \"{ \\\"title\\\": \\\"vocabulary\\\", \\\"type\\\": \\\"object\\\", \\\"properties\\\": { \\\"title\\\": { \\\"type\\\": \\\"string\\\", \\\"title\\\": \\\"Title\\\" }, \\\"keyword\\\": { \\\"type\\\": \\\"array\\\", \\\"title\\\": \\\"Keywords\\\", \\\"items\\\": { \\\"type\\\": \\\"string\\\" } } }, \\\"required\\\": [ \\\"title\\\"] }\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:19193/management/vocabularies",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "19193",
+					"path": [
+						"management",
+						"vocabularies"
+					]
+				},
+				"description": "Creación de una defición de contrato que aplica la política vacía a todos los assets del conector connector-c1."
+			},
+			"response": []
+		},
+		{
+			"name": "Create Asset - Conn1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c1-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"@id\":\"inesdata-conn1\",\r\n   \"properties\":{\r\n      \"assetData\":{\r\n         \"machine-learning-vocabulary\":{\r\n            \"title\":\"machine learning titulo\",\r\n            \"keyword\":[\r\n               \"conn1\",\r\n               \"test\"\r\n            ],\r\n            \"trainedOn\":[\r\n               {\r\n                  \"identifier\":\"id-trained\",\r\n                  \"name\":\"name-trained\",\r\n                  \"description\":\"desc-trained\",\r\n                  \"url\":\"url-trained\"\r\n               },\r\n               {\r\n                  \"identifier\":\"other-id-trained\",\r\n                  \"name\":\"other-name-trained\",\r\n                  \"description\":\"other-desc-trained\",\r\n                  \"url\":\"other-url-trained\"\r\n               }\r\n            ]\r\n         }\r\n      },\r\n      \"name\":\"inesdata-dataset-conn1\",\r\n      \"version\":\"1.0\",\r\n      \"contenttype\":\"text/plain\",\r\n      \"assetType\":\"dataset\",\r\n      \"shortDescription\":\"This is a short a description\",\r\n      \"dcterms:description\":\"<p>This is a long description</p>\",\r\n      \"dcat:keyword\":\"conn1,dataset,test\",\r\n      \"dcat:byteSize\":\"512\",\r\n      \"dcterms:format\":\"txt\"\r\n   },\r\n   \"dataAddress\":{\r\n      \"type\":\"HttpData\",\r\n      \"baseUrl\":\"https://inesdata-project.eu/content/en/index.html\",\r\n      \"proxyPath\":\"true\",\r\n      \"name\":\"inesdata-conn1\"\r\n   },\r\n   \"@context\":{\r\n      \"@vocab\":\"https://w3id.org/edc/v0.0.1/ns/\",\r\n      \"dcterms\":\"http://purl.org/dc/terms/\",\r\n      \"dcat\":\"http://www.w3.org/ns/dcat#\"\r\n   }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:19193/management/v3/assets",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "19193",
+					"path": [
+						"management",
+						"v3",
+						"assets"
+					]
+				},
+				"description": "Creación de Asset tipo HttpData en el conector connector-c1."
+			},
+			"response": []
+		},
+		{
+			"name": "Create Asset - Conn2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c1-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"@id\":\"inesdata-conn2\",\r\n   \"properties\":{\r\n      \"assetData\":{\r\n         \"dcat-vocabulary\":[\r\n            {\r\n               \"http://purl.org/dc/terms/issued\":[\r\n                  {\r\n                     \"@value\":\"2024-07-01\"\r\n                  }\r\n               ],\r\n               \"http://purl.org/dc/terms/language\":[\r\n                  {\r\n                     \"@value\":\"spanish\"\r\n                  },\r\n                  {\r\n                     \"@value\":\"english\"\r\n                  }\r\n               ],\r\n               \"http://purl.org/dc/terms/publisher\":[\r\n                  {\r\n                     \"@id\":\"dct-publisher\",\r\n                     \"http://www.w3.org/2004/02/skos/core#notation\":[\r\n                        {\r\n                           \"@value\":\"notation-publisher\"\r\n                        }\r\n                     ],\r\n                     \"http://www.w3.org/2004/02/skos/core#prefLabel\":[\r\n                        {\r\n                           \"@value\":\"label-publisher\"\r\n                        }\r\n                     ]\r\n                  }\r\n               ]\r\n            }\r\n         ]\r\n      },\r\n      \"name\":\"inesdata-conn2-name\",\r\n      \"version\":\"2.0\",\r\n      \"assetType\":\"service\",\r\n      \"shortDescription\":\"A short description of the asset\",\r\n      \"dcterms:description\":\"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque imperdiet volutpat velit nec imperdiet. Nam finibus vel lorem id venenatis. Nullam sed lacinia tellus, non malesuada ligula. Quisque quis tortor et nisl tristique varius non eu odio. Vivamus interdum molestie pharetra.</p>\",\r\n      \"dcat:keyword\":\"service,conn2,test\"\r\n   },\r\n   \"dataAddress\":{\r\n      \"type\":\"HttpData\",\r\n      \"baseUrl\":\"https://inesdata-project.eu/content/en/index.html\",\r\n      \"name\":\"inesdata-conn2\",\r\n      \"proxyPath\":\"true\"\r\n   },\r\n   \"@context\":{\r\n      \"@vocab\":\"https://w3id.org/edc/v0.0.1/ns/\",\r\n      \"dcterms\":\"http://purl.org/dc/terms/\",\r\n      \"dcat\":\"http://www.w3.org/ns/dcat#\"\r\n   }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:29193/management/v3/assets",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "29193",
+					"path": [
+						"management",
+						"v3",
+						"assets"
+					]
+				},
+				"description": "Creación de Asset tipo HttpData en el conector connector-c1."
+			},
+			"response": []
+		},
+		{
+			"name": "Create Asset - Conn2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c1-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"@id\":\"inesdata-conn2-other\",\r\n   \"properties\":{\r\n      \"assetData\":{\r\n         \"dcat-vocabulary\":[\r\n            {\r\n               \"http://purl.org/dc/terms/issued\":[\r\n                  {\r\n                     \"@value\":\"2024-07-07\"\r\n                  }\r\n               ],\r\n               \"http://purl.org/dc/terms/language\":[\r\n                  {\r\n                     \"@value\":\"spanish\"\r\n                  },\r\n                  {\r\n                     \"@value\":\"german\"\r\n                  }\r\n               ],\r\n               \"http://purl.org/dc/terms/publisher\":[\r\n                  {\r\n                     \"@id\":\"dct-publisher-other\",\r\n                     \"http://www.w3.org/2004/02/skos/core#notation\":[\r\n                        {\r\n                           \"@value\":\"notation-publisher-other\"\r\n                        }\r\n                     ],\r\n                     \"http://www.w3.org/2004/02/skos/core#prefLabel\":[\r\n                        {\r\n                           \"@value\":\"label-publisher-other\"\r\n                        }\r\n                     ]\r\n                  }\r\n               ]\r\n            }\r\n         ]\r\n      },\r\n      \"name\":\"inesdata-conn2-other-name\",\r\n      \"version\":\"3.0\",\r\n      \"assetType\":\"dataset\",\r\n      \"shortDescription\":\"A short description of the other asset\",\r\n      \"dcterms:description\":\"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque imperdiet volutpat velit nec imperdiet. Nam finibus vel lorem id venenatis. Nullam sed lacinia tellus, non malesuada ligula. Quisque quis tortor et nisl tristique varius non eu odio. Vivamus interdum molestie pharetra.</p>\",\r\n      \"dcat:keyword\":\"dataset,conn2,test\"\r\n   },\r\n   \"dataAddress\":{\r\n      \"type\":\"HttpData\",\r\n      \"baseUrl\":\"https://inesdata-project.eu/content/en/index.html\",\r\n      \"name\":\"inesdata-conn2\",\r\n      \"proxyPath\":\"true\"\r\n   },\r\n   \"@context\":{\r\n      \"@vocab\":\"https://w3id.org/edc/v0.0.1/ns/\",\r\n      \"dcterms\":\"http://purl.org/dc/terms/\",\r\n      \"dcat\":\"http://www.w3.org/ns/dcat#\"\r\n   }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:29193/management/v3/assets",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "29193",
+					"path": [
+						"management",
+						"v3",
+						"assets"
+					]
+				},
+				"description": "Creación de Asset tipo HttpData en el conector connector-c1."
+			},
+			"response": []
+		},
+		{
+			"name": "Create 2024 Policy - Conn1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c1-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"@context\": {\r\n        \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\",\r\n        \"odrl\": \"http://www.w3.org/ns/odrl/2/\"\r\n    },\r\n    \"@id\": \"in-2024-policy\",\r\n    \"policy\": {\r\n        \"@context\": \"http://www.w3.org/ns/odrl.jsonld\",\r\n        \"@type\": \"Set\",\r\n        \"odrl:permission\": {\r\n            \"odrl:action\": {\r\n                \"odrl:type\": \"USE\"\r\n            },\r\n            \"odrl:constraint\": {\r\n                \"odrl:leftOperand\": \"POLICY_EVALUATION_TIME\",\r\n                \"odrl:operator\": {\r\n                    \"@id\": \"odrl:lt\"\r\n                },\r\n                \"odrl:rightOperand\": \"2024-12-31T23:59:59+01:00\"\r\n            }\r\n        },\r\n        \"prohibition\": [],\r\n        \"obligation\": []\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:19193/management/v3/policydefinitions",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "19193",
+					"path": [
+						"management",
+						"v3",
+						"policydefinitions"
+					]
+				},
+				"description": "Creación de una política que aplica durante el año 2024 en el conector connector-c1."
+			},
+			"response": []
+		},
+		{
+			"name": "Create 2024 Policy - Conn2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c1-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"@context\": {\r\n        \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\",\r\n        \"odrl\": \"http://www.w3.org/ns/odrl/2/\"\r\n    },\r\n    \"@id\": \"in-2024-policy\",\r\n    \"policy\": {\r\n        \"@context\": \"http://www.w3.org/ns/odrl.jsonld\",\r\n        \"@type\": \"Set\",\r\n        \"odrl:permission\": {\r\n            \"odrl:action\": {\r\n                \"odrl:type\": \"USE\"\r\n            },\r\n            \"odrl:constraint\": {\r\n                \"odrl:leftOperand\": \"POLICY_EVALUATION_TIME\",\r\n                \"odrl:operator\": {\r\n                    \"@id\": \"odrl:lt\"\r\n                },\r\n                \"odrl:rightOperand\": \"2024-12-31T23:59:59+01:00\"\r\n            }\r\n        },\r\n        \"prohibition\": [],\r\n        \"obligation\": []\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:29193/management/v3/policydefinitions",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "29193",
+					"path": [
+						"management",
+						"v3",
+						"policydefinitions"
+					]
+				},
+				"description": "Creación de una política que aplica durante el año 2024 en el conector connector-c1."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Paginated Federated Catalog",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c1-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"offset\": 0,\r\n  \"limit\": 5,\r\n  \"sortOrder\":  \"ASC\",\r\n  \"sortField\": \"id\",\r\n  \"filterExpression\": [\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:19193/management/federatedcatalog/request",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "19193",
+					"path": [
+						"management",
+						"federatedcatalog",
+						"request"
+					]
+				},
+				"description": "Obtención de los data offerings cacheados por el Federated Catalog."
+			},
+			"response": []
+		},
+		{
+			"name": "Count - Search - Generic properties",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c1-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"filterExpression\": [\r\n        {\r\n            \"operandLeft\": \"genericSearch\",\r\n            \"operator\": \"LIKE\",\r\n            \"operandRight\": \"%conn2%\"\r\n        }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:19193/management/pagination/count?type=federatedCatalog",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "19193",
+					"path": [
+						"management",
+						"pagination",
+						"count"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "federatedCatalog"
+						}
+					]
+				},
+				"description": "Creación de Asset tipo HttpData en el conector connector-c1."
+			},
+			"response": []
+		},
+		{
+			"name": "Search - Generic properties",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c1-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"offset\": 0,\r\n  \"limit\": 5,\r\n  \"sortOrder\":  \"ASC\",\r\n  \"sortField\": \"id\",\r\n  \"filterExpression\": [\r\n        {\r\n            \"operandLeft\": \"genericSearch\",\r\n            \"operator\": \"LIKE\",\r\n            \"operandRight\": \"%conn2%\"\r\n        }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:19193/management/federatedcatalog/request",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "19193",
+					"path": [
+						"management",
+						"federatedcatalog",
+						"request"
+					]
+				},
+				"description": "Obtención de los data offerings cacheados por el Federated Catalog."
+			},
+			"response": []
+		},
+		{
+			"name": "Count - Search - Regular vocabulary property",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c1-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"filterExpression\": [\r\n        {\r\n            \"operandLeft\": \"'https://w3id.org/edc/v0.0.1/ns/assetData'.'https://w3id.org/edc/v0.0.1/ns/dcat-vocabulary'.'http://purl.org/dc/terms/language'\",\r\n            \"operator\": \"=\",\r\n            \"operandRight\": \"english\"\r\n        }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:19193/management/pagination/count?type=federatedCatalog",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "19193",
+					"path": [
+						"management",
+						"pagination",
+						"count"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "federatedCatalog"
+						}
+					]
+				},
+				"description": "Creación de Asset tipo HttpData en el conector connector-c1."
+			},
+			"response": []
+		},
+		{
+			"name": "Search - Regular vocabulary property",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c1-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"offset\": 0,\r\n  \"limit\": 5,\r\n  \"sortOrder\":  \"ASC\",\r\n  \"sortField\": \"id\",\r\n  \"filterExpression\": [\r\n        {\r\n            \"operandLeft\": \"'https://w3id.org/edc/v0.0.1/ns/assetData'.'https://w3id.org/edc/v0.0.1/ns/dcat-vocabulary'.'http://purl.org/dc/terms/language'\",\r\n            \"operator\": \"=\",\r\n            \"operandRight\": \"english\"\r\n        }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:19193/management/federatedcatalog/request",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "19193",
+					"path": [
+						"management",
+						"federatedcatalog",
+						"request"
+					]
+				},
+				"description": "Obtención de los data offerings cacheados por el Federated Catalog."
+			},
+			"response": []
+		},
+		{
+			"name": "Count - Search - Complex vocabulary property",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c1-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"filterExpression\": [\r\n        {\r\n            \"operandLeft\": \"'https://w3id.org/edc/v0.0.1/ns/assetData'.'https://w3id.org/edc/v0.0.1/ns/machine-learning-vocabulary'.'https://w3id.org/edc/v0.0.1/ns/trainedOn'.'https://w3id.org/edc/v0.0.1/ns/name'\",\r\n            \"operator\": \"=\",\r\n            \"operandRight\": \"name-trained\"\r\n        }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:19193/management/pagination/count?type=federatedCatalog",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "19193",
+					"path": [
+						"management",
+						"pagination",
+						"count"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "federatedCatalog"
+						}
+					]
+				},
+				"description": "Creación de Asset tipo HttpData en el conector connector-c1."
+			},
+			"response": []
+		},
+		{
+			"name": "Search - Complex vocabulary property",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c1-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"offset\": 0,\r\n  \"limit\": 5,\r\n  \"sortOrder\":  \"ASC\",\r\n  \"sortField\": \"id\",\r\n  \"filterExpression\": [\r\n        {\r\n            \"operandLeft\": \"'https://w3id.org/edc/v0.0.1/ns/assetData'.'https://w3id.org/edc/v0.0.1/ns/machine-learning-vocabulary'.'https://w3id.org/edc/v0.0.1/ns/trainedOn'.'https://w3id.org/edc/v0.0.1/ns/name'\",\r\n            \"operator\": \"=\",\r\n            \"operandRight\": \"name-trained\"\r\n        }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:19193/management/federatedcatalog/request",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "19193",
+					"path": [
+						"management",
+						"federatedcatalog",
+						"request"
+					]
+				},
+				"description": "Obtención de los data offerings cacheados por el Federated Catalog."
+			},
+			"response": []
+		},
+		{
+			"name": "Count - Search - Multiple filters",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c1-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"filterExpression\": [\r\n        {\r\n            \"operandLeft\": \"genericSearch\",\r\n            \"operator\": \"LIKE\",\r\n            \"operandRight\": \"%test%\"\r\n        },\r\n        {\r\n            \"operandLeft\": \"'https://w3id.org/edc/v0.0.1/ns/assetData'.'https://w3id.org/edc/v0.0.1/ns/dcat-vocabulary'.'http://purl.org/dc/terms/language'\",\r\n            \"operator\": \"=\",\r\n            \"operandRight\": \"spanish\"\r\n        },\r\n        {\r\n            \"operandLeft\": \"'https://w3id.org/edc/v0.0.1/ns/assetData'.'https://w3id.org/edc/v0.0.1/ns/dcat-vocabulary'.'http://purl.org/dc/terms/publisher'.'http://www.w3.org/2004/02/skos/core#notation'\",\r\n            \"operator\": \"=\",\r\n            \"operandRight\": \"notation-publisher\"\r\n        }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:19193/management/pagination/count?type=federatedCatalog",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "19193",
+					"path": [
+						"management",
+						"pagination",
+						"count"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "federatedCatalog"
+						}
+					]
+				},
+				"description": "Creación de Asset tipo HttpData en el conector connector-c1."
+			},
+			"response": []
+		},
+		{
+			"name": "Search - Multiple filters",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c1-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"offset\": 0,\r\n  \"limit\": 5,\r\n  \"sortOrder\":  \"ASC\",\r\n  \"sortField\": \"id\",\r\n  \"filterExpression\": [\r\n        {\r\n            \"operandLeft\": \"genericSearch\",\r\n            \"operator\": \"LIKE\",\r\n            \"operandRight\": \"%test%\"\r\n        },\r\n        {\r\n            \"operandLeft\": \"'https://w3id.org/edc/v0.0.1/ns/assetData'.'https://w3id.org/edc/v0.0.1/ns/dcat-vocabulary'.'http://purl.org/dc/terms/language'\",\r\n            \"operator\": \"=\",\r\n            \"operandRight\": \"spanish\"\r\n        },\r\n        {\r\n            \"operandLeft\": \"'https://w3id.org/edc/v0.0.1/ns/assetData'.'https://w3id.org/edc/v0.0.1/ns/dcat-vocabulary'.'http://purl.org/dc/terms/publisher'.'http://www.w3.org/2004/02/skos/core#notation'\",\r\n            \"operator\": \"=\",\r\n            \"operandRight\": \"notation-publisher\"\r\n        }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:19193/management/federatedcatalog/request",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "19193",
+					"path": [
+						"management",
+						"federatedcatalog",
+						"request"
+					]
+				},
+				"description": "Obtención de los data offerings cacheados por el Federated Catalog."
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": ""
+		},
+		{
+			"key": "baseUrl",
+			"value": "http://localhost"
+		},
+		{
+			"key": "c1-jwt",
+			"value": ""
+		},
+		{
+			"key": "c2-jwt",
+			"value": ""
+		}
+	]
+}

@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "4801dece-7729-4df1-9a8d-07d78e650531",
+		"_postman_id": "5d6de9ba-2e64-4f93-ac27-4ae4648ac327",
 		"name": "INESData Connector Management API",
 		"description": "# ⛓️ INESData Connector Management API\n\nPrincipales métodos para la gestión de entidades en el conector de INESData",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
@@ -422,8 +422,17 @@
 						}
 					]
 				},
-				"method": "GET",
+				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"filterExpression\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
 					"raw": "{{baseUrl}}:19193/management/pagination/count?type=asset",
 					"host": [
@@ -727,9 +736,6 @@
 					}
 				}
 			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -741,11 +747,11 @@
 						}
 					]
 				},
-				"method": "GET",
+				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"offset\": 0,\r\n  \"limit\": 5,\r\n  \"sortOrder\":  \"ASC\",\r\n  \"sortField\": \"id\",\r\n  \"filterExpression\": []\r\n}",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"filterExpression\": []\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1054,9 +1060,6 @@
 					}
 				}
 			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -1068,11 +1071,11 @@
 						}
 					]
 				},
-				"method": "GET",
+				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"offset\": 0,\r\n  \"limit\": 5,\r\n  \"sortOrder\":  \"ASC\",\r\n  \"sortField\": \"id\",\r\n  \"filterExpression\": []\r\n}",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"filterExpression\": []\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1643,9 +1646,6 @@
 					}
 				}
 			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -1657,11 +1657,11 @@
 						}
 					]
 				},
-				"method": "GET",
+				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"offset\": 0,\r\n  \"limit\": 5,\r\n  \"sortOrder\":  \"ASC\",\r\n  \"sortField\": \"id\",\r\n  \"filterExpression\": []\r\n}",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"filterExpression\": []\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1704,9 +1704,6 @@
 					}
 				}
 			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -1718,11 +1715,11 @@
 						}
 					]
 				},
-				"method": "GET",
+				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"offset\": 0,\r\n  \"limit\": 5,\r\n  \"sortOrder\":  \"ASC\",\r\n  \"sortField\": \"id\",\r\n  \"filterExpression\": []\r\n}",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"filterExpression\": []\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1765,9 +1762,6 @@
 					}
 				}
 			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -1779,7 +1773,7 @@
 						}
 					]
 				},
-				"method": "GET",
+				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
