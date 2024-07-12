@@ -157,7 +157,7 @@ services:
     build:
       context: .
     ports:
-      - 59192:59191
+      - 59191:59191
     volumes:
       - ./resources:/opt/connector/resources
     environment:
