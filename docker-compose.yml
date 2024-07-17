@@ -126,6 +126,8 @@ services:
         condition: service_healthy
       vault:
         condition: service_healthy
+      registration-service:
+        condition: service_healthy
 
   connector-c2:
     image: ghcr.io/oeg-upm/inesdata-connector:0.4.0
@@ -151,9 +153,11 @@ services:
         condition: service_healthy
       vault:
         condition: service_healthy
+      registration-service:
+        condition: service_healthy
 
   registration-service:
-    image: ghcr.io/oeg-upm/registration-service:latest
+    image: ghcr.io/oeg-upm/inesdata-registration-service:latest
     build:
       context: .
     ports:
@@ -179,6 +183,8 @@ services:
       - APP_SECURITY_OAUTH2_ALLOWEDROLES2=connector-user
       - APP_SECURITY_OAUTH2_ALLOWEDROLES3=dataspace-admin
       - APP_ALLOWED_ROLE=dataspace-admin
+      - MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE=*
+      - MANAGEMENT_ENDPOINT_HEALTH_SHOWDETAILS=always
     depends_on:
       keycloak:
         condition: service_healthy
@@ -186,6 +192,11 @@ services:
         condition: service_healthy
       vault:
         condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "wget", "--spider", "--proxy", "off", "http://localhost:59191/api/actuator/health"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
 
   connector-interface-c1:
     image: ghcr.io/oeg-upm/inesdata-connector-interface:0.4.0
