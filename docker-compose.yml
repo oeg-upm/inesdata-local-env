@@ -185,6 +185,8 @@ services:
       - APP_ALLOWED_ROLE=dataspace-admin
       - MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE=*
       - MANAGEMENT_ENDPOINT_HEALTH_SHOWDETAILS=always
+      - SPRING_LIQUIBASE_ENABLED=true
+      - SPRING_LIQUIBASE_CHANGELOG=classpath:/db/changelog/db.changelog-master.xml
     depends_on:
       keycloak:
         condition: service_healthy

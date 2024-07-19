@@ -456,7 +456,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{c1-jwt}}",
+									"value": "{{c2-jwt}}",
 									"type": "string"
 								}
 							]
@@ -474,7 +474,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"participantId\": \"connector1\",\n  \"url\": \"http://connector1/protocol\"\n}",
+							"raw": "{\n  \"participantId\": \"connector1\",\n  \"url\": \"http://connector1/protocol\",\n  \"sharedUrl\": \"http://connector1/shared\"\n}",
 							"options": {
 								"raw": {
 									"headerFamily": "json",
