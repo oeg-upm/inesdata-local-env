@@ -110,6 +110,7 @@ services:
       - '19194:19194'
       - '19195:19195'
       - '19291:19291'
+      - '19196:19196'
     volumes:
       - ./resources:/opt/connector/resources
     environment:
@@ -135,6 +136,7 @@ services:
       - '29194:29194'
       - '29195:29195'
       - '29291:29291'
+      - '29196:29196'
     volumes:
       - ./resources:/opt/connector/resources
     environment:
