@@ -8,12 +8,13 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_MULTIPLE_DATABASES=keycloak,strapi,connector1,connector2
+      - POSTGRES_MULTIPLE_DATABASES=keycloak,strapi,connector1,connector2,registrationservice
     volumes: 
       - pgdata-common:/var/lib/postgresql/data
       - ./resources/postgres/init-multi-postgres-databases.sh:/docker-entrypoint-initdb.d/init-multi-postgres-databases.sh
-      - ./resources/db-init/:/docker-entrypoint-initdb.d/connector1
-      - ./resources/db-init/:/docker-entrypoint-initdb.d/connector2
+      - ./resources/db-init/connector/:/docker-entrypoint-initdb.d/connector1
+      - ./resources/db-init/connector/:/docker-entrypoint-initdb.d/connector2
+      - ./resources/db-init/registrationservice/:/docker-entrypoint-initdb.d/registrationservice
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U postgres" ]
       interval: 5s
@@ -126,6 +127,8 @@ services:
         condition: service_healthy
       vault:
         condition: service_healthy
+      registration-service:
+        condition: service_healthy
 
   connector-c2:
     image: ghcr.io/oeg-upm/inesdata-connector:0.4.0
@@ -152,6 +155,52 @@ services:
         condition: service_healthy
       vault:
         condition: service_healthy
+      registration-service:
+        condition: service_healthy
+
+  registration-service:
+    image: ghcr.io/oeg-upm/inesdata-registration-service:latest
+    build:
+      context: .
+    ports:
+      - 59191:59191
+    volumes:
+      - ./resources:/opt/connector/resources
+    environment:
+      - SERVER_PORT=59191
+      - SERVER_SERVLET_CONTEXTPATH=/api
+      - SPRING_WEB_CORS_ALLOWEDORIGINS=*
+      - SPRING_WEB_CORS_ALLOWEDHEADERS=origin, content-type, accept, authorization, x-api-key
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-common:5432/registrationservice
+      - SPRING_DATASOURCE_USERNAME=registrationservice
+      - SPRING_DATASOURCE_PASSWORD=registrationservice
+      - SPRING_DATASOURCE_HIKARI_MAXIMUMPOOLSIZE=10
+      - SPRING_DATASOURCE_HIKARI_MINIMUMIDLE=5
+      - SPRING_DATASOURCE_HIKARI_IDLETIMEOUT=60000
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.PostgreSQLDialect
+      - SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAK_TOKENURI=http://keycloak:8080/realms/dataspace/protocol/openid-connect/token
+      - SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAK_JWKSETURI=http://keycloak:8080/realms/dataspace/protocol/openid-connect/certs
+      - APP_SECURITY_OAUTH2_ALLOWEDROLES0=connector-admin
+      - APP_SECURITY_OAUTH2_ALLOWEDROLES1=connector-management
+      - APP_SECURITY_OAUTH2_ALLOWEDROLES2=connector-user
+      - APP_SECURITY_OAUTH2_ALLOWEDROLES3=dataspace-admin
+      - APP_ALLOWED_ROLE=dataspace-admin
+      - MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE=*
+      - MANAGEMENT_ENDPOINT_HEALTH_SHOWDETAILS=always
+      - SPRING_LIQUIBASE_ENABLED=true
+      - SPRING_LIQUIBASE_CHANGELOG=classpath:/db/changelog/db.changelog-master.xml
+    depends_on:
+      keycloak:
+        condition: service_healthy
+      postgres-common:
+        condition: service_healthy
+      vault:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "wget", "--spider", "--proxy", "off", "http://localhost:59191/api/actuator/health"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
 
   connector-interface-c1:
     image: ghcr.io/oeg-upm/inesdata-connector-interface:0.4.0

@@ -1,0 +1,562 @@
+{
+	"info": {
+		"_postman_id": "7b32730e-25e8-4201-829e-36b012360ce3",
+		"name": "OpenAPI definition",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18616633"
+	},
+	"item": [
+		{
+			"name": "participants",
+			"item": [
+				{
+					"name": "{id}",
+					"item": [
+						{
+							"name": "Update a participant",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{c1-jwt}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"participantId\": \"connector2\",\n  \"url\": \"http://connector8/protocol\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/participants/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"participants",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "connector2",
+											"description": "(Required) "
+										}
+									]
+								},
+								"description": "Updates an existing participant."
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"createdAt\": \"<long>\",\n  \"participantId\": \"<string>\",\n  \"url\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/participants/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"participants",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"createdAt\": \"<long>\",\n  \"participantId\": \"<string>\",\n  \"url\": \"<string>\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Delete a participant",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{c1-jwt}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/participants/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"participants",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "connector1",
+											"description": "(Required) "
+										}
+									]
+								},
+								"description": "Deletes a participant by ID."
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/participants/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"participants",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "User Conn1: Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"An access_token is returned\", () => {\r",
+									"    pm.collectionVariables.set('c1-jwt', pm.response.json()[\"access_token\"])\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "client_id",
+									"value": "dataspace-users",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "user-c1",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "user-c1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/realms/dataspace/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"realms",
+								"dataspace",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						},
+						"description": "Registro del Data Plane para el conector connector-c1."
+					},
+					"response": []
+				},
+				{
+					"name": "User Conn2: Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"An access_token is returned\", () => {\r",
+									"    pm.collectionVariables.set('c2-jwt', pm.response.json()[\"access_token\"])\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "client_id",
+									"value": "dataspace-users",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "user-c2",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "user-c2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/realms/dataspace/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"realms",
+								"dataspace",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						},
+						"description": "Registro del Data Plane para el conector connector-c1."
+					},
+					"response": []
+				},
+				{
+					"name": "Get all participants",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{c1-jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/participants",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"participants"
+							]
+						},
+						"description": "Retrieves a list of all participants."
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/participants",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"participants"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"createdAt\": \"<long>\",\n    \"participantId\": \"<string>\",\n    \"url\": \"<string>\"\n  },\n  {\n    \"createdAt\": \"<long>\",\n    \"participantId\": \"<string>\",\n    \"url\": \"<string>\"\n  }\n]"
+						}
+					]
+				},
+				{
+					"name": "Get all participants public",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{c2-jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/public/participants",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"public",
+								"participants"
+							]
+						},
+						"description": "Retrieves a list of all participants."
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/participants",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"participants"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"createdAt\": \"<long>\",\n    \"participantId\": \"<string>\",\n    \"url\": \"<string>\"\n  },\n  {\n    \"createdAt\": \"<long>\",\n    \"participantId\": \"<string>\",\n    \"url\": \"<string>\"\n  }\n]"
+						}
+					]
+				},
+				{
+					"name": "Create a participant",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{c2-jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"participantId\": \"connector1\",\n  \"url\": \"http://connector1/protocol\",\n  \"sharedUrl\": \"http://connector1/shared\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/participants",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"participants"
+							]
+						},
+						"description": "Creates a new participant."
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"createdAt\": \"<long>\",\n  \"participantId\": \"<string>\",\n  \"url\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/participants",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"participants"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"createdAt\": \"<long>\",\n  \"participantId\": \"<string>\",\n  \"url\": \"<string>\"\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:59191/api"
+		},
+		{
+			"key": "c1-jwt",
+			"value": ""
+		},
+		{
+			"key": "c2-jwt",
+			"value": ""
+		}
+	]
+}
