@@ -84,6 +84,7 @@ Para visualizar correctamente esta página es necesario hacer lo siguiente:
 - Crear una instancia del tipo de contenido Landing Page en public-portal-backend: Content Manager > Landing Page. Guardar y publicar el contenido.
 - Dar permiso de visualización en la API sobre el contenido que previamente se ah creado: Settings > Users & Permissions Plugin > Roles > Public > Permissions > Landding-page. Habilitar el checkbox "find".
 - Dar permiso para obtener el catálogo federado: Settings > Users & Permissions Plugin > Roles > Public > Permissions > Get-federated-catalog. Habilitar el checkbox "getFederatedCatalog".
+- Dar permiso para obtener los vocabularios: Settings > Users & Permissions Plugin > Roles > Public > Permissions > Get-vocabularies. Habilitar el checkbox "getVocabularies".
 
 ## Hostnames
 
