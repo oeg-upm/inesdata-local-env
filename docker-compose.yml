@@ -294,7 +294,7 @@ services:
     volumes:
       - hvdata:/data
     healthcheck:
-      test: [ "CMD", "wget", "--spider", "http://localhost:8201/v1/sys/health?standbyok=true" ]
+      test: [ "CMD", "wget", "--spider", "http://0.0.0.0:8201/v1/sys/health?standbyok=true" ]
       interval: 2s
       timeout: 3s
       retries: 30

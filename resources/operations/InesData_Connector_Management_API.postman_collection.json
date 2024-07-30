@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "5d6de9ba-2e64-4f93-ac27-4ae4648ac327",
+		"_postman_id": "e8264589-9ea7-4a3e-beb8-9e24139d4834",
 		"name": "INESData Connector Management API",
 		"description": "# ⛓️ INESData Connector Management API\n\nPrincipales métodos para la gestión de entidades en el conector de INESData",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
@@ -1242,7 +1242,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@id\": \"inesdata-vocabulary\",\r\n  \"name\": \"Vocabulary for Inesdata\",\r\n  \"category\": \"default\",\r\n  \"jsonSchema\": \"{ \\\"title\\\": \\\"vocabulary\\\", \\\"type\\\": \\\"object\\\", \\\"properties\\\": { \\\"title\\\": { \\\"type\\\": \\\"string\\\", \\\"title\\\": \\\"Title\\\" }, \\\"keyword\\\": { \\\"type\\\": \\\"array\\\", \\\"title\\\": \\\"Keywords\\\", \\\"items\\\": { \\\"type\\\": \\\"string\\\" } } }, \\\"required\\\": [ \\\"title\\\"] }\"\r\n}",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@id\": \"inesdata-vocabulary\",\r\n  \"name\": \"Vocabulary for Inesdata\",\r\n  \"category\": \"default\",\r\n  \"connectorId\": \"connector-c1\",\r\n  \"jsonSchema\": \"{ \\\"title\\\": \\\"vocabulary\\\", \\\"type\\\": \\\"object\\\", \\\"properties\\\": { \\\"title\\\": { \\\"type\\\": \\\"string\\\", \\\"title\\\": \\\"Title\\\" }, \\\"keyword\\\": { \\\"type\\\": \\\"array\\\", \\\"title\\\": \\\"Keywords\\\", \\\"items\\\": { \\\"type\\\": \\\"string\\\" } } }, \\\"required\\\": [ \\\"title\\\"] }\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"

@@ -161,7 +161,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@id\": \"machine-learning-vocabulary\",\r\n  \"name\": \"Vocabulary for machine learning\",\r\n  \"category\": \"machineLearning\",\r\n  \"jsonSchema\": \"{ \\\"title\\\":\\\"machine learning vocabulary\\\", \\\"type\\\":\\\"object\\\", \\\"properties\\\":{ \\\"title\\\":{ \\\"type\\\":\\\"string\\\", \\\"title\\\":\\\"Title\\\" }, \\\"keyword\\\":{ \\\"type\\\":\\\"array\\\", \\\"title\\\":\\\"Keywords\\\", \\\"items\\\":{ \\\"type\\\":\\\"string\\\" } }, \\\"trainedOn\\\":{ \\\"type\\\":\\\"array\\\", \\\"title\\\":\\\"Trained on\\\", \\\"items\\\":{ \\\"type\\\":\\\"object\\\", \\\"title\\\":\\\"Training dataset\\\", \\\"properties\\\":{ \\\"identifier\\\":{ \\\"type\\\":\\\"string\\\", \\\"title\\\":\\\"id\\\" }, \\\"name\\\":{ \\\"type\\\":\\\"string\\\", \\\"title\\\":\\\"Name\\\" }, \\\"description\\\":{ \\\"type\\\":\\\"string\\\", \\\"title\\\":\\\"Description\\\" }, \\\"url\\\":{ \\\"type\\\":\\\"string\\\", \\\"title\\\":\\\"URL\\\" } }, \\\"required\\\":[ \\\"name\\\" ] } } }, \\\"required\\\":[ \\\"title\\\" ] }\"\r\n}",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@id\": \"machine-learning-vocabulary\",\r\n  \"name\": \"Vocabulary for machine learning\",\r\n  \"category\": \"machineLearning\",\r\n  \"connectorId\": \"connector-c1\",\r\n  \"jsonSchema\": \"{ \\\"title\\\":\\\"machine learning vocabulary\\\", \\\"type\\\":\\\"object\\\", \\\"properties\\\":{ \\\"title\\\":{ \\\"type\\\":\\\"string\\\", \\\"title\\\":\\\"Title\\\" }, \\\"keyword\\\":{ \\\"type\\\":\\\"array\\\", \\\"title\\\":\\\"Keywords\\\", \\\"items\\\":{ \\\"type\\\":\\\"string\\\" } }, \\\"trainedOn\\\":{ \\\"type\\\":\\\"array\\\", \\\"title\\\":\\\"Trained on\\\", \\\"items\\\":{ \\\"type\\\":\\\"object\\\", \\\"title\\\":\\\"Training dataset\\\", \\\"properties\\\":{ \\\"identifier\\\":{ \\\"type\\\":\\\"string\\\", \\\"title\\\":\\\"id\\\" }, \\\"name\\\":{ \\\"type\\\":\\\"string\\\", \\\"title\\\":\\\"Name\\\" }, \\\"description\\\":{ \\\"type\\\":\\\"string\\\", \\\"title\\\":\\\"Description\\\" }, \\\"url\\\":{ \\\"type\\\":\\\"string\\\", \\\"title\\\":\\\"URL\\\" } }, \\\"required\\\":[ \\\"name\\\" ] } } }, \\\"required\\\":[ \\\"title\\\" ] }\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -212,7 +212,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@id\": \"inesdata-vocabulary\",\r\n  \"name\": \"Vocabulary for Inesdata\",\r\n  \"category\": \"default\",\r\n  \"jsonSchema\": \"{ \\\"title\\\": \\\"vocabulary\\\", \\\"type\\\": \\\"object\\\", \\\"properties\\\": { \\\"title\\\": { \\\"type\\\": \\\"string\\\", \\\"title\\\": \\\"Title\\\" }, \\\"keyword\\\": { \\\"type\\\": \\\"array\\\", \\\"title\\\": \\\"Keywords\\\", \\\"items\\\": { \\\"type\\\": \\\"string\\\" } } }, \\\"required\\\": [ \\\"title\\\"] }\"\r\n}",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@id\": \"inesdata-vocabulary\",\r\n  \"name\": \"Vocabulary for Inesdata\",\r\n  \"category\": \"default\",\r\n  \"connectorId\": \"connector-c2\",\r\n  \"jsonSchema\": \"{ \\\"title\\\": \\\"vocabulary\\\", \\\"type\\\": \\\"object\\\", \\\"properties\\\": { \\\"title\\\": { \\\"type\\\": \\\"string\\\", \\\"title\\\": \\\"Title\\\" }, \\\"keyword\\\": { \\\"type\\\": \\\"array\\\", \\\"title\\\": \\\"Keywords\\\", \\\"items\\\": { \\\"type\\\": \\\"string\\\" } } }, \\\"required\\\": [ \\\"title\\\"] }\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -306,7 +306,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "{{c1-jwt}}",
+							"value": "{{c2-jwt}}",
 							"type": "string"
 						}
 					]
@@ -358,7 +358,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "{{c1-jwt}}",
+							"value": "{{c2-jwt}}",
 							"type": "string"
 						}
 					]
@@ -462,7 +462,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "{{c1-jwt}}",
+							"value": "{{c2-jwt}}",
 							"type": "string"
 						}
 					]
@@ -491,6 +491,110 @@
 					]
 				},
 				"description": "Creación de una política que aplica durante el año 2024 en el conector connector-c1."
+			},
+			"response": []
+		},
+		{
+			"name": "Create Contract Definition - Conn1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c1-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@id\": \"inesdata-contract\",\r\n  \"accessPolicyId\": \"in-2024-policy\",\r\n  \"contractPolicyId\": \"in-2024-policy\",\r\n  \"assetsSelector\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:19193/management/v3/contractdefinitions",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "19193",
+					"path": [
+						"management",
+						"v3",
+						"contractdefinitions"
+					]
+				},
+				"description": "Creación de una defición de contrato que aplica la política vacía a todos los assets del conector connector-c1."
+			},
+			"response": []
+		},
+		{
+			"name": "Create Contract Definition - Conn2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c2-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@id\": \"inesdata-contract\",\r\n  \"accessPolicyId\": \"in-2024-policy\",\r\n  \"contractPolicyId\": \"in-2024-policy\",\r\n  \"assetsSelector\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:29193/management/v3/contractdefinitions",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "29193",
+					"path": [
+						"management",
+						"v3",
+						"contractdefinitions"
+					]
+				},
+				"description": "Creación de una defición de contrato que aplica la política vacía a todos los assets del conector connector-c1."
 			},
 			"response": []
 		},
