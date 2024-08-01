@@ -203,7 +203,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "{{c1-jwt}}",
+							"value": "{{c2-jwt}}",
 							"type": "string"
 						}
 					]
@@ -220,11 +220,62 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}:19193/management/vocabularies",
+					"raw": "{{baseUrl}}:29193/management/vocabularies",
 					"host": [
 						"{{baseUrl}}"
 					],
-					"port": "19193",
+					"port": "29193",
+					"path": [
+						"management",
+						"vocabularies"
+					]
+				},
+				"description": "Creación de una defición de contrato que aplica la política vacía a todos los assets del conector connector-c1."
+			},
+			"response": []
+		},
+		{
+			"name": "Create Vocabulary - Conn2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c2-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@id\": \"dcat-vocabulary\",\r\n  \"name\": \"DCAT Vocabulary\",\r\n  \"category\": \"default\",\r\n  \"connectorId\": \"connector-c2\",\r\n  \"jsonSchema\": \"{\\\"title\\\":\\\"DCAT vocabulary\\\",\\\"type\\\":\\\"object\\\",\\\"properties\\\":{\\\"dct:language\\\":{\\\"type\\\":\\\"array\\\",\\\"title\\\":\\\"Language\\\",\\\"items\\\":{\\\"type\\\":\\\"string\\\"}},\\\"dct:issued\\\":{\\\"type\\\":\\\"string\\\",\\\"title\\\":\\\"Creation date\\\",\\\"format\\\":\\\"date\\\"},\\\"dct:publisher\\\":{\\\"type\\\":\\\"object\\\",\\\"title\\\":\\\"Publisher\\\",\\\"layout\\\":\\\"vertical\\\",\\\"properties\\\":{\\\"@id\\\":{\\\"type\\\":\\\"string\\\",\\\"title\\\":\\\"id\\\"},\\\"skos:notation\\\":{\\\"type\\\":\\\"string\\\",\\\"title\\\":\\\"Notation\\\"},\\\"skos:prefLabel\\\":{\\\"type\\\":\\\"string\\\",\\\"title\\\":\\\"Label\\\"}}}},\\\"@context\\\":{\\\"@vocab\\\":\\\"https://w3id.org/edc/v0.0.1/ns/\\\",\\\"dcat\\\":\\\"http://www.w3.org/ns/dcat#\\\",\\\"dct\\\":\\\"http://purl.org/dc/terms/\\\",\\\"xsd\\\":\\\"http://www.w3.org/2001/XMLSchema#\\\",\\\"vcard\\\":\\\"http://www.w3.org/2006/vcard/ns#\\\",\\\"skos\\\":\\\"http://www.w3.org/2004/02/skos/core#\\\"}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:29193/management/vocabularies",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "29193",
 					"path": [
 						"management",
 						"vocabularies"
