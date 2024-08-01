@@ -263,7 +263,7 @@ services:
       - TOKEN_CLIENT_ID=dataspace-users
       - TOKEN_USERNAME=user-strapi-c1
       - TOKEN_PASSWORD=user-strapi-c1
-      - KEYCLOAK_BASE_URL=http://keycloak:8080
+      - KEYCLOAK_BASE_URL=http://keycloak:8080/realms/dataspace
       - CATALOG_BASE_URL=http://connector-c1:19193
       - VOCABULARIES_BASE_URL=http://connector-c1:19196
     depends_on:
