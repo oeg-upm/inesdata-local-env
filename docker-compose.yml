@@ -160,8 +160,6 @@ services:
 
   registration-service:
     image: ghcr.io/oeg-upm/inesdata-registration-service:0.5.0
-    build:
-      context: .
     ports:
       - 59191:59191
     volumes:
