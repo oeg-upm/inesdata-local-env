@@ -103,7 +103,7 @@ services:
         condition: service_healthy
 
   connector-c1:
-    image: ghcr.io/oeg-upm/inesdata-connector:0.6.0
+    image: inesdata/connector:0.8.31
     ports:
       - '19191:19191'
       - '19192:19192'
@@ -131,7 +131,7 @@ services:
         condition: service_healthy
 
   connector-c2:
-    image: ghcr.io/oeg-upm/inesdata-connector:0.6.0
+    image: inesdata/connector:0.8.31
     ports:
       - '29191:29191'
       - '29192:29192'
