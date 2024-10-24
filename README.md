@@ -82,9 +82,22 @@ La URL del portal público es la siquiente:
 
 Para visualizar correctamente esta página es necesario hacer lo siguiente:
 - Crear una instancia del tipo de contenido Landing Page en public-portal-backend: Content Manager > Landing Page. Guardar y publicar el contenido.
-- Dar permiso de visualización en la API sobre el contenido que previamente se ah creado: Settings > Users & Permissions Plugin > Roles > Public > Permissions > Landding-page. Habilitar el checkbox "find".
+- Dar permiso de visualización en la API sobre el contenido que previamente se ha creado: Settings > Users & Permissions Plugin > Roles > Public > Permissions > Landing-page. Habilitar el checkbox "find".
 - Dar permiso para obtener el catálogo federado: Settings > Users & Permissions Plugin > Roles > Public > Permissions > Get-federated-catalog. Habilitar el checkbox "getFederatedCatalog".
 - Dar permiso para obtener los vocabularios: Settings > Users & Permissions Plugin > Roles > Public > Permissions > Get-vocabularies. Habilitar el checkbox "getVocabularies".
+
+Para crear nuevas secciones de menú y asociar contenido a estos, hay que seguir los siguientes pasos en Strapi:
+- Crear un nuevo contenido de tipo "Generic Page". El contenido HTML incrustado en este contenido puede romper estilos u otros componentes del portal público.
+- Accecer a Menus. Crear nuevo menú, cuyo title y slug deberá tener el siguiente valor: "public-portal-menu".
+- Añadir nuevo menu item y rellenar los siguientes campos:
+  - Title: Texto que aparecerá en el front-end
+  - URL: Enlace externo. Solo rellenar cuando no se asocie un contenido asociado en Strapi.
+  - Target: Ventana de destino
+  - Text for URL: El texto que aparecerá en la URL (solo para contenido asociado).
+  - Relation (En la pestaña content): Añadir el contenido de tipo "Generic Page" creado anteriormente.
+- Guardar los cambios.
+- Dar permiso de visualización en la API sobre el tipo de contenido "Generic Page": Settings > Users & Permissions Plugin > Roles > Public > Permissions > Generic-page. Habilitar los checkbox "find" y "findOne".
+- Dar permiso sobre los menus: Settings > Users & Permissions Plugin > Roles > Public > Permissions > Menus. Habilitar los checkbox "find" (para Menu y Menu-Item) y "findOne" (para Menu-Item).
 
 ## Hostnames
 
