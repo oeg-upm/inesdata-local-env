@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "e8264589-9ea7-4a3e-beb8-9e24139d4834",
+		"_postman_id": "86c8f672-8694-4a9e-8d6a-12967bac8102",
 		"name": "INESData Connector Management API",
 		"description": "# ⛓️ INESData Connector Management API\n\nPrincipales métodos para la gestión de entidades en el conector de INESData",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
@@ -241,7 +241,7 @@
 			"response": []
 		},
 		{
-			"name": "Create Asset",
+			"name": "Create Asset Dataset",
 			"event": [
 				{
 					"listen": "test",
@@ -269,7 +269,111 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@id\": \"inesdata-asset\",\r\n  \"properties\": {\r\n    \"name\": \"inesdata-asset\",\r\n    \"contenttype\": \"text/html\"\r\n  },\r\n  \"dataAddress\": {\r\n    \"type\": \"HttpData\",\r\n    \"name\": \"inesdata-home\",\r\n    \"baseUrl\": \"https://inesdata-project.eu/content/en/index.html\",\r\n    \"proxyPath\": \"true\"\r\n  }\r\n}",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@id\": \"asset-dataset\",\r\n  \"properties\": {\r\n        \"assetData\": {\r\n            \"default-c1\": {\r\n                \"title\": \"asset dataset\"\r\n            },\r\n            \"dataset2-c1\": []\r\n        },\r\n        \"name\": \"asset dataset para postman\",\r\n        \"version\": \"1\",\r\n        \"contenttype\": \"\",\r\n        \"assetType\": \"dataset\",\r\n        \"shortDescription\": \"asset dataset para postman\",\r\n        \"dcterms:description\": \"<p>asset dataset para postman</p>\",\r\n        \"dcat:byteSize\": \"\",\r\n        \"dcterms:format\": \"\",\r\n        \"dcat:keyword\": [\r\n            \"asset2\"\r\n        ]\r\n    },\r\n    \"dataAddress\": {\r\n        \"type\": \"AmazonS3\",\r\n        \"region\": \"us-east-1\",\r\n        \"bucketName\": \"bucket-connector-1\",\r\n        \"folderName\": \"carpeta_minio\",\r\n        \"keyPrefix\": \"imagen04.jpeg\"\r\n    },\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:19193/management/v3/assets",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "19193",
+					"path": [
+						"management",
+						"v3",
+						"assets"
+					]
+				},
+				"description": "Creación de Asset tipo HttpData en el conector connector-c1."
+			},
+			"response": []
+		},
+		{
+			"name": "Create Asset Service",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c1-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@id\": \"asset-service\",\r\n  \"properties\": {\r\n        \"assetData\": {\r\n            \"conector c2 para borrar con POSTMAN\": {\r\n                \"title\": \"asset service para postman\"\r\n            },\r\n            \"vocabulary service c2\": {\r\n                \"title\": \"asset service para postman\"\r\n            },\r\n            \"vocabulary defaulc c2\": []\r\n        },\r\n        \"name\": \"asset service para postman\",\r\n        \"version\": \"1\",\r\n        \"contenttype\": \"\",\r\n        \"assetType\": \"service\",\r\n        \"shortDescription\": \"asset service para postman\",\r\n        \"dcterms:description\": \"<p>asset service para postman</p>\",\r\n        \"dcat:byteSize\": \"\",\r\n        \"dcterms:format\": \"\",\r\n        \"dcat:keyword\": [\r\n            \"service\"\r\n        ]\r\n    },\r\n    \"dataAddress\": {\r\n        \"type\": \"AmazonS3\",\r\n        \"region\": \"us-east-1\",\r\n        \"bucketName\": \"bucket-connector-2\",\r\n        \"keyPrefix\": \"imagen01.jpeg\",\r\n        \"folderName\": \"carpeta-minio\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}:19193/management/v3/assets",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"port": "19193",
+					"path": [
+						"management",
+						"v3",
+						"assets"
+					]
+				},
+				"description": "Creación de Asset tipo HttpData en el conector connector-c1."
+			},
+			"response": []
+		},
+		{
+			"name": "Create Asset Machine Learning",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{c1-jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@id\": \"asset-machine-learning\",\r\n  \"properties\": {\r\n        \"assetData\": {\r\n            \"conector c2 para borrar con POSTMAN\": {\r\n                \"title\": \"asset machine learning para postman\"\r\n            },\r\n            \"vocabulary machine learning c2\": {\r\n                \"title\": \"asset machine learning para postman\"\r\n            },\r\n            \"vocabulary defaulc c2\": []\r\n        },\r\n        \"name\": \"asset machine learning para postman\",\r\n        \"version\": \"1\",\r\n        \"contenttype\": \"\",\r\n        \"assetType\": \"machineLearning\",\r\n        \"shortDescription\": \"asset machine learning para postman\",\r\n        \"dcterms:description\": \"<p>asset machine learning para postman</p>\",\r\n        \"dcat:byteSize\": \"\",\r\n        \"dcterms:format\": \"\",\r\n        \"dcat:keyword\": [\r\n            \"machine learning\"\r\n        ]\r\n    },\r\n    \"dataAddress\": {\r\n        \"type\": \"AmazonS3\",\r\n        \"region\": \"us-east-1\",\r\n        \"bucketName\": \"bucket-connector-2\",\r\n        \"keyPrefix\": \"imagen01.jpeg\",\r\n        \"folderName\": \"carpeta-minio\"\r\n    }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -918,7 +1022,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@id\": \"inesdata-contract\",\r\n  \"accessPolicyId\": \"inesdata-policy\",\r\n  \"contractPolicyId\": \"inesdata-policy\",\r\n  \"assetsSelector\": []\r\n}",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@id\": \"inesdata-contract\",\r\n  \"accessPolicyId\": \"inesdata-policy\",\r\n  \"contractPolicyId\": \"inesdata-policy\",\r\n  \"assetsSelector\": [\r\n    {\r\n        \"operandLeft\": \"https://w3id.org/edc/v0.0.1/ns/id\",\r\n        \"operator\": \"in\",\r\n        \"operandRight\": [\r\n            \"asset-dataset\",\r\n            \"asset-service\",\r\n            \"asset-machine-learning\"\r\n        ]\r\n    }\r\n  ]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -970,7 +1074,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@id\": \"inesdata-contract\",\r\n  \"accessPolicyId\": \"inesdata-policy\",\r\n  \"contractPolicyId\": \"inesdata-policy\",\r\n  \"assetsSelector\": []\r\n}",
+					"raw": "{\r\n  \"@context\": {\r\n    \"@vocab\": \"https://w3id.org/edc/v0.0.1/ns/\"\r\n  },\r\n  \"@id\": \"inesdata-contract\",\r\n  \"accessPolicyId\": \"inesdata-policy\",\r\n  \"contractPolicyId\": \"inesdata-policy\",\r\n  \"assetsSelector\": [\r\n    {\r\n        \"operandLeft\": \"https://w3id.org/edc/v0.0.1/ns/id\",\r\n        \"operator\": \"in\",\r\n        \"operandRight\": [\r\n            \"asset-dataset\",\r\n            \"asset-service\",\r\n            \"asset-machine-learning\"\r\n        ]\r\n    }\r\n  ]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
